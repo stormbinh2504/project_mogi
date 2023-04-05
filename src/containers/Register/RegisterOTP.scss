@@ -1,0 +1,67 @@
+.compare-otp {
+    display         : flex;
+    align-items     : center;
+    justify-content : center;
+    min-width       : 50vw;
+    min-height      : 50vh;
+    background-color: #122f41;
+    color           : white;
+    border          : 1px solid #122f41;
+    border-radius   : 10px;
+
+    .form-compare-otp {
+        .return-step {
+            cursor: pointer;
+        }
+
+        .title-header {
+            font-weight: 700;
+            font-size  : 24px;
+            line-height: 36px;
+            text-align : center;
+            color      : themed('ekyc_main_text');
+            margin-top : 30px;
+        }
+
+        padding : 50px 25px;
+
+        .content-authen {
+            max-width: 400px;
+            height   : 100%;
+
+            .txt-content {
+                text-align     : center;
+                justify-content: center;
+                color          : rgba(rgb(255, 255, 255), 0.4);
+                margin         : 10px;
+            }
+
+            .otp-number {
+                max-width : 80%;
+                margin    : 0 auto;
+                margin-top: 30px;
+            }
+
+
+            .btn-confirm {
+                width          : 100%;
+                display        : flex;
+                justify-content: center;
+                align-items    : center;
+                margin-top     : 30px;
+                color          : white;
+                background     : #2AD03D;
+            }
+
+            .resend-OTP {
+                cursor         : pointer;
+                width          : 100%;
+                display        : flex;
+                justify-content: center;
+                align-items    : center;
+                color          : #2AD03D;
+                margin-top     : 10px;
+            }
+        }
+    }
+}

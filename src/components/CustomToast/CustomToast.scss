@@ -1,0 +1,183 @@
+@import "../styles/common";
+
+.custom-toast {
+  padding-bottom: 5px;
+  padding-left  : 2px;
+  line-height   : 18px;
+
+  .custom-icon-toast {
+    svg {
+      position : absolute;
+      top      : 50%;
+      transform: translate(0, -50%);
+    }
+
+    min-width     : 40px;
+    height        : auto;
+    display       : inline-block;
+    font          : normal normal normal 14px/1 FontAwesome;
+    font-size     : inherit;
+    text-rendering: auto;
+    margin-right  : 8px;
+    position      : relative;
+
+    i {
+      font-size: 40px;
+
+      @include themify($themes) {
+        color: themed('Toast-info-bg');
+      }
+    }
+  }
+}
+
+.toast-container {
+  .Toastify__toast {
+    min-height: 80px;
+  }
+
+  .toast-item {
+    padding-top  : 4px !important;
+    white-space  : pre-wrap;
+    text-overflow: ellipsis;
+    // @include themify($themes) {
+    //   @include css3-prefix('box-shadow', '0 0 2px 2px #{themed('Toast-shadow-color')}');
+    // }
+
+    @include themify($themes) {
+      &.Toastify__toast--success {
+        // Color-white
+        border          : 1px solid themed('Toast-success-bg');
+        background-color: themed('Color-white');
+      }
+
+      &.Toastify__toast--error {
+        border          : 1px solid themed('Toast-error-bg');
+        background-color: themed('Color-white');
+      }
+
+      &.Toastify__toast--warn {
+        border          : 1px solid themed('Toast-warn-bg');
+        background-color: themed('Color-white');
+      }
+
+      &.Toastify__toast--warning {
+        border          : 1px solid themed('Toast-warn-bg');
+        background-color: themed('Color-white');
+      }
+
+      &.Toastify__toast--info {
+        border          : 1px solid themed('Toast-info-bg');
+        background-color: themed('Color-white');
+      }
+    }
+
+    .toast-close {
+      position: absolute;
+      right   : 10px;
+      top     : 2px;
+
+      @include themify($themes) {
+        // color: themed('Toast-close-color');
+        color: rgba(themed('Toast-text-color'), 0.7);
+
+        &:hover {
+          color: themed('Toast-error-bg');
+        }
+      }
+
+      font-size         : $font-size-16;
+      padding           : 0;
+      cursor            : pointer;
+      background        : transparent;
+      border            : 0;
+      -webkit-appearance: none;
+      transition        : opacity 0.2s ease-out;
+    }
+
+    .toast-item-body {
+      @include themify($themes) {
+        color: themed('Toast-text-color');
+      }
+
+      display      : block;
+      flex         : none;
+      width        : 100%;
+      // margin-top: 30px;
+
+      .toast-header {
+        font-size    : $font-size-16;
+        margin-right : 30px;
+        height       : 20px;
+        border-bottom: unset;
+
+        .fixed-scroll-bar {
+          height: 50px;
+        }
+
+        .time {
+          position: absolute;
+          top     : 6px;
+          right   : 30px;
+
+          .time-hour,
+          .time-date {
+            float         : right;
+            font-size     : $font-size-12;
+            vertical-align: middle;
+            margin-right  : 5px;
+            margin-bottom : 0;
+
+            @include themify($themes) {
+              color: themed('Toast-time-text-color');
+            }
+          }
+        }
+
+        i {
+          position    : relative;
+          margin-right: 3px;
+        }
+      }
+
+      .toast-group-body {
+        display         : flex;
+        flex-direction  : row;
+        width           : 100%;
+        background-color: transparent;
+
+        .body-right {
+          .toast-title {
+            font-weight: bold;
+            font-size  : $font-size-16;
+            margin     : 0;
+          }
+
+          display       : flex;
+          flex-direction: column;
+
+          .custom-scrollbar {
+            min-height: 20px !important;
+            max-height: 300px !important;
+            overflow-y: auto !important;
+
+
+            div:nth-child(1) {
+              min-height   : unset !important;
+              max-height   : unset !important;
+              margin-bottom: 0px !important;
+            }
+          }
+        }
+      }
+
+      .toast-content {
+        font-size: $font-size-14;
+
+        @include themify($themes) {
+          color: rgba(themed('Toast-text-color'), 0.7);
+        }
+      }
+    }
+  }
+}

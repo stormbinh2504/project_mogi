@@ -1,0 +1,62 @@
+{
+  "name": "login-face",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@paypal/react-paypal-js": "^7.8.1",
+    "@stripe/react-stripe-js": "^1.15.0",
+    "@stripe/stripe-js": "^1.44.1",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.27.2",
+    "browser-image-compression": "^2.0.0",
+    "connected-react-router": "^6.9.2",
+    "lodash": "^4.17.21",
+    "node-sass": "^7.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1",
+    "react-otp-input": "^2.4.0",
+    "react-pro-sidebar": "^0.7.1",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "5.0.1",
+    "react-toastify": "^7.0.3",
+    "reactstrap": "^9.0.2",
+    "redux": "^4.2.0",
+    "redux-persist": "^6.0.0",
+    "redux-state-sync": "^3.1.4",
+    "redux-thunk": "^2.4.1",
+    "web-vitals": "^2.1.4",
+    "webpack-bundle-analyzer": "^4.7.0"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "customize-cra-react-refresh": "^1.1.0",
+    "react-app-rewired": "^2.2.1"
+  }
+}
