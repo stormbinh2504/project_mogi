@@ -4,11 +4,14 @@ import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import DataProvider from './redux/store'
+import { ProSidebarProvider } from 'react-pro-sidebar';
 
 ReactDOM.render(
   <React.StrictMode>
     <DataProvider>
-      <App />
+      <ProSidebarProvider >
+        <App />
+      </ProSidebarProvider>
     </DataProvider>
   </React.StrictMode>,
   document.getElementById('root')

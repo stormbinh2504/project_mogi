@@ -13,7 +13,7 @@ const PaypalCheckoutButton = (props) => {
 
     if (paidFor) {
         // Display success message, modal or redirect user to success page
-        alert("Thank you for your purchase!");
+        // alert("Thank you for your purchase!");
     }
 
     if (error) {
@@ -34,7 +34,6 @@ const PaypalCheckoutButton = (props) => {
     };
 
     const onCancel = () => {
-        alert('paypal_onCancel');
         console.log("paypal_onCancel")
         setPaidFor(false);
     }

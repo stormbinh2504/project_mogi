@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import React, { useEffect } from 'react'
 import './App.scss';
 import "../src/styles/styles.scss";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
@@ -18,7 +18,7 @@ import DashBoard from './containers/DashBoard/DashBoard';
 import PrivateRouter from './containers/customRouter/PrivateRouter';
 import Header from './containers/Header/Header';
 import PrivateRouterLogin from './containers/customRouter/PrivateRouterLogin';
-import Sidebar from './containers/Sidebar/Sidebar';
+import Sidebar from './containers/MenuSidebar/MenuSidebar';
 import Routes from './routes/Routes';
 import CompareOTP from './containers/CompareOTP/CompareOTP';
 import Home from './containers/Home/Home';
@@ -26,7 +26,10 @@ import HomeBroker from './containers/HomeBroker/HomeBroker';
 import { TYPE_USER } from './utils';
 import HeaderBroker from './containers/Header/HeaderBroker';
 import RechargeBroker from './containers/RechargeBroker/RechargeBroker';
+import { history } from './redux/store'
 import StripeCheckoutButton from './components/Broker/StripeCheckoutButton/StripeCheckoutButton';
+import ScrollToTop from './components/ScrollToTop/ScrollToTop';
+import $ from 'jquery';
 
 if (typeof window !== "undefined") {
   injectStyle();
@@ -39,6 +42,17 @@ function App() {
   const { auth, app } = state
   console.log("binh_state", state)
   console.log("binh_app", process.env)
+
+  const scrollTopAnimated = () => {
+    $('#scrollToTop').on('click', function () {
+      $("html, body").animate({ scrollTop: 0 }, 1200);
+    })
+  }
+
+  useEffect(() => {
+    scrollTopAnimated()
+  }, []);
+
   return (
     <PayPalScriptProvider
       // deferLoading={true}
@@ -46,7 +60,8 @@ function App() {
     // options={{ "client-id": a }}
     >
       <div className="App">
-        <Router>
+        <Router history={history}>
+          <ScrollToTop />
           <Alert />
           {
             app.typeUser === TYPE_USER.CUSTOMER && < Header />
@@ -80,6 +95,10 @@ function App() {
                   <Route exact path="/recharge-broker" component={RechargeBroker} />
                   {/* <Route exact path="/stripe" element={StripeCheckoutButton} /> */}
                 </div>}
+              <div id="scrollToTop" className='item-center'>
+                <i class="fa fa-angle-double-up" aria-hidden="true">
+                </i>
+              </div>
             </div>
           </Switch>
 
