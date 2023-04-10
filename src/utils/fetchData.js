@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseURL = "http://localhost:5000"
+const baseURL = "http://localhost:8080"
 
 export const getDataAPI = async (url, token) => {
     const res = await axios.get(`/api/${url}`, {

@@ -1,4 +1,4 @@
-import { GLOBALTYPES } from '../actions/globalTypes'
+import actionTypes from '../actions/actionTypes'
 
 const initialState = {
     userInfor: {},
@@ -7,12 +7,12 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GLOBALTYPES.AUTH:
+        case actionTypes.AUTH:
             return {
                 ...state,
                 userInfor: action.payload,
             };
-        case GLOBALTYPES.LOGIN_AUTHENTICATION:
+        case actionTypes.LOGIN_AUTHENTICATION:
             return {
                 ...state,
                 isLogin: action.payload,

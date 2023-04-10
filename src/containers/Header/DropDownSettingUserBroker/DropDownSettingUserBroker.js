@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from '../../../redux/actions'
 import "./DropDownSettingUserBroker.scss"
-import { useOnClickOutside } from '../../../utils';
+import { CommonUtils } from '../../../utils';
 
 const DropDownSettingUserBroker = (props) => {
     const history = useHistory()

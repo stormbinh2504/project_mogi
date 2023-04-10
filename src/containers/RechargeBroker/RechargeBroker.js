@@ -9,6 +9,9 @@ import PaypalCheckoutButton from './../../components/Broker/PaypalCheckoutButton
 import StripeCheckoutButton from './../../components/Broker/StripeCheckoutButton/StripeCheckoutButton';
 import NumberFormatCustom from '../../components/NumberFormatCustom/NumberFormatCustom';
 import NumberInput from '../../components/Input/NumberInput/NumberInput';
+import { accountService } from '../../services';
+import { alertType } from '../../redux/actions';
+import { ToastUtil } from '../../utils';
 
 const DF_PAYMENT_LIST = [
     {
@@ -24,10 +27,14 @@ const DF_PAYMENT_LIST = [
 ]
 
 const DF_LIST_COMBO = [
-    "5000000", "2000000", "5000000", "5000000", "5000000", "5000000", "5000000"
+    "5000000", "2000000", "1500000", "1000000", "500000", "200000", "100000", "50000", "20000"
 ]
 
 const RechargeBroker = () => {
+    const state = useSelector((state) => state);
+    const { auth, app, user } = state
+    const { userInfo } = user
+
     const [paymentSelect, setPaymentSelect] = useState(1);
     const [step, setStep] = useState(1);
     const [money, setMoney] = useState({
@@ -36,6 +43,7 @@ const RechargeBroker = () => {
     });
     const history = useHistory()
     const dispatch = useDispatch()
+
     const onGoToRecharge = () => {
         history.push("/nap-tien")
     }
@@ -44,18 +52,33 @@ const RechargeBroker = () => {
         setPaymentSelect(e.target.value);
     };
 
-    const product = {
-        description: "Design+Code React Hooks Course",
-        price: 19
-    };
-
-
     const onMoneyChange = (value, valid) => {
         setMoney({
             value: value,
             valid: valid,
         })
     };
+
+    const onHandleRechargeAccount = () => {
+
+        let body = {
+            "codeClient": userInfo.codeClient || "",
+            "money": Number(money.value) || 0
+        }
+
+        dispatch(alertType(true))
+        accountService.setRechargeAccount(body)
+            .then(res => {
+                if (res) {
+                    dispatch(alertType(false))
+                    ToastUtil.success("Nạp tiền thành công");
+                }
+            })
+            .catch(error => {
+                dispatch(alertType(false))
+                ToastUtil.errorApi(error, "Nạp tiền không thành công");
+            });
+    }
 
     console.log("binh_check", paymentSelect)
     return (
@@ -161,7 +184,9 @@ const RechargeBroker = () => {
                             <div class="col-12 ">
                                 <div className="container-action">
                                     <button class="btn btn-mogi-1" onClick={() => { setStep(1) }}><i class="icon icon-arrow-line-left" ></i> Quay lại</button>
-                                    <button class="btn btn-continue" onClick={() => { setStep(3) }} >Thanh toán &nbsp;<i class="fa fa-angle-right"></i></button>
+                                    <button class="btn btn-continue" onClick={() => {
+                                        setStep(3)
+                                    }} >Thanh toán &nbsp;<i class="fa fa-angle-right"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -194,18 +219,22 @@ const RechargeBroker = () => {
                                 <div className="method-checkout">
                                     {paymentSelect === 1 && <div className="paypal-button-container">
                                         <PaypalCheckoutButton
-                                            product={product}
+                                            product={{
+                                                description: "Design+Code React Hooks Course",
+                                                price: money.value
+                                            }}
+                                            onSubmit={onHandleRechargeAccount}
+
                                         />
                                     </div>
                                     }
 
-                                    <StripeCheckoutButton
-                                        product={product}
-                                    />
-
                                     {paymentSelect === 2 && <div className="stripe-button-container">
                                         <StripeCheckoutButton
-                                            product={product}
+                                            product={{
+                                                description: "Design+Code React Hooks Course",
+                                                price: money.value
+                                            }}
                                         />
                                     </div>
                                     }

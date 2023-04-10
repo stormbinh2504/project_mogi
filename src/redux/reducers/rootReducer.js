@@ -9,6 +9,7 @@ import { persistReducer, createTransform } from 'redux-persist';
 import authReducer from './authReducer'
 import alertReducer from './alertReducer'
 import appReducer from './appReducer'
+import userReducer from './userReducer'
 
 const persistCommonConfig = {
     // storage: new CookieStorage(Cookies),
@@ -25,8 +26,14 @@ const appPersistConfig = {
 
 const authPersistConfig = {
     ...persistCommonConfig,
-    key: 'user',
+    key: 'app',
     whitelist: ['']
+};
+
+const userPersistConfig = {
+    ...persistCommonConfig,
+    key: 'user',
+    whitelist: ['isLoggedIn', 'token', 'refreshToken']
 };
 
 export default (history) => combineReducers({
@@ -34,4 +41,5 @@ export default (history) => combineReducers({
     app: persistReducer(appPersistConfig, appReducer),
     auth: persistReducer(authPersistConfig, authReducer),
     alert: alertReducer,
+    user: persistReducer(userPersistConfig, userReducer),
 });

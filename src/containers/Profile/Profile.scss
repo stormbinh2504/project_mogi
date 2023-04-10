@@ -1,0 +1,57 @@
+@import "../../styles/common";
+
+.profile {
+    width        : 100%;
+    height       : 100%;
+    background   : white;
+    border-radius: 4px;
+
+    .profile-container {
+        margin-top: 50px;
+
+        .profile-content {
+            padding: 10px;
+
+            .profile-content-row {
+
+                .label {
+                    text-align: right;
+                }
+
+                .value {
+                    text-align: left;
+                }
+            }
+        }
+    }
+}
+
+
+
+
+// từ 575.98px trở xuống
+@include media-breakpoint-down(xs) {}
+
+
+// từ 767px trở xuống
+@include media-breakpoint-down(sm) {}
+
+// từ 991px trở xuống
+@include media-breakpoint-down(md) {
+    .profile {
+        .profile-container {
+            .profile-content {
+                .profile-content-row {
+                    .label {
+                        text-align: left;
+                    }
+
+                    .value {
+                        text-align: left;
+                    }
+                }
+
+            }
+        }
+    }
+}

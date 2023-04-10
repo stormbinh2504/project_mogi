@@ -7,7 +7,7 @@ import "./PaypalCheckoutButton.scss"
 const PaypalCheckoutButton = (props) => {
     const history = useHistory()
     const dispatch = useDispatch()
-    const { product } = props;
+    const { product, onSubmit } = props;
     const [paidFor, setPaidFor] = useState(false);
     const [error, setError] = useState(null);
 
@@ -22,11 +22,12 @@ const PaypalCheckoutButton = (props) => {
     }
 
 
-    const handleApprove = (orderId) => {
+    const handleApprove = (data, orderId) => {
         // Call backend function to fulfill order
-
+        console.log("binh_handleApprove", orderId)
         // if response is success
         setPaidFor(true);
+        onSubmit && onSubmit()
         // Refresh user's account or subscription status
 
         // if response is error
@@ -62,9 +63,9 @@ const PaypalCheckoutButton = (props) => {
                 }}
                 onApprove={async (data, actions) => {
                     const order = await actions.order.capture();
-                    console.log("order", order);
+                    console.log("PayPal onApprove", data, actions);
 
-                    handleApprove(data.orderID);
+                    handleApprove(data, order);
                 }}
                 onError={(err) => {
                     setError(err);

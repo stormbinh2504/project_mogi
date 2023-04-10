@@ -1,5 +1,29 @@
-.mg-button {
-    padding        : 2px 15px;
-    border-radius  : 3px;
-    text-decoration: none;
+@import "mixins/css3.mixins";
+@import "variables";
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+
+// @import "../../node_modules/bo";
+
+
+@mixin themify($themes: $themes) {
+
+    @each $theme,
+    $map in $themes {
+
+        .theme-#{$theme} & {
+            $theme-map: () !global;
+
+            @each $key,
+            $submap in $map {
+                $value    : map-get(map-get($themes, $theme), '#{$key}');
+                $theme-map: map-merge($theme-map, ($key: $value)) !global;
+            }
+
+            @content;
+            $theme-map: null !global;
+        }
+
+    }
 }

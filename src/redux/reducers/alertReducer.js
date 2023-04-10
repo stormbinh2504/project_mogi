@@ -1,4 +1,4 @@
-import { GLOBALTYPES } from '../actions/globalTypes'
+import actionTypes from '../actions/actionTypes'
 
 const initialState = {
     loading: false,
@@ -6,7 +6,7 @@ const initialState = {
 
 const alertReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GLOBALTYPES.ALERT:
+        case actionTypes.ALERT:
             return {
                 ...state,
                 loading: action.payload,

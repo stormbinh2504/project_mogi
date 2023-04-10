@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { ToastSuccess, ToastError } from '../../utils/ToastUtil'
-import { loginAuthentication, alertType } from '../../redux/actions/authAction'
+import { loginAuthentication } from '../../redux/actions/authActions'
+import { alertType } from '../../redux/actions/alertActions'
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from 'react-router-dom'
 import { postDataAPI } from '../../utils/fetchData'
@@ -66,17 +66,14 @@ const CompareOTP = () => {
             await postDataAPI('gen-otp', body)
                 .then(res => {
                     dispatch(alertType(false))
-                    ToastSuccess(res.data.msg);
                     setTime(TIME_SEND_OTP)
 
                 })
                 .catch(error => {
                     dispatch(alertType(false))
-                    ToastError(error);
                 });
         } catch (err) {
             dispatch(alertType(false))
-            ToastError("error");
         }
     }
 
@@ -90,17 +87,14 @@ const CompareOTP = () => {
             await postDataAPI('verify-otp', body)
                 .then(res => {
                     dispatch(alertType(false))
-                    ToastSuccess(res.data.msg);
                     setTime(0)
                     history.push("/login")
                 })
                 .catch(error => {
                     dispatch(alertType(false))
-                    ToastError(error);
                 });
         } catch (err) {
             dispatch(alertType(false))
-            ToastError("error");
         }
     }
 

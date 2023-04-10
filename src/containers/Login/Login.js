@@ -4,11 +4,13 @@ import { sdkVNPTService, authService } from '../../services';
 import { compressImage } from "../../utils/imageUpload"
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from 'react-router-dom'
-import { login, alertType } from '../../redux/actions/authAction'
-import { ToastSuccess, ToastError } from '../../utils/ToastUtil'
+import { loginStart, loginSucess, loginFail } from '../../redux/actions/userActions'
+import { alertType } from '../../redux/actions/alertActions'
+import { ToastUtil } from '../../utils'
 import { postDataAPI } from '../../utils/fetchData'
 
 import "./Login.scss"
+import axios from 'axios';
 
 const Login = () => {
     const history = useHistory()
@@ -16,7 +18,7 @@ const Login = () => {
     const { auth } = useSelector((state) => state);
 
     const [userData, setUserData] = useState({
-        "username": "",
+        "email": "",
         "password": "",
     })
 
@@ -28,31 +30,28 @@ const Login = () => {
 
 
     const Submit = async () => {
+
         let body = {
-            ...userData,
+            "email": userData.email,
+            "password": userData.password
         }
+
         dispatch(alertType(true))
-        try {
-            await postDataAPI('login', body)
-                .then(res => {
-                    if (res) {
-                        dispatch(alertType(false))
-                        ToastSuccess(res.data.msg);
-                        dispatch(login(res))
-                        history.push("/compare-face")
-                    }
-                })
-                .catch(error => {
+        dispatch(loginStart())
+        await authService.LoginClient(body)
+            .then(res => {
+                if (res) {
+                    dispatch(loginSucess(res))
                     dispatch(alertType(false))
-                    ToastError("Username or password not correct");
-                });
-        } catch (err) {
-            dispatch(alertType(false))
-            ToastError("error");
-        }
-
+                    ToastUtil.success("Đăng nhập thành công");
+                }
+            })
+            .catch(error => {
+                dispatch(loginFail())
+                dispatch(alertType(false))
+                ToastUtil.errorApi(error, "Đăng nhập không thành công");
+            });
     }
-
 
     return (
         <div div className='login' >
@@ -60,40 +59,33 @@ const Login = () => {
                 <h3 className="text-uppercase text-center mb-4">Login</h3>
 
                 <div className="form-group">
-                    <label htmlFor="username">Username</label>
-                    <input type="text" className="form-control" id="username"
-                        name="username"
-                        onChange={handleChangeInput} value={userData.username}
+                    <label htmlFor="email">Email</label>
+                    <input type="text" className="form-control-input" id="email"
+                        name="email"
+                        onChange={handleChangeInput} value={userData.email}
                     />
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="username">Password</label>
-                    <input type="text" className="form-control" id="password"
+                    <label htmlFor="password">Mật khẩu</label>
+                    <input type="text" className="form-control-input" id="password"
                         name="password"
                         onChange={handleChangeInput} value={userData.password}
                     />
                 </div>
-
-                {
-                    auth !== "" && auth.userInfor.avatar && <div className="block-image">
-                        <img src={auth.userInfor.avatar} alt="" id="img" className="pre-image" />
-                    </div>
-                }
-
                 < button
                     type="submit"
                     className="btn btn-dark w-100"
                     // disabled={email && password ? false : true}
                     onClick={Submit}
                 >
-                    Login
+                    Đăng nhập
                 </button>
 
                 <p className="my-2">
-                    You don't have an account?{" "}
+                    Bạn chưa có tài khoản{" "}
                     <Link to="/register" style={{ color: "crimson" }}>
-                        Register Now
+                        Đăng ký ngay
                     </Link>
                 </p>
             </div >

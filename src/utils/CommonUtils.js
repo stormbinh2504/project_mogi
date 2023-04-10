@@ -1,19 +1,20 @@
 import { useEffect } from "react";
+import { push } from "connected-react-router";
+import { reduxStore, dispatch } from "../../src/redux/store"
+class CommonUtils {
 
-export const useOnClickOutside = (ref, handleClick) => {
-    useEffect(() => {
-        const listener = (event) => {
-            if (ref.current && !ref.current.contains(event.target)) {
-                handleClick(event);
-            }
-        };
+    static checkLogined() {
+        const state = reduxStore.getState();
+        console.log("checkLogined3", state)
+        let isLoggedIn = state.user.isLoggedIn;
+        if (!isLoggedIn) {
+            console.log("checkLogined4", state)
+            dispatch(push("/login"))
+            return false
+        }
+        return isLoggedIn;
+    };
 
-        document.addEventListener("mousedown", listener);
-        document.addEventListener("touchstart", listener);
+}
 
-        return () => {
-            document.removeEventListener("mousedown", listener);
-            document.removeEventListener("touchstart", listener);
-        };
-    }, [ref, handleClick]);
-};
+export default CommonUtils;

@@ -1,13 +1,19 @@
 import axios from '../axios';
 
+let REACT_APP_BASE_URL_API = process.env.REACT_APP_BASE_URL_API
+
+// let BASE_URL_API = process.env.REACT_APP_PAYPAL_CLIENT_ID
+
 const authService = {
     RegisterClient(body) {
-        return axios.post('register', body)
+        return axios.post(`${REACT_APP_BASE_URL_API}auth/registerAccount`, body)
     },
     LoginClient(body) {
-        console.log("binh---body", body)
-        return axios.post('loign', body, { headers: { "Content-Type": "application/json" } })
+        return axios.post(`${REACT_APP_BASE_URL_API}auth/login`, body)
     }
+    // LoginClient(body) {
+    //     return axios.post(`auth/login`, body)
+    // }
 }
 
 export default authService

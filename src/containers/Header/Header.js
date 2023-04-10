@@ -10,13 +10,16 @@ const Header = () => {
     const dispatch = useDispatch()
 
     const onRedirectPosting = () => {
-        dispatch(actions.setTypeUser(TYPE_USER.BROKER))
-        history.push("/home-broker")
+        dispatch(actions.setTypeUser(TYPE_USER.BROKER, () => {
+            history.push("/home-broker")
+        }))
     }
 
     const onRedirectHome = () => {
-        dispatch(actions.setTypeUser(TYPE_USER.CUSTOMER))
-        history.push("/home")
+        dispatch(actions.setTypeUser(TYPE_USER.CUSTOMER, () => {
+            history.push("/home")
+        }))
+
     }
 
     return (
@@ -30,7 +33,7 @@ const Header = () => {
                 <div className="navbar-menu">
                     <div className="menu-list">
                         <div className="menu-item item-center">
-                            <Link to="/find">
+                            <Link to="/find-buy">
                                 Tìm mua
                             </Link>
                         </div>

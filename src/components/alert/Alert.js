@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { GLOBALTYPES } from '../../redux/actions/globalTypes'
+import { GLOBALTYPES } from '../../redux/actions/actionTypes'
 import { toast, ToastContainer } from "react-toastify";
 
 import Loading from './Loading'

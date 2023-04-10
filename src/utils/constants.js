@@ -1,5 +1,7 @@
 export const PATH_NAME = {
-    HOME: "/", // Người mua
+    HOME: "/home", //
+    LOGIN: "/login",
+
     COLLECTIONS: "/collections/gia-ke-vina", // Người bán
     BLOGS: "/blogs/du-an-hoan-thanh", // Người bán
     ABOUT_OUR: "/pages/ve-chung-toi", // Người bán

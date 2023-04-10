@@ -28,10 +28,12 @@ const middleware = [
 
 const rootReducer = createRootReducer(history);
 
-const reduxStore = createStore(
+export const reduxStore = createStore(
     rootReducer,
     applyMiddleware(...middleware)
 )
+
+export const dispatch = reduxStore.dispatch;
 
 export const persistor = persistStore(reduxStore);
 

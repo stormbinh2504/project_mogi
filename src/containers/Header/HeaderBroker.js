@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from '../../redux/actions'
-import { TYPE_USER, useOnClickOutside } from '../../utils';
+import { TYPE_USER, CommonUtils, useOnClickOutside } from '../../utils';
 import NoAvatar from '../../assets/images/no-avatar-small.png'
 import "./HeaderBroker.scss"
 import DropDownSettingUserBroker from './DropDownSettingUserBroker/DropDownSettingUserBroker';
@@ -38,7 +38,7 @@ const listMenuHeaderBroker = [
     },
     {
         title: "Tin nhắn",
-        path: "/recharge-broker"
+        path: "/profile"
     },
 ]
 
@@ -54,6 +54,7 @@ const HeaderBroker = () => {
         dispatch(actions.setTypeUser(TYPE_USER.CUSTOMER))
         history.push("/home")
     }
+
     useOnClickOutside(settingRef, () => {
         setIsShowSetting(false)
     });

@@ -1,3 +1,6 @@
+// @import "../../../styles/common";
+@import "../src/styles/common";
+
 .main {
   width : 100vw;
   height: 100vh;
@@ -73,3 +76,14 @@ button {
     background: #0499A8;
   }
 }
+
+
+
+// từ 575.98px trở xuống
+@include media-breakpoint-down(xs) {}
+
+// từ 767px trở xuống
+@include media-breakpoint-down(sm) {}
+
+// từ 991px trở xuống
+@include media-breakpoint-down(md) {}
