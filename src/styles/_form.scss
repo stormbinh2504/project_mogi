@@ -1,0 +1,80 @@
+@import "common";
+
+.mg-form-control {
+  float     : left;
+  text-align: left;
+  width     : 100%;
+  position  : relative;
+
+
+  >input {
+    width        : 100%;
+    padding      : 5px 10px;
+    border-radius: 5px;
+    border       : 1px solid #dfdfe1;
+    font-size    : 16px;
+
+    &:focus {
+      outline-width: 1px;
+      outline-color: #00deb6;
+    }
+
+    &:hover {
+      outline-width: 1px;
+      outline-color: #00deb6;
+    }
+
+    &[disabled] {
+      opacity: 0.5 !important;
+
+      &:hover {
+        cursor: not-allowed !important;
+      }
+    }
+  }
+
+
+  >textarea {
+    width        : 100%;
+    padding      : 5px 10px;
+    border-radius: 5px;
+    border       : 1px solid #dfdfe1;
+    font-size    : 16px;
+
+    &:focus {
+      outline-width: 1px;
+      outline-color: #00deb6;
+    }
+
+    &:hover {
+      outline-width: 1px;
+      outline-color: #00deb6;
+    }
+  }
+
+
+  .readonly {
+    background-color: #eaeaef;
+
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+
+  .ext-action {
+    text-align: right;
+    width     : 100%;
+  }
+}
+
+
+.custom-input-react-select {
+  width: 100%;
+
+  .css-b62m3t-container {
+    .css-t3ipsp-control {
+      border-color: #00deb6;
+      box-shadow  : 0 0 0 1px #00deb6
+    }
+  }
+}

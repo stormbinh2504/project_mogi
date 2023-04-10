@@ -13,13 +13,40 @@
             padding: 10px;
 
             .profile-content-row {
+                margin: 10px 0px;
 
                 .label {
-                    text-align: right;
+                    text-align     : right;
+                    display        : flex;
+                    justify-content: flex-end;
+                    align-items    : center;
+                    font-weight    : 700;
+
+                    .img-avatar {
+                        >img {
+                            height       : 50px;
+                            width        : 50px;
+                            border-radius: 50%;
+                        }
+                    }
                 }
 
                 .value {
                     text-align: left;
+                }
+
+                .container-action {
+
+                    .btn-continue {
+                        color     : #333;
+                        background: #00deb6;
+                        border    : 0;
+                        min-width : 100px;
+
+                        &:hover {
+                            color: white;
+                        }
+                    }
                 }
             }
         }
@@ -43,7 +70,9 @@
             .profile-content {
                 .profile-content-row {
                     .label {
-                        text-align: left;
+                        text-align     : left;
+                        justify-content: flex-start;
+                        padding        : 5px;
                     }
 
                     .value {

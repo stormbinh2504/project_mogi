@@ -7,12 +7,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Login from './containers/Login/Login';
 import Register from './containers/Register/Register';
-import CompareFace from './containers/CompareFace/CompareFace';
 import Alert from "./components/alert/Alert";
 import { toast, ToastContainer } from "react-toastify";
 import { injectStyle } from "react-toastify/dist/inject-style";
 import Header from './containers/Header/Header';
-import CompareOTP from './containers/CompareOTP/CompareOTP';
 import Home from './containers/Home/Home';
 import HomeBroker from './containers/HomeBroker/HomeBroker';
 import { TYPE_USER } from './utils';
@@ -75,9 +73,6 @@ function App() {
                     <Route exact path="/home" component={Home} />
                     <Route path="/login" component={Login} />
                     <Route exact path="/register" component={Register} />
-                    <Route exact path="/compare-face" component={CompareFace} />
-                    <Route exact path="/compare-otp" component={CompareOTP} />
-                    <Route exact path="/mogi" component={CompareOTP} />
                     <Route exact path="/firebase" component={FirebaseTestImage} />
                     {/* <Route exact render={(props) => (
                   <Redirect to="/login" />

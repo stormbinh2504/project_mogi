@@ -8,9 +8,13 @@ const accountService = {
     setRechargeAccount(body) {
         return axios.post(`${REACT_APP_BASE_URL_API}client/recharge`, body)
     },
-    
+
     getInfoClient() {
         return axios.get(`${REACT_APP_BASE_URL_API}auth/infoClient`)
+    },
+
+    updateInfoClient(body) {
+        return axios.post(`${REACT_APP_BASE_URL_API}client/saveClient`, body)
     },
 
     getRequiredData() {
