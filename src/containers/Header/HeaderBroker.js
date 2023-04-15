@@ -21,6 +21,10 @@ const listMenuHeaderBroker = [
         path: "/news-management"
     },
     {
+        title: "Quản lý tài sản",
+        path: "/property-management"
+    },
+    {
         title: "Đơn hàng",
         path: "/order"
     },

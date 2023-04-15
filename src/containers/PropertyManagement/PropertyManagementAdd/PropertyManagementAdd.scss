@@ -1,0 +1,81 @@
+@import "../../../styles/common";
+
+.property-management-adđ {
+    .body-container {
+        .body-content {
+            .body-content-row {
+                margin: 10px 0px;
+
+                .label {
+                    text-align     : right;
+                    display        : flex;
+                    justify-content: flex-end;
+                    align-items    : center;
+                    font-weight    : 700;
+                }
+
+
+                .title {
+                    display    : flex;
+                    align-items: center;
+                    font-weight: 700;
+                }
+
+                .value {
+                    text-align: left;
+
+
+                    .info-attrs {
+                        .info-attr {
+                            margin: 5px 0px;
+
+                            .label-info-attr {
+                                margin-bottom: 5px;
+                                padding-left : 15px;
+                            }
+
+                            &::before {
+                                width        : 8px;
+                                height       : 8px;
+                                border-radius: 50%;
+                                background   : #bec8d2;
+                                content      : "";
+                                position     : absolute;
+                                top          : 7px;
+                                left         : 15px;
+
+                            }
+                        }
+                    }
+                }
+
+                .container-action {
+
+                    .btn-continue {
+                        color     : #333;
+                        background: #00deb6;
+                        border    : 0;
+                        min-width : 100px;
+
+                        &:hover {
+                            color: white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+// từ 575.98px trở xuống
+@include media-breakpoint-down(xs) {}
+
+
+// từ 767px trở xuống
+@include media-breakpoint-down(sm) {}
+
+// từ 991px trở xuống
+@include media-breakpoint-down(md) {}

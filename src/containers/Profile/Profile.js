@@ -7,7 +7,7 @@ import PageContainerBroker from '../../components/Broker/PageContainerBroker/Pag
 import Avatar from '../../assets/images/avatar.png'
 import Zalo from '../../assets/images/zalo.png'
 import { alertType } from '../../redux/actions';
-import { ToastUtil, uploadImgToFireBase } from '../../utils';
+import { ToastUtil, uploadImgToFireBase, deleteFromFirebase } from '../../utils';
 import { accountService, globalService } from '../../services';
 import Select from 'react-select';
 
@@ -21,8 +21,9 @@ const Profile = () => {
     const [clientData, setClientData] = useState({})
     const [provinceAll, setProvinceAll] = useState([])
     const [districtsAll, setDistrictsAll] = useState([])
+    const [typeLoanAll, setTypeLoanAll] = useState([])
     const [imagePreURL, setImagPreURL] = useState("")
-    const [imgFirebase, setImgFirebase] = useState("")
+    const [imgFirebaseOld, setImgFirebaseOld] = useState("")
 
     const imageHandler = (file) => {
         const reader = new FileReader();
@@ -70,12 +71,32 @@ const Profile = () => {
             });
     }
 
-    const handleChangeInput = e => {
-        const { name, value } = e.target
-        setClientData({ ...userInfo, [name]: value })
+
+    const callApiGetTypeLoanAll = async () => {
+        dispatch(alertType(true))
+        await globalService.getAllTypeLoan()
+            .then(res => {
+                if (res && res.length > 0) {
+                    let _typeLoanAll = res.map((item, index) => {
+                        return { value: item.value, label: item.name }
+                    })
+                    setTypeLoanAll(_typeLoanAll)
+                    dispatch(alertType(false))
+                }
+            })
+            .catch(error => {
+                dispatch(alertType(false))
+                ToastUtil.error(error);
+            });
     }
 
-    const onHandleUpdate = () => {
+    const handleChangeInput = e => {
+        const { name, value } = e.target
+        setClientData({ ...clientData, [name]: value })
+    }
+
+
+    const onHandleUpdate = async () => {
 
         let body = {
             "codeClient": clientData.codeClient,
@@ -87,12 +108,13 @@ const Profile = () => {
             "typeLoan": clientData.typeLoan,
             "passport": clientData.passport,
             "url": clientData.url,
+            // "url": urlFirebase,
             "firstName": clientData.firstName,
             "lastName": clientData.lastName,
         }
 
         dispatch(alertType(true))
-        accountService.updateInfoClient(body)
+        await accountService.updateInfoClient(body)
             .then(res => {
                 dispatch(alertType(false))
                 ToastUtil.success("Cập nhật thành công");
@@ -105,12 +127,13 @@ const Profile = () => {
 
     useEffect(() => {
         callApiGetProvinceAll()
+        callApiGetTypeLoanAll()
     }, []);
 
 
     useEffect(() => {
         setClientData({ ...userInfo })
-
+        setImgFirebaseOld(userInfo.url)
         if (userInfo && userInfo.provinceCode) {
             callApiGetFindAllDistrictsByProvinceCode(userInfo.provinceCode)
         }
@@ -122,26 +145,35 @@ const Profile = () => {
         callApiGetFindAllDistrictsByProvinceCode(objValue.value)
     }
 
-    const onChangeSelectDistrictCode = (objValue) => {
+    const onChangeSelectDistrict = (objValue) => {
         setClientData({ ...clientData, districtCode: objValue.value })
+    }
+
+    const onChangeSelectTypeLoan = (objValue) => {
+        setClientData({ ...clientData, typeLoan: objValue.value })
     }
 
     const handleImageChange = async (e) => {
         const file = e.target.files[0]
         if (e.target.files.length > 0) {
-            // setAvatar(file)
-            imageHandler(file)
-            setImgFirebase(file)
+            await uploadImgToFireBase("avatar", file, setUrlFireBase)
         }
     }
 
-    const Test = () => {
-        uploadImgToFireBase(imgFirebase)
+
+    const setUrlFireBase = async (url) => {
+        setClientData({ ...clientData, ["url"]: url })
+
+        if (!imgFirebaseOld) {
+            setImgFirebaseOld(url)
+        } else {
+            await deleteFromFirebase(imgFirebaseOld, url, setImgFirebaseOld)
+        }
     }
 
     let textLength = clientData && clientData.introduces ? clientData.introduces.length : 0
     // console.log("binh_client", provinceAll, clientData)
-    console.log("binh_client", imagePreURL)
+    console.log("binh_client", clientData, imgFirebaseOld)
     return (
         <PageContainerBroker
             titleId={"Thông tin tài khoản"}
@@ -150,16 +182,16 @@ const Profile = () => {
                 <div className="profile-container">
                     <div className="profile-content">
                         <div className="profile-content-row row gutters-5">
-                            <div className="col-12 col-md-4 label">
+                            <div className="col-12 col-sm-4 label">
                                 <div className="img-avatar">
-                                    {imagePreURL ?
-                                        <img src={imagePreURL} />
+                                    {clientData.url ?
+                                        <img src={clientData.url} />
                                         :
                                         <img src="https://pro.mogi.vn/content/images/avatar.png" />
                                     }
                                 </div>
                             </div>
-                            <div className="col-12 col-md-8 value">
+                            <div className="col-12 col-sm-8 value">
                                 <div className="full-name">
                                     {clientData && clientData.fullName}
                                 </div>
@@ -180,10 +212,10 @@ const Profile = () => {
                         </div>
 
                         <div className="profile-content-row row gutters-5">
-                            <div className="col-12 col-md-4 label">
+                            <div className="col-12 col-sm-4 label">
                                 Số chứng chỉ
                             </div>
-                            <div className="col-12 col-md-8 value">
+                            <div className="col-12 col-sm-8 value">
                                 <div className="mg-form-control">
                                     <input className="text-control readonly" disabled />
                                 </div>
@@ -191,10 +223,10 @@ const Profile = () => {
                         </div>
 
                         <div className="profile-content-row row gutters-5">
-                            <div className="col-12 col-md-4 label">
+                            <div className="col-12 col-sm-4 label">
                                 Họ
                             </div>
-                            <div className="col-12 col-md-8 value">
+                            <div className="col-12 col-sm-8 value">
                                 <div className="mg-form-control">
                                     <input className="text-control" value={clientData.firstName} name="firstName"
                                         onChange={handleChangeInput} />
@@ -203,10 +235,10 @@ const Profile = () => {
                         </div>
 
                         <div className="profile-content-row row gutters-5">
-                            <div className="col-12 col-md-4 label">
+                            <div className="col-12 col-sm-4 label">
                                 Tên
                             </div>
-                            <div className="col-12 col-md-8 value">
+                            <div className="col-12 col-sm-8 value">
                                 <div className="mg-form-control">
                                     <input className="text-control" value={clientData.lastName} name="lastName"
                                         onChange={handleChangeInput} />
@@ -215,10 +247,10 @@ const Profile = () => {
                         </div>
 
                         <div className="profile-content-row row gutters-5">
-                            <div className="col-12 col-md-4 label">
+                            <div className="col-12 col-sm-4 label">
                                 Số điện thoại
                             </div>
-                            <div className="col-12 col-md-8 value">
+                            <div className="col-12 col-sm-8 value">
                                 <div className="mg-form-control">
                                     <input className="text-control" value={clientData.phone} name="phone"
                                         onChange={handleChangeInput} />
@@ -227,10 +259,10 @@ const Profile = () => {
                         </div>
 
                         <div className="profile-content-row row gutters-5">
-                            <div className="col-12 col-md-4 label">
+                            <div className="col-12 col-sm-4 label">
                                 Tỉnh/Thành phố
                             </div>
-                            <div className="col-12 col-md-8 value">
+                            <div className="col-12 col-sm-8 value">
                                 <div className="custom-input-react-select">
                                     <Select
                                         onChange={onChangeSelectProvince}
@@ -247,14 +279,14 @@ const Profile = () => {
 
 
                         <div className="profile-content-row row gutters-5">
-                            <div className="col-12 col-md-4 label">
+                            <div className="col-12 col-sm-4 label">
                                 Quận/Huyện
                             </div>
-                            <div className="col-12 col-md-8 value">
+                            <div className="col-12 col-sm-8 value">
                                 <div className="custom-input-react-select">
                                     <Select
                                         defaultValue={clientData.districtCode}
-                                        onChange={onChangeSelectDistrictCode}
+                                        onChange={onChangeSelectDistrict}
                                         options={districtsAll}
                                         value={
                                             districtsAll.filter((option) => {
@@ -267,18 +299,18 @@ const Profile = () => {
                         </div>
 
                         <div className="profile-content-row row gutters-5">
-                            <div className="col-12 col-md-4 label">
+                            <div className="col-12 col-sm-4 label">
                                 Loại môi giới
                             </div>
-                            <div className="col-12 col-md-8 value">
+                            <div className="col-12 col-sm-8 value">
                                 <div className="custom-input-react-select">
                                     <Select
-                                        defaultValue={clientData.districtCode}
-                                        onChange={onChangeSelectDistrictCode}
-                                        options={districtsAll}
+                                        defaultValue={clientData.typeLoan}
+                                        onChange={onChangeSelectTypeLoan}
+                                        options={typeLoanAll}
                                         value={
-                                            districtsAll.filter((option) => {
-                                                return option.value == clientData.districtCode
+                                            typeLoanAll.filter((option) => {
+                                                return option.value == clientData.typeLoan
                                             })
                                         }
                                     />
@@ -288,10 +320,10 @@ const Profile = () => {
 
 
                         <div className="profile-content-row row gutters-5">
-                            <div className="col-12 col-md-4 label">
+                            <div className="col-12 col-sm-4 label">
                                 Tự giới thiệu
                             </div>
-                            <div className="col-12 col-md-8 value">
+                            <div className="col-12 col-sm-8 value">
                                 <div className="mg-form-control">
                                     <textarea className="text-control"
                                         cols="20"
@@ -309,16 +341,15 @@ const Profile = () => {
                         </div>
 
                         <div className="profile-content-row row gutters-5">
-                            <div className="col-12 col-md-4 label">
+                            <div className="col-12 col-sm-4 label">
 
                             </div>
-                            <div className="col-12 col-md-8">
+                            <div className="col-12 col-sm-8">
                                 <div className="container-action">
                                     <button class="btn btn-continue" onClick={onHandleUpdate} >Cập nhật</button>
                                 </div>
                             </div>
                         </div>
-                        <button onClick={Test}>abc</button>
                     </div>
                 </div>
             </div>

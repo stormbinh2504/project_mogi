@@ -43,17 +43,15 @@ const Register = () => {
         dispatch(alertType(true))
         await authService.RegisterClient(body)
             .then(res => {
-                if (res) {
-                    console.log("binh_check", res)
-                    dispatch(alertType(false))
-                    ToastUtil.success(res.message);
-                    setUserData({
-                        "firstName": "",
-                        "lastName": "",
-                        "email": "",
-                        "password": "",
-                    })
-                }
+                console.log("binh_check", res)
+                dispatch(alertType(false))
+                ToastUtil.success("Đăng ký thành công");
+                setUserData({
+                    "firstName": "",
+                    "lastName": "",
+                    "email": "",
+                    "password": "",
+                })
             })
             .catch(error => {
                 dispatch(alertType(false))

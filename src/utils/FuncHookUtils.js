@@ -5,9 +5,12 @@ import {
     getDownloadURL,
     listAll,
     list,
+    deleteObject
 } from "firebase/storage";
 import { storage } from "../firebase/firebaseconfig";
 import { v4 } from "uuid";
+
+import firebase from 'firebase/app';
 
 export const useOnClickOutside = (ref, handleClick) => {
     useEffect(() => {
@@ -29,19 +32,30 @@ export const useOnClickOutside = (ref, handleClick) => {
 
 
 
-export const uploadImgToFireBase = (imageUpload, setUrl) => {
+export const uploadImgToFireBase = async (srcImg, imageUpload, setUrl) => {
     if (imageUpload == null) return;
-    const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
-    uploadBytes(imageRef, imageUpload)
-        .then((snapshot) => {
-            getDownloadURL(snapshot.ref)
-                .then((url) => {
-                    console.log("binh_uploadImgToFireBase", url)
+    const imageRef = ref(storage, `${srcImg}/${imageUpload.name + v4()}`);
+    await uploadBytes(imageRef, imageUpload)
+        .then(async (snapshot) => {
+            await getDownloadURL(snapshot.ref)
+                .then(async (url) => {
+                    console.log("uploadImgToFireBase", url)
                     setUrl && setUrl(url)
-                    // setImageUrls((prev) => [...prev, url]);
                 });
         })
         .catch((error) => {
             alert(error)
         })
+};
+
+export const deleteFromFirebase = async (urlOld, urlCur, setImgCur) => {
+    if (urlOld) {
+        const imageRef = ref(storage, urlOld);
+        deleteObject(imageRef).then(() => {
+            console.log("deleteFromFirebase", urlOld)
+            setImgCur(urlCur)
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
 };

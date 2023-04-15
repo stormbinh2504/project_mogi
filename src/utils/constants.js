@@ -35,3 +35,14 @@ export const TYPE_USER = {
     ADMIN: "ADMIN" // Admin
 }
 
+export const TYPE_PROPERTY_CATEGORY = {
+    ALL: "1",
+    HOME: "2",
+    APARTMENT: "3",
+    LAND: "4",
+    GROUND: "5"
+}
+
+
+
+

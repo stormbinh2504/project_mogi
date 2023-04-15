@@ -25,6 +25,8 @@ import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import PrivateRouter from './customRouter/PrivateRouter';
 import Profile from './containers/Profile/Profile';
 import { initializeApp } from './redux/actions';
+import PropertyManagement from './containers/PropertyManagement/PropertyManagement';
+import PropertyManagementAdd from './containers/PropertyManagement/PropertyManagementAdd/PropertyManagementAdd';
 
 if (typeof window !== "undefined") {
   injectStyle();
@@ -89,6 +91,8 @@ function App() {
                     <PrivateRouter exact path="/profile" component={Profile} />
                     <PrivateRouter exact path="/home-broker" component={HomeBroker} />
                     <PrivateRouter exact path="/recharge-broker" component={RechargeBroker} />
+                    <PrivateRouter exact path="/property-management" component={PropertyManagement} />
+                    <PrivateRouter exact path="/property-management-add" component={PropertyManagementAdd} />
                     {/* <Route exact path="/stripe" element={StripeCheckoutButton} /> */}
                   </div>}
                 <div id="scrollToTop" className='item-center'>
