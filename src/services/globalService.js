@@ -27,22 +27,21 @@ const globalService = {
         return axios.get(`${REACT_APP_BASE_URL_API}common/findAllTypeLoan`)
     },
 
-    getAllTypePropertyCategory() {
+    getAllTypePropertyCategory() { // Loại bất động sản
         return axios.get(`${REACT_APP_BASE_URL_API}common/findAllTypePropertyCategory`)
     },
 
-
-    getAllCodeTypePropertyCategory(codeTypePropertyCategory) { // Lấy chi tiết theo loại bất động sản
+    getAllCodeTypeProperty(codeTypePropertyCategory) {  // Lấy chi tiết theo loại bất động sản
         var queryParams = {
             codeTypePropertyCategory
         };
-        return axios.get(`${REACT_APP_BASE_URL_API}typepropery/findAllByCodeTypePropertyCategory?` + queryString.stringify(queryParams))
+        return axios.get(`${REACT_APP_BASE_URL_API}typepropery/findAllByCodeTypeProperty?` + queryString.stringify(queryParams))
+        // return axios.get(`${REACT_APP_BASE_URL_API}typepropery/findAllByCodeTypePropertyCategory?` + queryString.stringify(queryParams))
     },
 
     getAllLawCategory() { // Lấy ra loại pháp lý
         return axios.get(`${REACT_APP_BASE_URL_API}common/findAllLawCategory`)
     },
-
 
 }
 

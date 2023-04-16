@@ -53,7 +53,7 @@ export const deleteFromFirebase = async (urlOld, urlCur, setImgCur) => {
         const imageRef = ref(storage, urlOld);
         deleteObject(imageRef).then(() => {
             console.log("deleteFromFirebase", urlOld)
-            setImgCur(urlCur)
+            urlCur && setImgCur && setImgCur(urlCur)
         }).catch((error) => {
             console.log(error);
         });

@@ -9,6 +9,7 @@ import { ToastUtil, uploadImgToFireBase, deleteFromFirebase, TYPE_PROPERTY_CATEG
 import { accountService, globalService } from '../../../services';
 import Select from 'react-select';
 import NumberInput from '../../../components/Input/NumberInput/NumberInput';
+import _ from 'lodash';
 
 const PropertyManagementAdd = () => {
     const history = useHistory()
@@ -16,11 +17,10 @@ const PropertyManagementAdd = () => {
     const state = useSelector((state) => state);
     const { auth, app, user } = state
     const { userInfo } = user
-
     const [propertyInfo, setPropertyInfo] = useState({
         "codeProperty": null,
-        "codeTypeProperty": "2",
-        "codeTypePropertyDetail": null,
+        "codeCateTypePropertyCategory": "2",
+        "codeTypeProperty": null,
         "nameProperty": null,
         "provinceCode": null,
         "districtCode": null,
@@ -45,13 +45,14 @@ const PropertyManagementAdd = () => {
     const [wardsAll, setWardssAll] = useState([])
 
     const [typePropertyCategoryAll, SetTypePropertyCategoryAll] = useState([])
-    const [typePropertyCategoryDetailAll, SetTypePropertyCategoryDetailAll] = useState([])
+    const [typePropertyAll, setTypePropertyAll] = useState([])
     const [lawCategoryAll, SetLawCategoryAll] = useState([])
 
 
     const [imgFirebaseOld, setImgFirebaseOld] = useState("")
+    const [imageUrls, setImageUrls] = useState([]);
 
-    const callApiGetAllLawCategory = async () => {
+    const fetchGetAllLawCategory = async () => {
         dispatch(alertType(true))
         await globalService.getAllLawCategory()
             .then(res => {
@@ -69,7 +70,7 @@ const PropertyManagementAdd = () => {
             });
     }
 
-    const callApiGetProvinceAll = async () => {
+    const fetchGetProvinceAll = async () => {
         dispatch(alertType(true))
         await globalService.getProvinceAll()
             .then(res => {
@@ -87,7 +88,7 @@ const PropertyManagementAdd = () => {
             });
     }
 
-    const callApiGetFindAllDistrictsByProvinceCode = async (provinceCode) => {
+    const fetchGetFindAllDistrictsByProvinceCode = async (provinceCode) => {
         dispatch(alertType(true))
         await globalService.getFindAllDistrictsByProvinceCode(provinceCode)
             .then(res => {
@@ -105,7 +106,7 @@ const PropertyManagementAdd = () => {
             });
     }
 
-    const callApiGetFindAllWardsByDistrictCode = async (districtsCode) => {
+    const fetchGetFindAllWardsByDistrictCode = async (districtsCode) => {
         dispatch(alertType(true))
         await globalService.getFindAllWardsByDistrictCode(districtsCode)
             .then(res => {
@@ -123,15 +124,15 @@ const PropertyManagementAdd = () => {
             });
     }
 
-    const callApiGetAllCodeTypePropertyCategory = async (codeTypePropertyCategory) => {
+    const fetchGetAllCodeTypeProperty = async (codeTypePropertyCategory) => {
         dispatch(alertType(true))
-        await globalService.getAllCodeTypePropertyCategory(codeTypePropertyCategory)
+        await globalService.getAllCodeTypeProperty(codeTypePropertyCategory)
             .then(res => {
                 if (res && res.length > 0) {
-                    let _typePropertyCategoryDetailAll = res.map((item, index) => {
-                        return { value: item.codeTypeProperty, label: item.nameProperty }
+                    let _typePropertyAll = res.map((item, index) => {
+                        return { value: item.codeTypeProperty, label: item.nameTypeProperty }
                     })
-                    SetTypePropertyCategoryDetailAll(_typePropertyCategoryDetailAll)
+                    setTypePropertyAll(_typePropertyAll)
                     dispatch(alertType(false))
                 }
             })
@@ -141,7 +142,7 @@ const PropertyManagementAdd = () => {
             });
     }
 
-    const callApiGetAllTypePropertyCategory = async () => {
+    const fetchGetAllTypePropertyCategory = async () => {
         dispatch(alertType(true))
         await globalService.getAllTypePropertyCategory()
             .then(res => {
@@ -167,64 +168,54 @@ const PropertyManagementAdd = () => {
     }
 
 
-    // const onHandleUpdate = async () => {
+    const onHandleUpdate = async () => {
 
-    //     let body = {
-    //         "codeClient": propertyInfo.codeClient,
-    //         "provinceCode": propertyInfo.provinceCode,
-    //         "districtCode": propertyInfo.districtCode,
-    //         "wardsCode": propertyInfo.wardsCode,
-    //         "introduces": propertyInfo.introduces,
-    //         "phone": propertyInfo.phone,
-    //         "typeLoan": propertyInfo.typeLoan,
-    //         "passport": propertyInfo.passport,
-    //         "url": propertyInfo.url,
-    //         // "url": urlFirebase,
-    //         "firstName": propertyInfo.firstName,
-    //         "lastName": propertyInfo.lastName,
-    //     }
 
-    //     dispatch(alertType(true))
-    //     await accountService.updateInfoClient(body)
-    //         .then(res => {
-    //             dispatch(alertType(false))
-    //             ToastUtil.success("Cập nhật thành công");
-    //         })
-    //         .catch(error => {
-    //             dispatch(alertType(false))
-    //             ToastUtil.errorApi(error, "Cập nhật không thành công");
-    //         });
-    // }
+        let body = _.cloneDeep(propertyInfo)
+        body.imageList = imageUrls
+
+        dispatch(alertType(true))
+        await accountService.updateProperty(body)
+            .then(res => {
+                dispatch(alertType(false))
+                ToastUtil.success("Cập nhật thành công");
+            })
+            .catch(error => {
+                dispatch(alertType(false))
+                ToastUtil.errorApi(error, "Cập nhật không thành công");
+            });
+    }
 
     useEffect(() => {
-        callApiGetProvinceAll()
-        callApiGetAllTypePropertyCategory()
-        callApiGetAllLawCategory()
+        fetchGetProvinceAll()
+        fetchGetAllTypePropertyCategory()
+        fetchGetAllLawCategory()
+        fillDataPropertyInfo()
     }, []);
 
+    const fillDataPropertyInfo = () => {
+        setImageUrls([])
+    }
 
     useEffect(() => {
-        callApiGetAllCodeTypePropertyCategory(propertyInfo.codeTypeProperty)
-    }, [propertyInfo.codeTypeProperty]);
+        fetchGetAllCodeTypeProperty(propertyInfo.codeCateTypePropertyCategory)
+    }, [propertyInfo.codeCateTypePropertyCategory]);
 
 
     useEffect(() => {
         setPropertyInfo({ ...propertyInfo, codeClient: userInfo.codeClient })
-        setImgFirebaseOld(userInfo.url)
-        if (userInfo && userInfo.provinceCode) {
-            callApiGetFindAllDistrictsByProvinceCode(userInfo.provinceCode)
-        }
+
     }, [userInfo]);
 
 
     const onChangeSelectProvince = (objValue) => {
         setPropertyInfo({ ...propertyInfo, provinceCode: objValue.value })
-        callApiGetFindAllDistrictsByProvinceCode(objValue.value)
+        fetchGetFindAllDistrictsByProvinceCode(objValue.value)
     }
 
     const onChangeSelectDistrict = (objValue) => {
         setPropertyInfo({ ...propertyInfo, districtCode: objValue.value })
-        callApiGetFindAllWardsByDistrictCode(objValue.value)
+        fetchGetFindAllWardsByDistrictCode(objValue.value)
     }
 
     const onChangeSelectWard = (objValue) => {
@@ -235,13 +226,13 @@ const PropertyManagementAdd = () => {
         setPropertyInfo({ ...propertyInfo, law: objValue.value })
     }
 
-    const onChangeSelectTypeProperty = (objValue) => {
-        setPropertyInfo({ ...propertyInfo, codeTypeProperty: objValue.value })
-        // callApiGetAllCodeTypePropertyCategory(objValue.value)
+    const onChangeSelectCateTypePropertyCategory = (objValue) => {
+        setPropertyInfo({ ...propertyInfo, codeCateTypePropertyCategory: objValue.value })
+        // fetchGetAllCodeTypeProperty(objValue.value)
     }
 
-    const onChangeSelectTypePropertyDetail = (objValue) => {
-        setPropertyInfo({ ...propertyInfo, codeTypePropertyDetail: objValue.value })
+    const onChangeSelectTypeProperty = (objValue) => {
+        setPropertyInfo({ ...propertyInfo, codeTypeProperty: objValue.value })
     }
 
     const onChangePriceLoan = (value, valid) => {
@@ -260,27 +251,60 @@ const PropertyManagementAdd = () => {
         setPropertyInfo({ ...propertyInfo, bedCount: value })
     };
 
-    const handleImageChange = async (e) => {
-        const file = e.target.files[0]
-        if (e.target.files.length > 0) {
-            await uploadImgToFireBase("avatar", file, setUrlFireBase)
+    const handleImageChange = async (event) => {
+        const selectedFiles = event.target.files;
+        const selectedFilesArray = Array.from(selectedFiles);
+
+
+
+        // const imagesArray = selectedFilesArray.map((file) => {
+        //     await uploadImgToFireBase("avatar", file, setUrlFireBase)
+        // });
+        let codeClient = userInfo.codeClient || "clientTest"
+
+        if (selectedFilesArray.length > 0) {
+            _.forEach(selectedFilesArray, async (record) => {
+                await uploadImgToFireBase(`Category/${codeClient}`, record, setUrlFireBase)
+
+            })
+        }
+
+
+        // FOR BUG IN CHROME
+        event.target.value = "";
+    }
+
+    const onDeleteImage = async (img, id) => {
+
+        if (img.url) {
+            let _imageUrls = imageUrls.filter((item, index) => {
+                if (index !== id) {
+                    return true
+                } else {
+                    if (item.url) {
+                        deleteFromFirebase(item.url)
+                    }
+                    return false
+                }
+            })
+            console.log("binh_onDeleteImaget", _imageUrls)
+            setImageUrls(_imageUrls)
         }
     }
 
-
     const setUrlFireBase = async (url) => {
-        setPropertyInfo({ ...propertyInfo, ["url"]: url })
-
-        if (!imgFirebaseOld) {
-            setImgFirebaseOld(url)
-        } else {
-            await deleteFromFirebase(imgFirebaseOld, url, setImgFirebaseOld)
+        let objImg = {
+            "propertyCode": null,
+            "codeImage": null,
+            "url": url
         }
+
+        setImageUrls(((previousImages) => previousImages.concat(objImg)))
     }
 
 
     let textLength = propertyInfo && propertyInfo.introduces ? propertyInfo.introduces.length : 0
-    console.log("binh_client", propertyInfo, typePropertyCategoryAll)
+    console.log("binh_client", propertyInfo, imageUrls)
     return (
         <PageContainerBroker
             titleId={"Thêm mới tài sản"}
@@ -296,11 +320,11 @@ const PropertyManagementAdd = () => {
                             <div className="col-12 col-sm-8 value">
                                 <div className="custom-input-react-select">
                                     <Select
-                                        onChange={onChangeSelectTypeProperty}
+                                        onChange={onChangeSelectCateTypePropertyCategory}
                                         options={typePropertyCategoryAll}
                                         value={
                                             typePropertyCategoryAll.filter((option) => {
-                                                return option.value == propertyInfo.codeTypeProperty
+                                                return option.value == propertyInfo.codeCateTypePropertyCategory
                                             })
                                         }
                                     />
@@ -309,7 +333,7 @@ const PropertyManagementAdd = () => {
                         </div>
 
                         {
-                            propertyInfo.codeTypeProperty &&
+                            propertyInfo.codeCateTypePropertyCategory &&
                             <>
                                 <div className="body-content-row row gutters-5">
                                     <div className="col-12 col-sm-4 label">
@@ -318,11 +342,11 @@ const PropertyManagementAdd = () => {
                                     <div className="col-12 col-sm-8 value">
                                         <div className="custom-input-react-select">
                                             <Select
-                                                onChange={onChangeSelectTypePropertyDetail}
-                                                options={typePropertyCategoryDetailAll}
+                                                onChange={onChangeSelectTypeProperty}
+                                                options={typePropertyAll}
                                                 value={
-                                                    typePropertyCategoryDetailAll.filter((option) => {
-                                                        return option.value == propertyInfo.codeTypePropertyDetail
+                                                    typePropertyAll.filter((option) => {
+                                                        return option.value == propertyInfo.codeTypeProperty
                                                     })
                                                 }
                                             />
@@ -434,8 +458,47 @@ const PropertyManagementAdd = () => {
                                         Ảnh
                                     </div>
                                     <div className="col-12 col-sm-8 value">
+                                        <div className="block-image">
+                                            <label className="label-add-image item-center">
+                                                +
+                                                <input
+                                                    type="file"
+                                                    name="images"
+                                                    onChange={handleImageChange}
+                                                    multiple
+                                                    accept="image/png , image/jpeg, image/webp"
+                                                />
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
+
+
+                                {imageUrls && imageUrls.length > 0 && <div className="body-content-row row gutters-5">
+                                    <div className="col-8 col-sm-4 label">
+
+                                    </div>
+                                    <div className="col-12 col-sm-8 value">
+                                        <div className="block-image">
+                                            <div className="list-images">
+                                                {
+                                                    imageUrls.map((image, index) => {
+                                                        return (
+                                                            <div key={image} className="item-image">
+                                                                <img src={image.url} alt="upload" />
+                                                                <div className="icon-close item-center" onClick={() => onDeleteImage(image, index)}>
+                                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    })
+                                                }
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                }
 
                                 <div className="body-content-row row gutters-5">
                                     <div className="col-8 col-sm-4 label">
@@ -584,6 +647,17 @@ const PropertyManagementAdd = () => {
                                             </div>
                                         </div>
 
+                                    </div>
+                                </div>
+
+                                <div className="body-content-row row gutters-5">
+                                    <div className="col-12 col-sm-4 label">
+
+                                    </div>
+                                    <div className="col-12 col-sm-8">
+                                        <div className="container-action">
+                                            <button class="btn btn-continue" onClick={onHandleUpdate} >Cập nhật</button>
+                                        </div>
                                     </div>
                                 </div>
 

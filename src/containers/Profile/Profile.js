@@ -35,7 +35,7 @@ const Profile = () => {
         reader.readAsDataURL(file)
     };
 
-    const callApiGetProvinceAll = async () => {
+    const fetchGetProvinceAll = async () => {
         dispatch(alertType(true))
         await globalService.getProvinceAll()
             .then(res => {
@@ -53,7 +53,7 @@ const Profile = () => {
             });
     }
 
-    const callApiGetFindAllDistrictsByProvinceCode = async (provinceCode) => {
+    const fetchGetFindAllDistrictsByProvinceCode = async (provinceCode) => {
         dispatch(alertType(true))
         await globalService.getFindAllDistrictsByProvinceCode(provinceCode)
             .then(res => {
@@ -72,7 +72,7 @@ const Profile = () => {
     }
 
 
-    const callApiGetTypeLoanAll = async () => {
+    const fetchGetTypeLoanAll = async () => {
         dispatch(alertType(true))
         await globalService.getAllTypeLoan()
             .then(res => {
@@ -126,8 +126,8 @@ const Profile = () => {
     }
 
     useEffect(() => {
-        callApiGetProvinceAll()
-        callApiGetTypeLoanAll()
+        fetchGetProvinceAll()
+        fetchGetTypeLoanAll()
     }, []);
 
 
@@ -135,14 +135,14 @@ const Profile = () => {
         setClientData({ ...userInfo })
         setImgFirebaseOld(userInfo.url)
         if (userInfo && userInfo.provinceCode) {
-            callApiGetFindAllDistrictsByProvinceCode(userInfo.provinceCode)
+            fetchGetFindAllDistrictsByProvinceCode(userInfo.provinceCode)
         }
     }, [userInfo]);
 
 
     const onChangeSelectProvince = (objValue) => {
         setClientData({ ...clientData, provinceCode: objValue.value })
-        callApiGetFindAllDistrictsByProvinceCode(objValue.value)
+        fetchGetFindAllDistrictsByProvinceCode(objValue.value)
     }
 
     const onChangeSelectDistrict = (objValue) => {

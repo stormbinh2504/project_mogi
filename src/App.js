@@ -70,6 +70,7 @@ function App() {
             }
             <Switch>
               <div className="main">
+                {/* <Route path='*' element={<Navigate to={route.error} />} /> */}
                 {app.typeUser === TYPE_USER.CUSTOMER &&
                   < div id="container-page-content" className="container-page-content ">
                     <Route exact path="/home" component={Home} />
