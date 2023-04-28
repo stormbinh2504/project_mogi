@@ -1,4 +1,4 @@
-import { GLOBALTYPES } from '../actions/actionTypes'
+import actionTypes from '../actions/actionTypes'
 import { TYPE_USER } from './../../utils';
 
 const initialState = {
@@ -11,6 +11,11 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 typeUser: action.data,
+            };
+        case actionTypes.USER_LOGOUT:
+            return {
+                ...state,
+                ...initialState
             };
         default:
             return state;

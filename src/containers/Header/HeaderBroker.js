@@ -25,25 +25,21 @@ const listMenuHeaderBroker = [
         path: "/property-management"
     },
     {
-        title: "Đơn hàng",
-        path: "/order"
-    },
-    {
-        title: "Môi giới",
-        path: "/broker"
+        title: "Đăng ký tài khoản",
+        path: "/register-type-account"
     },
     {
         title: "Nạp tiền",
         path: "/recharge-broker"
     },
-    {
-        title: "Mã thưởng",
-        path: "/recharge-broker"
-    },
-    {
-        title: "Tin nhắn",
-        path: "/profile"
-    },
+    // {
+    //     title: "Mã thưởng",
+    //     path: "/recharge-broker"
+    // },
+    // {
+    //     title: "Tin nhắn",
+    //     path: "/profile"
+    // },
 ]
 
 
@@ -77,7 +73,8 @@ const HeaderBroker = () => {
                     <div className="menu-list">
                         {listMenuHeaderBroker && listMenuHeaderBroker.map((item, index) => {
                             return (
-                                <div className={("menu-item item-center " + (pathCur.includes(item.path) ? "active" : ""))} onClick={() => {
+                                <div className={("menu-item item-center " + (pathCur === item.path ? "active" : ""))
+                                } onClick={() => {
                                     setPathCur(item.path)
                                 }}>
                                     <Link to={item.path}>

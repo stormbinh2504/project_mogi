@@ -1,0 +1,200 @@
+@import "../../styles/common";
+
+.register-type-account {
+    .body-container {
+        .body-content {
+            .body-content-row {
+                margin: 10px 0px;
+
+                .label {
+                    float      : left;
+                    text-align : left;
+                    font-size  : 16px;
+                    font-weight: 700;
+                    height     : 40px;
+                }
+
+
+                .title {
+                    display    : flex;
+                    align-items: center;
+                    font-weight: 700;
+                }
+
+                .value {
+                    text-align: left;
+
+                    .value-label {
+                        text-align : left;
+                        font-size  : 18px;
+                        font-weight: 600;
+                    }
+                }
+
+                .container-action {
+
+                    .btn-continue {
+                        color     : #333;
+                        background: #00deb6;
+                        border    : 0;
+                        min-width : 100px;
+
+                        &:hover {
+                            color: white;
+                        }
+                    }
+                }
+            }
+
+            .list-type-account {
+                .level-account {
+                    .box-item {
+                        border       : 2px solid #d7dce0;
+                        border-radius: 5px;
+                        padding      : 20px;
+                        cursor       : pointer;
+
+                        &.disabled-switch {
+                            cursor: not-allowed;
+                            border: none;
+
+                            ::after {
+                                content         : ""; // ::before and ::after both require content
+                                position        : absolute;
+                                top             : 0;
+                                left            : 0;
+                                width           : 100%;
+                                height          : 100%;
+                                background-color: rgba(0, 0, 0, 0.5);
+                                opacity         : 0.1;
+                            }
+                        }
+
+                        .level-desc {
+
+                            .level-title {
+                                font-size  : 22px;
+                                font-weight: 600;
+                            }
+
+                            .level-detail {}
+                        }
+
+                        .action-switch {
+                            width        : 100%;
+                            border       : 1px solid #000;
+                            border-radius: 5px;
+                            margin-top   : 30px;
+
+                            .btn-switch {}
+                        }
+
+                        &.box-item-0 {
+                            .level-desc {
+                                .level-title {
+                                    color: $black_color;
+                                }
+
+                                .level-detail {}
+                            }
+
+                            .action-switch {
+                                border-color: $black_color;
+
+                                .btn-switch {
+                                    color: $black_color;
+                                }
+                            }
+
+                            &:hover {
+                                border-color: $black_color;
+                            }
+                        }
+
+                        &.box-item-1 {
+                            .level-desc {
+                                .level-title {
+                                    color: $green_color;
+                                }
+
+                                .level-detail {}
+                            }
+
+                            .action-switch {
+                                border-color: $green_color;
+
+                                .btn-switch {
+                                    color: $green_color;
+                                }
+                            }
+
+                            &:hover {
+                                border-color: $green_color;
+                            }
+                        }
+
+
+
+                        &.box-item-2 {
+                            .level-desc {
+                                .level-title {
+                                    color: $blue_color;
+                                }
+
+                                .level-detail {}
+                            }
+
+                            .action-switch {
+                                border-color: $blue_color;
+
+                                .btn-switch {
+                                    color: $blue_color;
+                                }
+                            }
+
+                            &:hover {
+                                border-color: $blue_color;
+                            }
+                        }
+
+                        &.box-item-3 {
+                            .level-desc {
+                                .level-title {
+                                    color: $orange_color;
+                                }
+
+                                .level-detail {}
+                            }
+
+                            .action-switch {
+                                border-color: $orange_color;
+
+                                .btn-switch {
+                                    color: $orange_color;
+                                }
+                            }
+
+                            &:hover {
+                                border-color: $orange_color;
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+// từ 575.98px trở xuống
+@include media-breakpoint-down(xs) {}
+
+
+// từ 767px trở xuống
+@include media-breakpoint-down(sm) {}
+
+// từ 991px trở xuống
+@include media-breakpoint-down(md) {}

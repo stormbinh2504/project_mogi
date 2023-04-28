@@ -43,5 +43,11 @@ const accountService = {
         return axios.get(`${REACT_APP_BASE_URL_API}property/loan/findPropertyDetail?` + queryString.stringify(queryParams))
         // http://localhost:8080/property/loan/findPropertyDetail?codeProperty=2
     },
+
+
+    updateSwitchAccount(body) { //Chuyển đổi loại tài khoản
+        return axios.post(`${REACT_APP_BASE_URL_API}accountslever/switchAccount`, body)
+    },
+
 }
 export default accountService

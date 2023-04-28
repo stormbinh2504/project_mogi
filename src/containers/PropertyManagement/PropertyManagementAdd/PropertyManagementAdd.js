@@ -11,39 +11,44 @@ import Select from 'react-select';
 import NumberInput from '../../../components/Input/NumberInput/NumberInput';
 import _ from 'lodash';
 
-const PropertyManagementAdd = () => {
+const df_PropertyInfo = {
+    "codeProperty": null,
+    "codeCateTypePropertyCategory": null,
+    "codeTypeProperty": null,
+    "nameProperty": null,
+    "provinceCode": null,
+    "districtCode": null,
+    "wardsCode": null,
+    "codeClient": null,
+    "areaUse": null,
+    "usableArea": null,
+    "landArea": null,
+    "bedCount": null,
+    "livingCount": null,
+    "kitchenCount": null,
+    "bathCount": null,
+    "law": null,
+    "priceBuy": null,
+    "priceLoan": null,
+    "introduces": null,
+    "location": null,
+    "imageList": []
+}
+
+const PropertyManagementAdd = ({ dataEdit, setStep }) => {
+
+    // const { dataEdit, setStep } = props
+    // console.log("binh_check_dataEdit", props)
     const history = useHistory()
     const dispatch = useDispatch()
     const state = useSelector((state) => state);
     const { auth, app, user } = state
     const { userInfo } = user
-    const [propertyInfo, setPropertyInfo] = useState({
-        "codeProperty": null,
-        "codeCateTypePropertyCategory": "2",
-        "codeTypeProperty": null,
-        "nameProperty": null,
-        "provinceCode": null,
-        "districtCode": null,
-        "wardsCode": null,
-        "codeClient": null,
-        "areaUse": null,
-        "usableArea": null,
-        "landArea": null,
-        "bedCount": null,
-        "livingCount": null,
-        "kitchenCount": null,
-        "law": null,
-        "priceBuy": null,
-        "priceLoan": null,
-        "introduces": null,
-        "location": null,
-        "imageList": []
-    })
+    const [propertyInfo, setPropertyInfo] = useState(df_PropertyInfo)
 
     const [provinceAll, setProvinceAll] = useState([])
     const [districtsAll, setDistrictsAll] = useState([])
     const [wardsAll, setWardssAll] = useState([])
-
     const [typePropertyCategoryAll, SetTypePropertyCategoryAll] = useState([])
     const [typePropertyAll, setTypePropertyAll] = useState([])
     const [lawCategoryAll, SetLawCategoryAll] = useState([])
@@ -160,17 +165,13 @@ const PropertyManagementAdd = () => {
             });
     }
 
-
-
     const handleChangeInput = e => {
         const { name, value } = e.target
-        setPropertyInfo({ ...propertyInfo, [name]: value })
+        setPropertyInfo((prev) => ({ ...prev, [name]: value }))
     }
 
 
     const onHandleUpdate = async () => {
-
-
         let body = _.cloneDeep(propertyInfo)
         body.imageList = imageUrls
 
@@ -179,6 +180,7 @@ const PropertyManagementAdd = () => {
             .then(res => {
                 dispatch(alertType(false))
                 ToastUtil.success("Cập nhật thành công");
+                setPropertyInfo(df_PropertyInfo)
             })
             .catch(error => {
                 dispatch(alertType(false))
@@ -187,68 +189,84 @@ const PropertyManagementAdd = () => {
     }
 
     useEffect(() => {
+        setPropertyInfo((prev) => ({ ...prev, ...dataEdit }))
+        dataEdit && setImageUrls(dataEdit.imageList)
+    }, [dataEdit]);
+
+    useEffect(() => {
         fetchGetProvinceAll()
         fetchGetAllTypePropertyCategory()
         fetchGetAllLawCategory()
-        fillDataPropertyInfo()
     }, []);
 
-    const fillDataPropertyInfo = () => {
-        setImageUrls([])
-    }
+
 
     useEffect(() => {
-        fetchGetAllCodeTypeProperty(propertyInfo.codeCateTypePropertyCategory)
+        if (propertyInfo.codeCateTypePropertyCategory) {
+            fetchGetAllCodeTypeProperty(propertyInfo.codeCateTypePropertyCategory)
+        }
     }, [propertyInfo.codeCateTypePropertyCategory]);
 
+    useEffect(() => {
+        if (propertyInfo.provinceCode) {
+            fetchGetFindAllDistrictsByProvinceCode(propertyInfo.provinceCode)
+        }
+    }, [propertyInfo.provinceCode]);
 
     useEffect(() => {
-        setPropertyInfo({ ...propertyInfo, codeClient: userInfo.codeClient })
+        if (propertyInfo.districtCode) {
+            fetchGetFindAllWardsByDistrictCode(propertyInfo.districtCode)
+        }
+    }, [propertyInfo.districtCode]);
 
+    useEffect(() => {
+        setPropertyInfo((prev) => ({ ...prev, codeClient: userInfo.codeClient }))
     }, [userInfo]);
 
 
     const onChangeSelectProvince = (objValue) => {
-        setPropertyInfo({ ...propertyInfo, provinceCode: objValue.value })
-        fetchGetFindAllDistrictsByProvinceCode(objValue.value)
+        setPropertyInfo((prev) => ({ ...prev, provinceCode: objValue.value, districtCode: null, wardsCode: null }))
+
     }
 
     const onChangeSelectDistrict = (objValue) => {
-        setPropertyInfo({ ...propertyInfo, districtCode: objValue.value })
-        fetchGetFindAllWardsByDistrictCode(objValue.value)
+        setPropertyInfo((prev) => ({ ...prev, districtCode: objValue.value, wardsCode: null }))
     }
 
     const onChangeSelectWard = (objValue) => {
-        setPropertyInfo({ ...propertyInfo, wardsCode: objValue.value })
+        setPropertyInfo((prev) => ({ ...prev, wardsCode: objValue.value }))
     }
 
     const onChangeLaw = (objValue) => {
-        setPropertyInfo({ ...propertyInfo, law: objValue.value })
+        setPropertyInfo((prev) => ({ ...prev, law: objValue.value }))
     }
 
     const onChangeSelectCateTypePropertyCategory = (objValue) => {
-        setPropertyInfo({ ...propertyInfo, codeCateTypePropertyCategory: objValue.value })
-        // fetchGetAllCodeTypeProperty(objValue.value)
+        setPropertyInfo((prev) => ({ ...prev, codeCateTypePropertyCategory: objValue.value, codeTypeProperty: null }))
     }
 
     const onChangeSelectTypeProperty = (objValue) => {
-        setPropertyInfo({ ...propertyInfo, codeTypeProperty: objValue.value })
+        setPropertyInfo((prev) => ({ ...prev, codeTypeProperty: objValue.value }))
     }
 
     const onChangePriceLoan = (value, valid) => {
-        setPropertyInfo({ ...propertyInfo, priceLoan: value })
+        setPropertyInfo((prev) => ({ ...prev, priceLoan: value }))
     };
 
     const onChangeAreaUse = (value, valid) => {
-        setPropertyInfo({ ...propertyInfo, areaUse: value })
+        setPropertyInfo((prev) => ({ ...prev, areaUse: value }))
     };
 
     const onChangeLandArea = (value, valid) => {
-        setPropertyInfo({ ...propertyInfo, landArea: value })
+        setPropertyInfo((prev) => ({ ...prev, landArea: value }))
     };
 
     const onChangeBedCount = (value, valid) => {
-        setPropertyInfo({ ...propertyInfo, bedCount: value })
+        setPropertyInfo((prev) => ({ ...prev, bedCount: value }))
+    };
+
+    const onChangeBathCount = (value, valid) => {
+        setPropertyInfo((prev) => ({ ...prev, bathCount: value }))
     };
 
     const handleImageChange = async (event) => {
@@ -294,7 +312,6 @@ const PropertyManagementAdd = () => {
 
     const setUrlFireBase = async (url) => {
         let objImg = {
-            "propertyCode": null,
             "codeImage": null,
             "url": url
         }
@@ -305,6 +322,7 @@ const PropertyManagementAdd = () => {
 
     let textLength = propertyInfo && propertyInfo.introduces ? propertyInfo.introduces.length : 0
     console.log("binh_client", propertyInfo, imageUrls)
+    console.log("binh_setPropertyInfo2", propertyInfo, dataEdit)
     return (
         <PageContainerBroker
             titleId={"Thêm mới tài sản"}
@@ -587,7 +605,7 @@ const PropertyManagementAdd = () => {
 
 
                                             <div className="info-attr col-12 col-sm-6">
-                                                <div className="label-info-attr">Phòng tắm?</div>
+                                                <div className="label-info-attr">Phòng tắm</div>
                                                 <div className="mg-form-control">
                                                     <div className="input-number">
                                                         <NumberInput
@@ -596,9 +614,9 @@ const PropertyManagementAdd = () => {
                                                             min={0}
                                                             max={999999999999}
                                                             step={1}
-                                                            value={propertyInfo.bedCount}
+                                                            value={propertyInfo.bathCount}
                                                             valid={true}
-                                                            onChange={onChangeBedCount}
+                                                            onChange={onChangeBathCount}
                                                             allowZero={false}
                                                             allowDecimal={false}
                                                             allowNegative={false}

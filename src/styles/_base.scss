@@ -1,7 +1,19 @@
 @import "common";
 
 .App {
-  .cursor-pointer{
+  .cursor-pointer {
     cursor: pointer;
+  }
+
+  .text-green {
+    color: rgb(17, 182, 102) !important;
+  }
+
+  .text-blue {
+    color: rgb(4, 153, 168) !important;
+  }
+
+  .text-orange {
+    color: rgb(235, 130, 25) !important;
   }
 }

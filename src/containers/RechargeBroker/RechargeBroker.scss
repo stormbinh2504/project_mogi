@@ -8,37 +8,6 @@
         margin-top: 50px;
         padding   : 20px;
 
-        .container-action {
-            margin-top     : 20px;
-            justify-content: flex-end;
-            gap            : 10px;
-            display        : flex;
-
-            .btn {
-                min-width: 120px;
-            }
-
-            .btn-mogi-1 {
-                border          : 1px solid #00737c;
-                border-radius   : 5px;
-                background-color: #f0f8f8;
-                color           : #00737c;
-                padding         : 5px 10px;
-                text-decoration : none;
-            }
-
-            .btn-continue {
-                color     : #333;
-                background: #00deb6;
-                border    : 0;
-                min-width : 100px;
-
-                &:hover {
-                    color: white;
-                }
-            }
-        }
-
         .recharge-broker-content {
 
             .deposit-method {

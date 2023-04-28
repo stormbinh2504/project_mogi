@@ -35,9 +35,10 @@ export const isSuccessStatusCode = (s) => {
 };
 
 const isTokenExpiredError = (response) => {
-    if (response.status !== 401) {
+    if (response.status !== 403) {
         return false;
     }
+    return true;
 
     // if (config.switch.enableRefreshToken) {
     if (false) {
@@ -235,13 +236,12 @@ instance.interceptors.response.use(
         }
 
         const { data } = response;
-
+        console.log("binh_response", response, isTokenExpiredError(response))
         if (isTokenExpiredError(response)) {
-
             // dispatch(actions.setRefreshTokenFail());
             // isRefreshingAccessToken = false;
             // onRefreshTokenComplete(null);
-            // await dispatch(actions.logoutExpiredToken())
+            await dispatch(actions.logout())
             // await dispatch(actions.setIsOpenExpiredTokenErrorScreen(true))
             // await dispatch(actions.logoutBySessionExpired())
         }

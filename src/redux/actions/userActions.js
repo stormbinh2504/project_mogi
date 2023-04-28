@@ -106,17 +106,11 @@ export const register = (data) => async (dispatch) => {
 }
 
 
-export const logout = () => async (dispatch) => {
-    try {
-        localStorage.removeItem('firstLogin')
-        await postDataAPI('logout')
-        window.location.href = "/login"
-    } catch (err) {
+export const logout = () => {
+    return (dispatch, getState) => {
+        const state = getState();
         dispatch({
-            type: actionTypes.ALERT,
-            payload: {
-                error: err.response.data.msg
-            }
+            type: actionTypes.USER_LOGOUT,
         })
-    }
-}
+    };
+};

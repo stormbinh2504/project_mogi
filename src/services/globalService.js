@@ -43,6 +43,10 @@ const globalService = {
         return axios.get(`${REACT_APP_BASE_URL_API}common/findAllLawCategory`)
     },
 
+    getAllTypeAccount() { // Lấy ra loại tài khoản
+        return axios.get(`${REACT_APP_BASE_URL_API}common/findAllTypeAccount`)
+    },
+
 }
 
 export default globalService

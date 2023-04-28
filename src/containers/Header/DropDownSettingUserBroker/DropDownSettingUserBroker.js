@@ -16,6 +16,10 @@ const DropDownSettingUserBroker = (props) => {
     //     setIsShowSetting(false)
     // });
 
+    const onHandleLogout = () => {
+        dispatch(actions.logout())
+    }
+
     return (
         <div className="setting-container" >
             <ul class="profile-menu">
@@ -28,7 +32,7 @@ const DropDownSettingUserBroker = (props) => {
                 <li><a href="/Coupon/CouponList" ><i class="fa fa-gift"></i>Mã thưởng</a></li>
                 <li><a href="/change-password"><i class="fa fa-lock"></i>Thay đổi mật khẩu</a></li>
                 <li class="divider"></li>
-                <li><a href="/Account/LogOff"><i class="fa fa-sign-out"></i>Thoát</a></li>
+                <li onClick={onHandleLogout}><a href="/login"><i class="fa fa-sign-out"></i>Thoát</a></li>
             </ul>
         </div>
     )

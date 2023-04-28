@@ -52,7 +52,8 @@ const PropertyManagement = () => {
             .catch(error => {
                 dispatch(alertType(false))
                 setLoading(false);
-                ToastUtil.error(error);
+                // ToastUtil.error(error);
+                ToastUtil.errorApi(error, "Không thể tải về danh sách tài sản");
             });
     }
 
@@ -64,7 +65,8 @@ const PropertyManagement = () => {
         await accountService.getPropertyDetail(codeProperty)
             .then(res => {
                 if (res) {
-                    setDataEdit(res.data);
+                    console.log("binh_check_PropertyManagement", res)
+                    setDataEdit(res);
                     dispatch(alertType(false))
                     setStep(2)
                 }
@@ -74,7 +76,7 @@ const PropertyManagement = () => {
                 ToastUtil.error(error);
             });
     }
-
+    // console.log("binh_check_PropertyManagement", dataEdit)
     return (
 
         <>
@@ -145,7 +147,12 @@ const PropertyManagement = () => {
             }
             {step === 2 && <PropertyManagementAdd
                 dataEdit={dataEdit}
+                setStep={setStep}
             />}
+            {/* <PropertyManagementAdd
+                dataEdit={dataEdit}
+                setStep={setStep}
+            /> */}
         </>
     )
 }
