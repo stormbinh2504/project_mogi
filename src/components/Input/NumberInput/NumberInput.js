@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { KeyCodeUtils } from "../../../utils";
 import "./NumberInput.scss"
+import { connect } from 'react-redux';
 
 // Fix theo src https://github.com/react-component/input-number/blob/4.5.x/src/index.js
 function noop() {
@@ -1003,4 +1004,4 @@ class NumberInput extends React.Component {
     }
 }
 
-export default NumberInput;
+export default connect(null, null, null, { forwardRef: true })(NumberInput);

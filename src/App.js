@@ -28,6 +28,8 @@ import { initializeApp } from './redux/actions';
 import PropertyManagement from './containers/PropertyManagement/PropertyManagement';
 import PropertyManagementAdd from './containers/PropertyManagement/PropertyManagementAdd/PropertyManagementAdd';
 import RegisterTypeAccount from './containers/RegisterTypeAccount/RegisterTypeAccount';
+import NewsManagement from './containers/NewsManagement/NewsManagement';
+import Footer from './containers/Footer/Footer';
 
 if (typeof window !== "undefined") {
   injectStyle();
@@ -94,6 +96,7 @@ function App() {
                     <PrivateRouter exact path="/home-broker" component={HomeBroker} />
                     <PrivateRouter exact path="/recharge-broker" component={RechargeBroker} />
                     <PrivateRouter exact path="/property-management" component={PropertyManagement} />
+                    <PrivateRouter exact path="/news-management" component={NewsManagement} />
                     <PrivateRouter exact path="/property-management-add" component={PropertyManagementAdd} />
                     <PrivateRouter exact path="/register-type-account" component={RegisterTypeAccount} />
                     {/* <Route exact path="/stripe" element={StripeCheckoutButton} /> */}
@@ -104,7 +107,9 @@ function App() {
                 </div>
               </div>
             </Switch>
-
+            {
+              app.typeUser === TYPE_USER.CUSTOMER && <Footer />
+            }
             <ToastContainer
               position="top-right"
               autoClose={5000}

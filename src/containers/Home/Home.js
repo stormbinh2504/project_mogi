@@ -2,6 +2,40 @@ import React from 'react'
 import Header from '../Header/Header'
 import "./Home.scss"
 
+
+const df_listfeatures = [
+    {
+        name: "Review khu vực",
+        link: "",
+        icon: <i class="fa fa-area-chart" aria-hidden="true"></i>
+    },
+    {
+        name: "Phòng trọ gần trường",
+        link: "",
+        icon: <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+    },
+    {
+        name: "Phòng trọ công nhân",
+        link: "",
+        icon: <i class="fa fa-users" aria-hidden="true"></i>
+    },
+    {
+        name: "Review khu vực",
+        link: "",
+        icon: <i class="fa fa-area-chart" aria-hidden="true"></i>
+    },
+    {
+        name: "10 Bước mua nhà",
+        link: "",
+        icon: <i class="fa fa-step-forward" aria-hidden="true"></i>
+    },
+    {
+        name: "Vay mua nhà",
+        link: "",
+        icon: <i class="fa fa-list-ul" aria-hidden="true"></i>
+    },
+]
+
 const Home = () => {
     return (
         <div className='container-home'>
@@ -55,9 +89,35 @@ const Home = () => {
                         <h2 class="title">Dự án nổi bật</h2>
                         <div class="property-items clearfix"></div>
                     </div>
+                    <div id="banner-home-center" class="banner-home-center home-banner">
+                        <div class="banner-content">
+                            <a href="https://trogiup.mogi.vn/bang-gia-phi-thanh-vien-va-dich-vu-tren-mogi/" target="_blank" rel="follow" gtm-cat="banner" gtm-event="link" gtm-act="view-banner-home-top">
+                                <img src="https://cdn.mogi.vn/banner/2023/6_34b060cf-12ca-469a-ae05-971959d3535c.png" />
+                            </a>
+                        </div>
+                    </div>
+
+                    <div id="features" class="features" ng-non-bindable="">
+                        <h2 class="title">Tiện ích từ Mogi.vn</h2>
+                        <div class="list-features clearfix">
+                            <div className="row">{
+                                df_listfeatures.map((item, index) => {
+                                    return (
+                                        <div className="col-6 col-md-2">
+                                            <div class="item-feature">
+                                                {item.icon}
+                                                <a class="link-overlay" href={item.link} >{item.name}</a>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

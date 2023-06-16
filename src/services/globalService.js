@@ -47,6 +47,10 @@ const globalService = {
         return axios.get(`${REACT_APP_BASE_URL_API}common/findAllTypeAccount`)
     },
 
+    getAllStatusNews() { // Lấy ra danh sách trạng thái tin
+        return axios.get(`${REACT_APP_BASE_URL_API}common/findAllStatusNews`)
+    },
+
 }
 
 export default globalService

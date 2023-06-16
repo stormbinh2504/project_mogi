@@ -256,7 +256,7 @@ const RegisterTypeAccount = () => {
                                     </tbody>
                                 </table>
 
-                                <div className="container-action">
+                                <div className="container-action style-add">
                                     <button class="btn btn-mogi-1" onClick={() => { setStep(1) }}><i class="icon icon-arrow-line-left" ></i> Quay lại</button>
                                     <button class="btn btn-continue" onClick={Submit} >Thanh toán </button>
                                 </div>

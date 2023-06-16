@@ -4,3 +4,4 @@ export * from './FuncHookUtils';
 export { default as ToastUtil } from './ToastUtil';
 export { default as KeyCodeUtils } from './KeyCodeUtils';
 export { default as CommonUtils } from './CommonUtils';
+export { default as JsxUtils } from './JsxUtils';

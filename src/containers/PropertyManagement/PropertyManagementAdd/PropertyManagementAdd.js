@@ -35,7 +35,7 @@ const df_PropertyInfo = {
     "imageList": []
 }
 
-const PropertyManagementAdd = ({ dataEdit, setStep }) => {
+const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
 
     // const { dataEdit, setStep } = props
     // console.log("binh_check_dataEdit", props)
@@ -323,9 +323,10 @@ const PropertyManagementAdd = ({ dataEdit, setStep }) => {
     let textLength = propertyInfo && propertyInfo.introduces ? propertyInfo.introduces.length : 0
     console.log("binh_client", propertyInfo, imageUrls)
     console.log("binh_setPropertyInfo2", propertyInfo, dataEdit)
+
     return (
         <PageContainerBroker
-            titleId={"Thêm mới tài sản"}
+            titleId={isEdit ? "Sửa tài sản" : "Thêm mới tài sản"}
         >
             <div className="body property-management-adđ">
                 <div className="body-container">
@@ -648,6 +649,32 @@ const PropertyManagementAdd = ({ dataEdit, setStep }) => {
 
                                 <div className="body-content-row row gutters-5">
                                     <div className="col-12 col-sm-4 label">
+                                        Địa chỉ
+                                    </div>
+                                    <div className="col-12 col-sm-8 value">
+                                        <div className="mg-form-control">
+                                            <input className="text-control" value={propertyInfo.location} name="location"
+                                                onChange={handleChangeInput} />
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {
+                                    propertyInfo.location && <div className="body-content-row row gutters-5">
+                                        <div className="col-12 col-sm-4 label">
+
+                                        </div>
+                                        <div className="col-12 col-sm-8 value">
+                                            <div className="mg-form-control">
+                                                <div className="" dangerouslySetInnerHTML={{ __html: propertyInfo.location }}></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                                <div className="body-content-row row gutters-5">
+                                    <div className="col-12 col-sm-4 label">
                                         Giới thiệu
                                     </div>
                                     <div className="col-12 col-sm-8 value">
@@ -673,7 +700,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep }) => {
 
                                     </div>
                                     <div className="col-12 col-sm-8">
-                                        <div className="container-action">
+                                        <div className="container-action style-add">
                                             <button class="btn btn-continue" onClick={onHandleUpdate} >Cập nhật</button>
                                         </div>
                                     </div>
@@ -692,7 +719,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep }) => {
                     </div>
                 </div>
             </div>
-        </PageContainerBroker>
+        </PageContainerBroker >
     )
 }
 

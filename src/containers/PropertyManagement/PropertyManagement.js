@@ -87,9 +87,9 @@ const PropertyManagement = () => {
                     <div className="property-management">
                         <div className="property-management-container">
                             <div className="property-management-content">
-                                <div className="container-action">
+                                <div className="container-action style-add">
                                     <button className='btn btn-add' onClick={onHandleAdd}>
-                                        Thêm mới
+                                        Thêm mới tài sản
                                     </button>
                                 </div>
 
@@ -148,6 +148,7 @@ const PropertyManagement = () => {
             {step === 2 && <PropertyManagementAdd
                 dataEdit={dataEdit}
                 setStep={setStep}
+                isEdit={true}
             />}
             {/* <PropertyManagementAdd
                 dataEdit={dataEdit}

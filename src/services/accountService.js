@@ -44,6 +44,28 @@ const accountService = {
         // http://localhost:8080/property/loan/findPropertyDetail?codeProperty=2
     },
 
+    getNewsManagerAll(body) {  // Lấy ra danh sách tin manager
+        return axios.post(`${REACT_APP_BASE_URL_API}news/manager/findAllNews`, body)
+    },
+
+    updateSaveNews(body) { //Tạo tin mới
+        return axios.post(`${REACT_APP_BASE_URL_API}news/saveNews`, body)
+    },
+
+    deleteNews(id) { //Xóa tin
+        var queryParams = {
+            id
+        };
+        return axios.get(`${REACT_APP_BASE_URL_API}news/deleteNews?` + queryString.stringify(queryParams))
+    },
+
+
+    getNewsDetail(id) {  // Lấy ra thông tin  chi tiết tin
+        var queryParams = {
+            id
+        };
+        return axios.get(`${REACT_APP_BASE_URL_API}news/findNewsDetail?` + queryString.stringify(queryParams))
+    },
 
     updateSwitchAccount(body) { //Chuyển đổi loại tài khoản
         return axios.post(`${REACT_APP_BASE_URL_API}accountslever/switchAccount`, body)

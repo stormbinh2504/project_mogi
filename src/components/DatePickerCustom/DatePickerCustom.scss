@@ -1,0 +1,23 @@
+.date-picker-custom {
+  .react-datepicker-wrapper {
+    .react-datepicker__input-container {
+      >input {
+        height      : 40px;
+        width       : 100%;
+        font-size   : 16px;
+        padding-left: 10px;
+
+        &:focus {
+          outline-width: 1px;
+          outline-color: #00deb6;
+        }
+
+        &:hover {
+          outline-width: 1px;
+          outline-color: #00deb6;
+        }
+
+      }
+    }
+  }
+}

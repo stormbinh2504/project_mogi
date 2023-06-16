@@ -345,7 +345,7 @@ const Profile = () => {
 
                             </div>
                             <div className="col-12 col-sm-8">
-                                <div className="container-action">
+                                <div className="container-action style-add">
                                     <button class="btn btn-continue" onClick={onHandleUpdate} >Cập nhật</button>
                                 </div>
                             </div>

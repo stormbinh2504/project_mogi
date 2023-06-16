@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from '../../redux/actions'
 import { TYPE_USER } from '../../utils';
+import logo from "../../assets/svgs/logo.svg"
 
 import "./Header.scss"
 const Header = () => {
@@ -27,7 +28,7 @@ const Header = () => {
             <div className="container container-header">
                 <div className="navbar-logo item-center">
                     <div onClick={onRedirectHome}>
-                        <img className="img-logo" src="https://mogi.vn/content/Images/logo.svg" />
+                        <img className="img-logo" src={logo} />
                     </div>
                 </div>
                 <div className="navbar-menu">

@@ -11,7 +11,7 @@ import NumberFormatCustom from '../../components/NumberFormatCustom/NumberFormat
 import NumberInput from '../../components/Input/NumberInput/NumberInput';
 import { accountService } from '../../services';
 import { alertType } from '../../redux/actions';
-import { ToastUtil } from '../../utils';
+import { CommonUtils, ToastUtil } from '../../utils';
 
 const DF_PAYMENT_LIST = [
     {
@@ -96,7 +96,7 @@ const RechargeBroker = () => {
                                             <tbody>
                                                 <tr>
                                                     <td><i class="fa fa-dollar"></i>Tài khoản chính </td>
-                                                    <td class="text-right"><b class="ng-binding">0</b></td>
+                                                    <td class="text-right"><b class="ng-binding">{CommonUtils.formatNumber(userInfo.money, 0)}</b></td>
                                                 </tr>
                                                 <tr>
                                                     <td><i class="fa fa-gift"></i>Khuyến mãi </td>
@@ -131,7 +131,7 @@ const RechargeBroker = () => {
                                 </div>
                             </div>
                             <div class="col-12 ">
-                                <div className="container-action">
+                                <div className="container-action style-add">
                                     {/* <button class="btn btn-mogi-1"><i class="icon icon-arrow-line-left" ></i> Quay lại</button> */}
                                     <button class="btn btn-continue"
                                         onClick={() => {
@@ -182,7 +182,7 @@ const RechargeBroker = () => {
                                 </div>
                             </div>
                             <div class="col-12 ">
-                                <div className="container-action">
+                                <div className="container-action style-add">
                                     <button class="btn btn-mogi-1" onClick={() => { setStep(1) }}><i class="icon icon-arrow-line-left" ></i> Quay lại</button>
                                     <button class="btn btn-continue" onClick={() => {
                                         setStep(3)
@@ -241,7 +241,7 @@ const RechargeBroker = () => {
                                 </div>
                             </div>
                             <div class="col-12 ">
-                                <div className="container-action">
+                                <div className="container-action style-add">
                                     <button class="btn btn-mogi-1" onClick={() => { setStep(2) }}><i class="icon icon-arrow-line-left" ></i> Quay lại</button>
                                     <button class="btn btn-continue" onClick={() => { setStep(3) }} >Nạp ngay</button>
                                 </div>

@@ -7,10 +7,14 @@ import PageContainerBroker from './../../components/Broker/PageContainerBroker/P
 import Avatar from '../../assets/images/avatar.png'
 import Zalo from '../../assets/images/zalo.png'
 const HomeBroker = () => {
+    const state = useSelector((state) => state);
+    const { auth, app, user } = state
+    const { userInfo } = user
+
     const history = useHistory()
     const dispatch = useDispatch()
     const onGoToRecharge = () => {
-        history.push("/nap-tien")
+        history.push("/recharge-broker")
     }
 
     return (
@@ -22,17 +26,17 @@ const HomeBroker = () => {
                     <div className="col-4 side-bar">
                         <div className="widget user-profile ">
                             <div className="avatar item-center">
-                                <img src={Avatar} />
+                                <img src={userInfo.url ? userInfo.url : Avatar} />
                             </div>
                             <div className="user-name item-center ">
-                                Nguyễn Ngọc Bình
+                                {userInfo.fullName}
                             </div>
                             <div className="user-phone item-center">
-                                0522982504
+                                {userInfo.phone}
                             </div>
                             <div className="user-level item-center">
                                 <i className="fa fa-edit"></i>
-                                <span className="savings">Gói Tiết kiệm</span>
+                                <span className="savings">{userInfo.accountLeverTypeName}</span>
                             </div>
                         </div>
                         <div className="widget info-support">
@@ -54,7 +58,7 @@ const HomeBroker = () => {
                             <ul className="mbpay-balance">
                                 <li className="">
                                     <i className="fa fa-dollar"></i>Tài khoản chính
-                                    <span className="value ng-binding text-right" >0</span>
+                                    <span className="value ng-binding text-right" >{userInfo.money}</span>
                                 </li>
                                 <li className="">
                                     <i className="fa fa-gift"></i>Khuyến mãi

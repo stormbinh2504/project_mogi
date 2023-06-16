@@ -15,6 +15,45 @@ class CommonUtils {
         return isLoggedIn;
     };
 
+    static convertDateToDateApi(date) { // Thu May 25 2023 18:30:00 GMT+0700 (Indochina Time) {} => "2023-05-25T11:30:00"
+        let _date = date
+        if (date) {
+            _date = date.toISOString().slice(0, 19)
+            //  date.toISOString() = '2023-05-04T17:00:00.000Z'
+            // date.toISOString().slice(0, 19) = '2023-05-04T17:00:00'
+            console.log("binh_convertDateToDateApi", _date)
+            return _date
+        }
+    };
+
+
+    static convertDateApiToDate(date) { //  '2023-05-04T17:00:00' => '2023-05-04T17:00:00.000Z'
+        let _date = date
+        if (date) {
+            _date = `${date}.000Z`
+            return new Date(_date.slice(0, -1));
+        }
+    };
+
+
+    static formatNumber(amount, decimalCount = 2, decimal = ".", thousands = ",") {
+        try {
+            decimalCount = Math.abs(decimalCount);
+            decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
+
+            const negativeSign = amount < 0 ? "-" : "";
+
+            let i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString();
+            let j = (i.length > 3) ? i.length % 3 : 0;
+
+            return negativeSign +
+                (j ? i.substr(0, j) + thousands : '') +
+                i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) +
+                (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : "");
+        } catch (e) {
+            console.log(e)
+        }
+    };
 }
 
 export default CommonUtils;

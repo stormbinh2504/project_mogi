@@ -3,10 +3,13 @@
 body {
 
   .container-action {
-    margin-top     : 20px;
     justify-content: flex-end;
     gap            : 10px;
     display        : flex;
+
+    &.style-add {
+      margin-top: 20px;
+    }
 
     .btn {
       min-width: 120px;
