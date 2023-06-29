@@ -5,7 +5,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { CommonUtils } from '../../utils';
 const DatePickerCustom = (props) => {
     const { date, onChange } = props
-    const [startDate, setStartDate] = useState(new Date());
+    // const [startDate, setStartDate] = useState(new Date().setHours(0, 0, 0, 0));
+    const [startDate, setStartDate] = useState(null);
 
 
     useEffect(() => {
@@ -20,20 +21,42 @@ const DatePickerCustom = (props) => {
 
     const handleDateChange = (date) => {
         // setStartDate(date);
-        // console.log("binh_handleDateChange", { date1: date, date2: date.toISOString() })
+        console.log("binh_handleDateChange1", { date1: date })
         let _date = startDate
         _date = CommonUtils.convertDateToDateApi(date) || null
+        console.log("binh_handleDateChange2", { date1: date, date2: _date })
+        // onChange(_date)
         onChange(_date)
+
+    }
+
+
+    function convertUTCToLocalDate(date) {
+        if (!date) {
+            return date
+        }
+        date = new Date(date)
+        date = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
+        return date
+    }
+
+    function convertLocalToUTCDate(date) {
+        if (!date) {
+            return date
+        }
+        date = new Date(date)
+        date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
+        return date
     }
 
     return (
         <div className="date-picker-custom">
             <DatePicker
-                selected={startDate}
-                // timeFormat="HH:mm"
-                onChange={handleDateChange}
-                showTimeSelect
-                timeFormat={"p"}
+                selected={startDate} //https://github.com/Hacker0x01/react-datepicker/issues/1787#top
+                onChange={date => handleDateChange(convertLocalToUTCDate(date))}
+                // selected={convertUTCToLocalDate(startDate)}
+                dateFormat="dd/MM/yyyy"
+                placeholderText="Click to select a date"
             />
         </div>
     )

@@ -181,6 +181,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
                 dispatch(alertType(false))
                 ToastUtil.success("Cập nhật thành công");
                 setPropertyInfo(df_PropertyInfo)
+                history.push("/property-management")
             })
             .catch(error => {
                 dispatch(alertType(false))

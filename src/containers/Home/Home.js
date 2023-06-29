@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from '../Header/Header'
 import "./Home.scss"
+import ProjectTop from './ProjectTop/ProjectTop'
 
 
 const df_listfeatures = [
@@ -87,7 +88,9 @@ const Home = () => {
                     </div>
                     <div id="project-list" class="block-info list-items" ng-non-bindable="">
                         <h2 class="title">Dự án nổi bật</h2>
-                        <div class="property-items clearfix"></div>
+                        <div class="property-items clearfix">
+                            <ProjectTop />
+                        </div>
                     </div>
                     <div id="banner-home-center" class="banner-home-center home-banner">
                         <div class="banner-content">

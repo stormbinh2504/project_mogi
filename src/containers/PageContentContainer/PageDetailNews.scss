@@ -1,0 +1,169 @@
+.page-detail-news {
+
+    .info-title {
+        font-weight: bold;
+        font-size  : 18px;
+        line-height: 150%;
+        color      : #3c4146;
+        margin-top : 32px;
+    }
+
+    .main-info {
+        .info-name {
+            display    : inline;
+            font-weight: bold;
+            font-size  : 18px;
+            color      : #3c4146;
+            line-height: 27px;
+        }
+
+        .info-addr {
+            margin-top : 4px;
+            font-weight: normal;
+            font-size  : 15px;
+            color      : #3c4146;
+            line-height: 22px;
+        }
+
+        .info-price {
+            margin-top : 4px;
+            font-weight: bold;
+            font-size  : 24px;
+            line-height: 150%;
+            color      : #0499a8;
+        }
+
+        .info-attr {
+
+            .content-info-attr {
+                display: flex;
+                gap    : 10px;
+
+                .label-info-attr {
+                    padding-left: 20px;
+                    position    : relative;
+                    width       : 160px;
+                    color       : #657786;
+                    font-size   : 15px;
+                    line-height : 22px;
+                    text-align  : left;
+                    display     : inline-block;
+                    float       : left;
+
+                    &::before {
+                        width        : 8px;
+                        height       : 8px;
+                        border-radius: 50%;
+                        background   : #bec8d2;
+                        content      : "";
+                        position     : absolute;
+                        top          : 8px;
+                        left         : 0;
+                    }
+                }
+
+
+                .value-info-attr {}
+            }
+        }
+
+        .info-introduce {
+            margin-top : 12px;
+            font-size  : 15px;
+            line-height: 22px;
+            color      : #3c4146;
+        }
+    }
+
+    .info-user {
+        .agent-widget {
+            padding         : 16px;
+            margin-bottom   : 16px;
+            background-color: #fff;
+            border-radius   : 4px;
+            width           : 100%;
+            float           : left;
+            background      : #fff;
+            box-shadow      : 0 2px 6px rgba(70, 80, 110, .3);
+            border-radius   : 12px;
+
+            .agent-info {
+                border-bottom : 1px solid #e6ecf0;
+                display       : flex;
+                gap           : 10px;
+                padding-bottom: 10px;
+
+                img {
+                    width        : 48px;
+                    height       : 48px;
+                    border-radius: 50%;
+                }
+
+                .agent-name {
+                    font-weight: bold;
+                    display    : flex;
+                    align-items: center;
+                }
+            }
+
+            .agent-contact {
+                i {
+                    color    : #01adba;
+                    font-size: 20px;
+                }
+
+                .info-phone {
+                    border         : 1px solid #01adba;
+                    border-radius  : 8px;
+                    font-weight    : 600;
+                    font-size      : 15px;
+                    padding        : 8px 16px;
+                    width          : 100%;
+                    display        : flex;
+                    justify-content: space-between;
+                    cursor         : pointer;
+
+                    .number-phone {
+                        display: flex;
+                        gap    : 10px;
+
+                        i {
+                            display    : flex;
+                            align-items: center;
+                        }
+                    }
+
+                    .click-show {
+                        font-weight: 600;
+                        color      : #01adba;
+                    }
+                }
+
+                .info-email {
+                    margin-top     : 16px;
+                    color          : #3c4146;
+                    display        : flex;
+                    align-items    : center;
+                    justify-content: center;
+                    gap            : 10px;
+                    border         : 1px solid #d0d6e0;
+                    padding        : 8px 16px;
+                    border-radius  : 8px;
+                    cursor         : pointer;
+                    font-weight    : 600;
+                    font-size      : 15px;
+
+                    .wrap-info {
+                        display: flex;
+                        gap    : 10px;
+
+                        img {
+                            height: 100%;
+                            width : 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

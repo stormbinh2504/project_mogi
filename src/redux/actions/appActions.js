@@ -69,3 +69,16 @@ export const fetchUserInfoFromSavedSession = () => {
             });
     };
 }
+
+
+
+export const updateDataFilterNews = (objData) => {
+    return (dispatch, getState) => {
+        const state = getState();
+        console.log("updateDataFilterNews", objData)
+        dispatch({
+            type: "UPDATE_DATA_FILTER_NEWS",
+            data: objData
+        })
+    };
+};

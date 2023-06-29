@@ -16,6 +16,7 @@ import { Space, Table, Tag } from 'antd';
 import ModalAddNewsManagement from './ModalAddNewsManagement/ModalAddNewsManagement';
 import ModalListPropertyManagement from './ModalListPropertyManagement/ModalListPropertyManagement';
 import DatePickerCustom from '../../components/DatePickerCustom/DatePickerCustom';
+import ModalUptoNews from './ModalUptoNews/ModalUptoNews';
 
 const { Column, ColumnGroup } = Table;
 
@@ -27,7 +28,7 @@ const df_bodyGetManagerNews = {
     "codeTypeProperty": null,
     "codeCateTypePropertyCategory": null,
     "page": 0,
-    "records": 4,
+    "records": 0,
     "sort": null,
     "order": null
 }
@@ -37,6 +38,7 @@ const NewsManagement = () => {
     const dispatch = useDispatch()
     const state = useSelector((state) => state);
     const { auth, app, user } = state
+    const { userInfo } = user
 
     const [dataSource, setDataSource] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
@@ -48,9 +50,11 @@ const NewsManagement = () => {
         "dateCreate": null,
         "dateExpiration": null,
     });
+    const [dataUpto, setDataUpto] = useState(null);
 
     const [isOpenModalList, setIsOpenModalList] = useState(false);
     const [isOpenModalAdd, setIsOpenModalAdd] = useState(false);
+    const [isOpenModalUpto, setIsOpenModalUpto] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const [statusNewsAll, setStatusNewsAll] = useState([]);
     const [bodyGetManagerNews, setBodyGetManagerNews] = useState(df_bodyGetManagerNews);
@@ -63,7 +67,7 @@ const NewsManagement = () => {
 
     useEffect(() => {
         fetchGetAllStatusNews()
-        fetchGetNewsManagerAll(1);
+        fetchGetNewsManagerAll(0);
     }, []);
 
     const fetchGetNewsManagerAll = async (page) => {
@@ -76,21 +80,20 @@ const NewsManagement = () => {
             // "statusNews": "2",
             // "codeTypeProperty": "typeproperty_7",
             // "codeCateTypePropertyCategory": null,
-            // "page": 0,
             // "records": 4,
             // "sort": "desc",
             // "order": null
             ...bodyGetManagerNews,
+            codeClient: userInfo.codeClient,
+            page: page,
+            records: 4,
         }
         // await accountService.getNewsManagerAll(page, records = 10, codeProperty = null, codeTypeProperty = null, nameProperty = null)
         await accountService.getNewsManagerAll(body)
             .then(res => {
-                if (res && res.length > 0) {
-                    // let _data = res.data && res.data.length > 0 && res.data.map((item, index) => {
-                    //     if()
-                    // })
-                    setDataSource(res);
-                    setTotalPages(res.totalRecord);
+                if (res) {
+                    setDataSource(res.content);
+                    setTotalPages(res.totalElements);
                     setLoading(false);
                 }
                 dispatch(alertType(false))
@@ -178,10 +181,16 @@ const NewsManagement = () => {
             });
     }
 
-    const onSearch = () => {
-        fetchGetNewsManagerAll()
+    const onHandleUpto = async (record) => {
+        console.log("onHandleUpto", record)
+        setDataUpto(record)
+        setIsOpenModalUpto(true)
     }
-    console.log("binh_check_NewsManagement", dataSource)
+
+    const onSearch = () => {
+        fetchGetNewsManagerAll(1)
+    }
+    console.log("binh_check_NewsManagement", dataSource, totalPages)
     return (
 
         <>
@@ -209,6 +218,11 @@ const NewsManagement = () => {
                                 dataAdd={dataAdd}
                                 setIsEdit={(data) => { setIsEdit(data) }}
                                 isEdit={isEdit}
+                            />}
+                            {isOpenModalUpto && <ModalUptoNews
+                                isOpen={isOpenModalUpto}
+                                onClose={() => { setIsOpenModalUpto(false) }}
+                                dataUpto={dataUpto}
                             />}
 
                             <div className="list-lookup row row gutters-5">
@@ -292,14 +306,14 @@ const NewsManagement = () => {
                                     // columns={columns}
                                     dataSource={dataSource}
                                     pagination={{
-                                        pageSize: 10,
+                                        pageSize: 4,
                                         total: totalPages,
                                         onChange: (page) => {
-                                            fetchGetNewsManagerAll(page);
+                                            fetchGetNewsManagerAll(page - 1);
                                         },
                                     }}
                                 >
-                                    <Column title="id" dataIndex="id" key="id" />
+                                    <Column title="Mã" dataIndex="id" key="id" />
                                     <Column
                                         title="Ảnh"
                                         key="url"
@@ -312,16 +326,32 @@ const NewsManagement = () => {
                                     <Column title="Ngày tạo" dataIndex="dateCreate" key="dateCreate" />
                                     <Column title="Ngày hết hạn" dataIndex="dateExpiration" key="dateExpiration" />
                                     <Column title="Trạng thái" dataIndex="statusNews" key="statusNews" />
+                                    <Column title="Trạng thái đẩy top" key="statusUpTop"
+                                        render={(t, r) => {
+                                            let text = "Chưa hoạt động"
+                                            if (t.statusUpTop == 1) {
+                                                text = "Đang hoạt động"
+                                            }
+                                            return (
+                                                <div>
+                                                    {text}
+                                                </div>
+                                            )
+                                        }}
+                                    />
                                     <Column
-                                        title="Action"
+                                        title="Thao tác"
                                         key="action"
                                         render={(_, record) => (
                                             <Space size="middle">
-                                                <span className="cursor-pointer" onClick={() => { onHandleEdit(record) }}>
+                                                <span className="cursor-pointer item-center" onClick={() => { onHandleEdit(record) }}>
                                                     <img src={IconEdit} />
                                                 </span>
-                                                <span className="cursor-pointer" onClick={() => { onHandleDelete(record) }}>
+                                                <span className="cursor-pointer item-center" onClick={() => { onHandleDelete(record) }}>
                                                     <img src={IconDelete} />
+                                                </span>
+                                                <span className="cursor-pointer item-center" onClick={() => { onHandleUpto(record) }}>
+                                                    <i class="fa fa-level-up" aria-hidden="true"></i>
                                                 </span>
                                             </Space>
                                         )}

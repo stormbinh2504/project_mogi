@@ -28,9 +28,9 @@ const accountService = {
     },
 
 
-    getAllProperty(page, records, codeProperty, codeTypeProperty, nameProperty) {  // Lấy ra danh sách tài sản
+    getAllProperty(page, records, codeClient, codeProperty, codeTypeProperty, nameProperty) {  // Lấy ra danh sách tài sản
         var queryParams = {
-            page, records, codeProperty, codeTypeProperty, nameProperty
+            page, records, codeClient, codeProperty, codeTypeProperty, nameProperty
         };
         return axios.get(`${REACT_APP_BASE_URL_API}property/loan/findAllProperty?` + queryString.stringify(queryParams))
         // http://localhost:8080/property/loan/findAllProperty?page=1&records=10&codeProperty=&codeTypeProperty=&nameProperty=    },
@@ -59,6 +59,10 @@ const accountService = {
         return axios.get(`${REACT_APP_BASE_URL_API}news/deleteNews?` + queryString.stringify(queryParams))
     },
 
+
+    updateUptoNews(body) { //Tạo tin mới
+        return axios.post(`${REACT_APP_BASE_URL_API}news/pushTopNews`, body)
+    },
 
     getNewsDetail(id) {  // Lấy ra thông tin  chi tiết tin
         var queryParams = {

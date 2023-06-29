@@ -10,7 +10,12 @@ const authService = {
     },
     LoginClient(body) {
         return axios.post(`${REACT_APP_BASE_URL_API}auth/login`, body)
-    }
+    },
+
+    changePassword(body) {
+        return axios.post(`${REACT_APP_BASE_URL_API}auth/changePassword`, body)
+    },
+
     // LoginClient(body) {
     //     return axios.post(`auth/login`, body)
     // }

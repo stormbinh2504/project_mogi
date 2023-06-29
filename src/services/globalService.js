@@ -51,6 +51,60 @@ const globalService = {
         return axios.get(`${REACT_APP_BASE_URL_API}common/findAllStatusNews`)
     },
 
+
+    getFindAllProvinceAndDistrict() { //Danh sách tỉnh quận huyện
+        return axios.get(`${REACT_APP_BASE_URL_API}province/findAllProvinceAndDistrict`)
+    },
+
+    getFindAllTypePropertyAndCategoryTypeProperty() { //Danh sách loại bất động sản
+        return axios.get(`${REACT_APP_BASE_URL_API}typepropery/findAllTypePropertyAndCategoryTypeProperty`)
+    },
+
+    getFindAllNewsCustomer(body) { //Danh sách tin Customer
+        return axios.post(`${REACT_APP_BASE_URL_API}news/customer/findAllNews`, body)
+    },
+
+    getFindNewsDetailCustomer(id) { //Danh sách tin Customer
+        var queryParams = {
+            id
+        };
+        return axios.get(`${REACT_APP_BASE_URL_API}news/customer/findNewsDetail?` + queryString.stringify(queryParams))
+    },
+
+    getFindNewsSameCustomer(data) { //Danh sách tin liên quan Customer
+        const { codeTypeProperty,
+            codeCateTypePropertyCategory,
+            provinceCode,
+            idCurrent } = data
+        var queryParams = {
+            codeTypeProperty,
+            codeCateTypePropertyCategory,
+            provinceCode,
+            idCurrent,
+        };
+        return axios.get(`${REACT_APP_BASE_URL_API}news/customer/findNewsSame?` + queryString.stringify(queryParams))
+
+        //http://localhost:8080/news/customer/findNewsSame?codeTypeProperty=typeproperty_7&codeCateTypePropertyCategory=3&provinceCode=&idCurrent=1
+    },
+
+
+    setPlusViewForNews(id) { //Mỗi lần click vào 1 trang detail của tin thì sẽ cộng 1 view 
+        var queryParams = {
+            id
+        };
+        return axios.get(`${REACT_APP_BASE_URL_API}news/customer/plusViewForNews?` + queryString.stringify(queryParams))
+    },
+
+    getOutstandingProject(id) { //Lấy ra danh sách những tin nổi bật (Tin có view cao)
+        return axios.get(`${REACT_APP_BASE_URL_API}news/customer/outstandingProject`)
+    },
+
+
+    getFindNewByCodeCate(id) { //Lấy ra danh sách tin theo code_category. Ví dụ Nhà(10), Căn hộ(0) , Đất (1)
+        return axios.get(`${REACT_APP_BASE_URL_API}news/customer/findNewByCodeCate`)
+    },
+
+
 }
 
 export default globalService

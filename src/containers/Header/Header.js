@@ -34,13 +34,8 @@ const Header = () => {
                 <div className="navbar-menu">
                     <div className="menu-list">
                         <div className="menu-item item-center">
-                            <Link to="/find-buy">
-                                Tìm mua
-                            </Link>
-                        </div>
-                        <div className="menu-item item-center">
-                            <Link to="/find">
-                                Tìm nhà
+                            <Link to="/thue-nha-dat">
+                                Tìm thuê
                             </Link>
                         </div>
                         <div className="menu-item item-center">

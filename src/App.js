@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.scss';
 import "../src/styles/styles.scss";
 import { Route, Switch, Redirect } from "react-router-dom";
@@ -24,12 +24,17 @@ import FirebaseTestImage from './components/FirebaseTestImage/FirebaseTestImage'
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import PrivateRouter from './customRouter/PrivateRouter';
 import Profile from './containers/Profile/Profile';
-import { initializeApp } from './redux/actions';
+import { fetchUserInfoFromSavedSession, initializeApp } from './redux/actions';
 import PropertyManagement from './containers/PropertyManagement/PropertyManagement';
 import PropertyManagementAdd from './containers/PropertyManagement/PropertyManagementAdd/PropertyManagementAdd';
 import RegisterTypeAccount from './containers/RegisterTypeAccount/RegisterTypeAccount';
 import NewsManagement from './containers/NewsManagement/NewsManagement';
 import Footer from './containers/Footer/Footer';
+import ChangePassword from './containers/ChangePassword/ChangePassword';
+import PageContentContainer from './containers/PageContentContainer/PageContentContainer';
+import PageDetailNews from './containers/PageContentContainer/PageDetailNews';
+import ModalFirstLogin from './containers/ModalFirstLogin/ModalFirstLogin';
+import _ from 'lodash';
 
 if (typeof window !== "undefined") {
   injectStyle();
@@ -39,8 +44,12 @@ let pathName = window.location.pathname
 let isDashboard = pathName.includes("/dashboard")
 function App() {
   const state = useSelector((state) => state);
-  const { auth, app } = state
+  const { auth, app, user } = state
+  const { userInfo } = user
   const dispatch = useDispatch()
+
+  const [isOpenModalFirstLogin, setIsOpenModalFirstLogin] = useState(false);
+
   console.log("render_app", state)
   const scrollTopAnimated = () => {
     $('#scrollToTop').on('click', function () {
@@ -53,6 +62,17 @@ function App() {
     scrollTopAnimated()
   }, []);
 
+
+  useEffect(() => {
+    console.log("binh_app", { userInfo }, _.isEmpty(userInfo.phone))
+    if (userInfo && _.isEmpty(userInfo.phone)) {
+      setIsOpenModalFirstLogin(true)
+    } else {
+      setIsOpenModalFirstLogin(false)
+    }
+  }, [userInfo]);
+
+  // console.log("binh_app", { userInfo }, _.isEmpty(userInfo.phone))
   return (
     <PayPalScriptProvider
       // deferLoading={true}
@@ -80,6 +100,9 @@ function App() {
                     <Route path="/login" component={Login} />
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/firebase" component={FirebaseTestImage} />
+                    <Route exact path="/thue-nha-dat" component={PageContentContainer} />
+                    <Route exact path="/thue-nha-dat/:id" component={PageDetailNews} />
+                    {/* <Route exact path="/thue-nha-dat" component={PageContentContainer} /> */}
                     {/* <Route exact render={(props) => (
                   <Redirect to="/login" />
                 )} /> */}
@@ -89,9 +112,12 @@ function App() {
 
                   </div>
                 }
-                {app.typeUser === TYPE_USER.BROKER &&
+                {app.typeUser === TYPE_USER.BROKER && userInfo && userInfo.codeClient &&
                   < div id="container-page-content-broker" className="container-page-content-broker">
-
+                    {isOpenModalFirstLogin && <ModalFirstLogin
+                      isOpen={isOpenModalFirstLogin}
+                      onClose={() => { setIsOpenModalFirstLogin(false) }}
+                    />}
                     <PrivateRouter exact path="/profile" component={Profile} />
                     <PrivateRouter exact path="/home-broker" component={HomeBroker} />
                     <PrivateRouter exact path="/recharge-broker" component={RechargeBroker} />
@@ -99,6 +125,7 @@ function App() {
                     <PrivateRouter exact path="/news-management" component={NewsManagement} />
                     <PrivateRouter exact path="/property-management-add" component={PropertyManagementAdd} />
                     <PrivateRouter exact path="/register-type-account" component={RegisterTypeAccount} />
+                    <PrivateRouter exact path="/change-password" component={ChangePassword} />
                     {/* <Route exact path="/stripe" element={StripeCheckoutButton} /> */}
                   </div>}
                 <div id="scrollToTop" className='item-center'>
@@ -124,7 +151,7 @@ function App() {
           </ErrorBoundary>
         </Router>
       </div>
-    </PayPalScriptProvider>
+    </PayPalScriptProvider >
   );
 }
 

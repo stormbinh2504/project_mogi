@@ -16,6 +16,7 @@ const ModalListPropertyManagement = (props) => {
     const dispatch = useDispatch()
     const state = useSelector((state) => state);
     const { auth, app, user } = state
+    const { userInfo } = user
 
     const [dataSource, setDataSource] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
@@ -30,7 +31,7 @@ const ModalListPropertyManagement = (props) => {
         setLoading(true);
         dispatch(alertType(true))
         // await accountService.getAllProperty(page, records = 10, codeProperty = null, codeTypeProperty = null, nameProperty = null)
-        await accountService.getAllProperty(page, 10, null, null, null)
+        await accountService.getAllProperty(page, 10, userInfo.codeClient, null, null, null)
             .then(res => {
                 if (res) {
                     setDataSource(res.data);

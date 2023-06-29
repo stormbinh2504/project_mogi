@@ -6,7 +6,7 @@ import "./Profile.scss"
 import PageContainerBroker from '../../components/Broker/PageContainerBroker/PageContainerBroker';
 import Avatar from '../../assets/images/avatar.png'
 import Zalo from '../../assets/images/zalo.png'
-import { alertType } from '../../redux/actions';
+import { alertType, initializeApp } from '../../redux/actions';
 import { ToastUtil, uploadImgToFireBase, deleteFromFirebase } from '../../utils';
 import { accountService, globalService } from '../../services';
 import Select from 'react-select';
@@ -118,6 +118,7 @@ const Profile = () => {
             .then(res => {
                 dispatch(alertType(false))
                 ToastUtil.success("Cập nhật thành công");
+                dispatch(initializeApp())
             })
             .catch(error => {
                 dispatch(alertType(false))
@@ -176,7 +177,7 @@ const Profile = () => {
     console.log("binh_client", clientData, imgFirebaseOld)
     return (
         <PageContainerBroker
-            titleId={"Thông tin tài khoản"}
+            titleId={"Thay đổi mật khẩu"}
         >
             <div className="profile">
                 <div className="profile-container">
@@ -187,7 +188,7 @@ const Profile = () => {
                                     {clientData.url ?
                                         <img src={clientData.url} />
                                         :
-                                        <img src="https://pro.mogi.vn/content/images/avatar.png" />
+                                        <img src={Avatar} />
                                     }
                                 </div>
                             </div>

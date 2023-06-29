@@ -1,0 +1,16 @@
+.page-breadcrumb {
+    margin-top   : 5px;
+    padding      : 8px 0;
+
+    .wrap-text {
+        display    : flex;
+        align-items: center;
+        gap        : 10px;
+        cursor     : pointer;
+
+        .active {
+            color : #777777;
+            cursor: auto;
+        }
+    }
+}

@@ -51,11 +51,15 @@ class DraggableModal extends Component {
 
 
     render() {
-        const { isOpen, toggle, onClose, className, headerClass } = this.props;
+        const { isOpen, toggle, onClose, className, headerClass, hideClose } = this.props;
         const { titleId } = this.props;
 
         let headerContainerClass = headerClass ? JSXUtils.joinClass("dragHandler", headerClass) : JSXUtils.joinClass("dragHandler", "header-dragHandler");
         let containerClass = JSXUtils.joinClass(className, 'draggable-modal');
+        let showClose = true
+        if (hideClose) {
+            showClose = false
+        }
         return (
             <DraggableWrapper
                 ref={this.draggableWrapper}
@@ -76,9 +80,9 @@ class DraggableModal extends Component {
                         <div className="title-modal txt---700-14-20">
                             {titleId}
                         </div>
-                        <div className="btn-icon-fm" onClick={onClose}>
+                        {showClose && <div className="btn-icon-fm" onClick={onClose}>
                             <i class="fa fa-times" aria-hidden="true"></i>
-                        </div>
+                        </div>}
                     </div>
                     <div className="body-dragHandler">
                         {this.props.children}

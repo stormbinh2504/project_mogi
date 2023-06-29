@@ -17,11 +17,13 @@ class CommonUtils {
 
     static convertDateToDateApi(date) { // Thu May 25 2023 18:30:00 GMT+0700 (Indochina Time) {} => "2023-05-25T11:30:00"
         let _date = date
+        console.log("binh_convertDateToDateApi", { _date, date })
+        // _date.setUTCHours(0, 0, 0, 0);
         if (date) {
-            _date = date.toISOString().slice(0, 19)
+            _date = _date.toISOString().slice(0, 19)
             //  date.toISOString() = '2023-05-04T17:00:00.000Z'
             // date.toISOString().slice(0, 19) = '2023-05-04T17:00:00'
-            console.log("binh_convertDateToDateApi", _date)
+            console.log("binh_convertDateToDateApi2", _date)
             return _date
         }
     };
@@ -29,9 +31,14 @@ class CommonUtils {
 
     static convertDateApiToDate(date) { //  '2023-05-04T17:00:00' => '2023-05-04T17:00:00.000Z'
         let _date = date
+        console.log("binh_convertDateApiToDate1", _date)
+
         if (date) {
             _date = `${date}.000Z`
-            return new Date(_date.slice(0, -1));
+            let result = new Date(_date.slice(0, -1))
+            // .setUTCHours(0, 0, 0, 0);
+            console.log("binh_convertDateApiToDate2", { result, _date })
+            return result
         }
     };
 

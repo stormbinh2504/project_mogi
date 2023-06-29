@@ -3,6 +3,19 @@ import { TYPE_USER } from './../../utils';
 
 const initialState = {
     typeUser: TYPE_USER.CUSTOMER,
+    filterNews: {
+        "nameSearch": null,
+        "provinceCode": null,
+        "districtCode": null,
+        "codeTypeProperty": null,
+        "codeCateTypePropertyCategory": null,
+        "priceStart": null,
+        "priceEnd": null,
+        "areaMinRange": null,
+        "areaMaxRange": null,
+        "totalRoom": null,
+        "rangeDaySearch": 365,
+    }
 }
 
 const appReducer = (state = initialState, action) => {
@@ -17,6 +30,16 @@ const appReducer = (state = initialState, action) => {
                 ...state,
                 ...initialState
             };
+        case "UPDATE_DATA_FILTER_NEWS":
+            console.log("binh_filterNews", action.data)
+            return {
+                ...state,
+                filterNews: {
+                    ...state.filterNews,
+                    ...action.data
+                }
+            };
+
         default:
             return state;
     }
