@@ -35,6 +35,7 @@ import PageContentContainer from './containers/PageContentContainer/PageContentC
 import PageDetailNews from './containers/PageContentContainer/PageDetailNews';
 import ModalFirstLogin from './containers/ModalFirstLogin/ModalFirstLogin';
 import _ from 'lodash';
+import PageNotFound from './containers/PageNotFound/PageNotFound';
 
 if (typeof window !== "undefined") {
   injectStyle();
@@ -96,12 +97,18 @@ function App() {
                 {/* <Route path='*' element={<Navigate to={route.error} />} /> */}
                 {app.typeUser === TYPE_USER.CUSTOMER &&
                   < div id="container-page-content" className="container-page-content ">
-                    <Route exact path="/home" component={Home} />
+                    <Route path="/home" component={Home} />
                     <Route path="/login" component={Login} />
-                    <Route exact path="/register" component={Register} />
-                    <Route exact path="/firebase" component={FirebaseTestImage} />
-                    <Route exact path="/thue-nha-dat" component={PageContentContainer} />
-                    <Route exact path="/thue-nha-dat/:id" component={PageDetailNews} />
+                    <Route path="/register" component={Register} />
+                    <Route path="/firebase" component={FirebaseTestImage} />
+                    <Route path="/thue-nha-dat" component={PageContentContainer} />
+                    <Route path="/thue-nha-dat/:id" component={PageDetailNews} />
+                    <Route path="*" component={PageNotFound} />
+
+                    {/* <Route path="*">
+                      <NoMatch />
+                    </Route> */}
+
                     {/* <Route exact path="/thue-nha-dat" component={PageContentContainer} /> */}
                     {/* <Route exact render={(props) => (
                   <Redirect to="/login" />

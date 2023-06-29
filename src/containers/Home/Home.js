@@ -99,6 +99,12 @@ const Home = () => {
                             </a>
                         </div>
                     </div>
+                    {/* <div id="project-list" class="block-info list-items" ng-non-bindable="">
+                        <h2 class="title">Bất động sản cho thuê</h2>
+                        <div class="property-items clearfix">
+                            <ProjectTop />
+                        </div>
+                    </div> */}
 
                     <div id="features" class="features" ng-non-bindable="">
                         <h2 class="title">Tiện ích từ Mogi.vn</h2>

@@ -55,7 +55,6 @@ const PageDetailNews = () => {
                 ToastUtil.error(error);
             });
     }
-    console.log("binh_PageDetailNews", { infoDetail, infoNews, infoUser })
     let images = []
 
     if (infoDetail && infoDetail.imageList && infoDetail.imageList.length > 0) {
@@ -76,6 +75,16 @@ const PageDetailNews = () => {
     if (!isShowPhone) {
         phoneFake = phoneFake.slice(0, -3) + '***';
     }
+
+
+    let introducesConvert = ""
+    if (infoDetail && infoDetail.introduces) {
+        introducesConvert = infoDetail.introduces
+        introducesConvert = introducesConvert.replace(/\n/g, "<br />");
+    }
+
+    // console.log("binh_PageDetailNews", { infoDetail, infoNews, infoUser, introducesConvert })
+    console.log("binh_PageDetailNews", { infoDetail1: infoDetail && infoDetail.introduces, introducesConvert })
     return (
         <div class="page-detail-news" >
             <div className="container">
@@ -92,7 +101,7 @@ const PageDetailNews = () => {
                                     images={images}
                                 />
                             </div>
-                            <h1 className="info-name">
+                            <h1 className="info-title">
                                 {infoNews && infoNews.nameNews}
                             </h1>
                             <div className="info-addr">
@@ -136,7 +145,7 @@ const PageDetailNews = () => {
                                 Giới thiệu
                             </div>
                             <div className="info-introduce">
-                                {infoDetail && infoDetail.introduces}
+                                <div className="" dangerouslySetInnerHTML={{ __html: introducesConvert }}></div>
                             </div>
                             <div className="info-title">
                                 Diện tích xung quanh
