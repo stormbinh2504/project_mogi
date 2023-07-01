@@ -30,6 +30,7 @@
     "react-image-gallery": "^1.2.12",
     "react-number-format": "^5.1.4",
     "react-otp-input": "^2.4.0",
+    "react-paginate": "^8.2.0",
     "react-pro-sidebar": "^1.0.0",
     "react-redux": "^7.2.6",
     "react-router-dom": "^5.2.0",

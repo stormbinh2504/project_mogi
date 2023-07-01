@@ -61,6 +61,16 @@ class CommonUtils {
             console.log(e)
         }
     };
+
+
+    static formatDateCeateApi(date) { //"2023-07-01T04:57:52"
+        if (date) {
+            const _date = new Date(date);
+            const formattedDate = _date.toLocaleDateString("en-GB"); // Change locale if needed
+            return formattedDate
+        }
+        return ""
+    };
 }
 
 export default CommonUtils;

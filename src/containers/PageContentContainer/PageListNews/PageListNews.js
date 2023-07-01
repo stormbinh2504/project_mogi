@@ -7,22 +7,23 @@ import { accountService, globalService } from '../../../services';
 
 import "./PageListNews.scss"
 import PageDesciption from '../PageDesciption/PageDesciption'
+import PaginationComponent from '../../../components/PaginationComponent/PaginationComponent';
 
 
 let df_body_news = {
-    "nameSearch": "",
-    "provinceCode": "",
-    "districtCode": "",
-    "codeTypeProperty": "typeproperty_7",
-    "codeCateTypePropertyCategory": "3",
-    "priceStart": "",
-    "priceEnd": "",
-    "areaMinRange": "100",
-    "areaMaxRange": "320",
-    "totalRoom": "",
+    "nameSearch": null,
+    "provinceCode": null,
+    "districtCode": null,
+    "codeTypeProperty": null,
+    "codeCateTypePropertyCategory": null,
+    "priceStart": null,
+    "priceEnd": null,
+    "areaMinRange": null,
+    "areaMaxRange": null,
+    "totalRoom": null,
     "rangeDaySearch": 365,
     "page": 0,
-    "size": 10
+    "size": 12
 }
 
 const PageListNews = () => {
@@ -124,6 +125,13 @@ const PageListNews = () => {
                 })}
                 {dataListNews && dataListNews.length == 0 && <div className='not-result'>Không có kết quả tìm kiếm phù hợp </div>}
             </div >
+
+            <div className="pagination-news">
+                <PaginationComponent
+                    dataPage={dataListNews}
+                    itemsPerPage={10}
+                />
+            </div>
         </div >
     )
 }

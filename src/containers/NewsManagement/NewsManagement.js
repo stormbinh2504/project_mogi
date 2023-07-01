@@ -7,7 +7,7 @@ import PageContainerBroker from '../../components/Broker/PageContainerBroker/Pag
 import Avatar from '../../assets/images/avatar.png'
 import Zalo from '../../assets/images/zalo.png'
 import { alertType } from '../../redux/actions';
-import { ToastUtil, uploadImgToFireBase, deleteFromFirebase } from '../../utils';
+import { ToastUtil, uploadImgToFireBase, deleteFromFirebase, CommonUtils } from '../../utils';
 import { accountService, globalService } from '../../services';
 import Select from 'react-select';
 import IconDelete from '../../assets/svgs/common/icon_delete.svg';
@@ -229,6 +229,7 @@ const NewsManagement = () => {
                                 dataAdd={dataAdd}
                                 setIsEdit={(data) => { setIsEdit(data) }}
                                 isEdit={isEdit}
+                                onHandleCallBack={onSearch}
                             />}
                             {isOpenModalUpto && <ModalUptoNews
                                 isOpen={isOpenModalUpto}
@@ -342,8 +343,28 @@ const NewsManagement = () => {
                                     />
                                     <Column title="Tên tin" dataIndex="nameNews" key="nameNews" width={250} align='center' />
                                     <Column title="Địa chỉ" dataIndex="address" key="address" width={250} align='center' />
-                                    <Column title="Ngày tạo" dataIndex="dateCreate" key="dateCreate" width={150} align='center' />
-                                    <Column title="Ngày hết hạn" dataIndex="dateExpiration" key="dateExpiration" width={150} align='center' />
+
+                                    <Column title="Ngày tạo" key="dateCreate" width={150} align='center'
+                                        render={(t, r) => {
+                                            let data = t.dateCreate
+                                            return (
+                                                <div>
+                                                    {CommonUtils.formatDateCeateApi(data)}
+                                                </div>
+                                            )
+                                        }}
+                                    />
+
+                                    <Column title="Ngày hết hạn" key="dateExpiration" width={150} align='center'
+                                        render={(t, r) => {
+                                            let data = t.dateExpiration
+                                            return (
+                                                <div>
+                                                    {CommonUtils.formatDateCeateApi(data)}
+                                                </div>
+                                            )
+                                        }}
+                                    />
                                     <Column title="Trạng thái" dataIndex="statusNews" key="statusNews" width={150} align='center' />
                                     <Column title="Trạng thái đẩy top" key="statusUpTop" width={150} align='center'
                                         render={(t, r) => {

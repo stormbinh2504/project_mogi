@@ -12,7 +12,7 @@ import DatePickerCustom from '../../../components/DatePickerCustom/DatePickerCus
 const { Column, ColumnGroup } = Table;
 
 const ModalAddNewsManagement = (props) => {
-    const { isOpen, onClose, dataAdd, setDataAdd, isEdit } = props
+    const { isOpen, onClose, dataAdd, setDataAdd, isEdit, onHandleCallBack } = props
     const history = useHistory()
     const dispatch = useDispatch()
     const state = useSelector((state) => state);
@@ -78,6 +78,7 @@ const ModalAddNewsManagement = (props) => {
                 setDataNews(dataNews)
                 setDataAdd(dataNews)
                 ToastUtil.success(isEdit ? "Sửa tin thành công" : "Tạo tin mới thành công");
+                onHandleCallBack()
                 onClose()
             })
             .catch(error => {

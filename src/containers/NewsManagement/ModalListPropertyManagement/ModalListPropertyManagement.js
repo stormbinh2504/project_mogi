@@ -10,6 +10,7 @@ import { accountService, globalService } from '../../../services';
 
 const { Column, ColumnGroup } = Table;
 
+let pageSize = 4
 const ModalListPropertyManagement = (props) => {
     const { isOpen, onClose, setOpenModalAdd, setDataAdd } = props
     const history = useHistory()
@@ -31,7 +32,7 @@ const ModalListPropertyManagement = (props) => {
         setLoading(true);
         dispatch(alertType(true))
         // await accountService.getAllProperty(page, records = 10, codeProperty = null, codeTypeProperty = null, nameProperty = null)
-        await accountService.getAllProperty(page, 10, userInfo.codeClient, null, null, null)
+        await accountService.getAllProperty(page, pageSize, userInfo.codeClient, null, null, null)
             .then(res => {
                 if (res) {
                     setDataSource(res.data);
@@ -81,21 +82,23 @@ const ModalListPropertyManagement = (props) => {
                             // columns={columns}
                             dataSource={dataSource}
                             pagination={{
-                                pageSize: 10,
+                                pageSize: pageSize,
                                 total: totalPages,
                                 onChange: (page) => {
                                     fetchGetAllProperty(page);
                                 },
                             }}
+                            scroll={{ x: 900 }}
                         >
-                            <Column title="Id" dataIndex="codeProperty" key="codeProperty" />
-                            <Column title="Tên tài sản" dataIndex="nameProperty" key="nameProperty" />
-                            <Column title="Địa chỉ" dataIndex="addressView" key="addressView" />
-                            <Column title="Ngày sửa" dataIndex="lastDateUpdate" key="lastDateUpdate" />
+                            <Column title="Mã tài sản" dataIndex="codeProperty" key="codeProperty" width={100} align='center' />
+                            <Column title="Tên tài sản" dataIndex="nameProperty" key="nameProperty" width={350} align='center' />
+                            <Column title="Địa chỉ" dataIndex="addressView" key="addressView" width={350} align='center' />
+                            <Column title="Trạng thái" dataIndex="status" key="status" width={150} align='center' />
                             <Column
                                 title="Thao tác"
                                 key="action"
-                                className='item-center'
+                                width={100}
+                                align='center'
                                 render={(_, record) => (
                                     <Space size="middle">
                                         <span className="cursor-pointer" onClick={() => { onHandleUpdate(record) }}>

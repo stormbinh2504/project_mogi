@@ -7,7 +7,7 @@ import PageContainerBroker from '../../components/Broker/PageContainerBroker/Pag
 import Avatar from '../../assets/images/avatar.png'
 import Zalo from '../../assets/images/zalo.png'
 import { alertType } from '../../redux/actions';
-import { ToastUtil, uploadImgToFireBase, deleteFromFirebase } from '../../utils';
+import { ToastUtil, uploadImgToFireBase, deleteFromFirebase, CommonUtils } from '../../utils';
 import { accountService, globalService } from '../../services';
 import Select from 'react-select';
 import IconDelete from '../../assets/svgs/common/icon_delete.svg';
@@ -112,7 +112,16 @@ const PropertyManagement = () => {
                                         <Column title="Tên tài sản" dataIndex="nameProperty" key="nameProperty" width={250} align='center' />
                                         <Column title="Địa chỉ" dataIndex="addressView" key="addressView" width={250} align='center' />
                                         <Column title="Trạng thái" dataIndex="status" key="status" width={150} align='center' />
-                                        <Column title="Ngày sửa" dataIndex="lastDateUpdate" key="lastDateUpdate" width={150} align='center' />
+                                        <Column title="Ngày sửa" key="lastDateUpdate" width={150} align='center'
+                                            render={(t, r) => {
+                                                let data = t.lastDateUpdate
+                                                return (
+                                                    <div>
+                                                        {CommonUtils.formatDateCeateApi(data)}
+                                                    </div>
+                                                )
+                                            }}
+                                        />
                                         {/* <Column
                                     title="Tags"
                                     dataIndex="tags"

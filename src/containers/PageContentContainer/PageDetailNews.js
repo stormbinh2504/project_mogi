@@ -133,7 +133,7 @@ const PageDetailNews = () => {
                                     </div>
                                     <div className="col-6 content-info-attr">
                                         <div className="label-info-attr">Ngày đăng</div>
-                                        <div className="value-info-attr">{infoNews && infoNews.dateCreate}</div>
+                                        <div className="value-info-attr">{infoNews && CommonUtils.formatDateCeateApi(infoNews.dateCreate)}</div>
                                     </div>
                                     <div className="col-6 content-info-attr">
                                         <div className="label-info-attr">Mã BĐS</div>

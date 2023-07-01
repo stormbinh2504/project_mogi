@@ -74,7 +74,7 @@ const ProjectLoan = () => {
             "totalRoom": null,
             "rangeDaySearch": 365,
             "page": 0,
-            "size": 10
+            "size": 11
         }
 
         dispatch(alertType(true))
