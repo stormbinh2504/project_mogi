@@ -36,6 +36,7 @@ import PageDetailNews from './containers/PageContentContainer/PageDetailNews';
 import ModalFirstLogin from './containers/ModalFirstLogin/ModalFirstLogin';
 import _ from 'lodash';
 import PageNotFound from './containers/PageNotFound/PageNotFound';
+import NotFound from './containers/PageNotFound/NotFound';
 
 if (typeof window !== "undefined") {
   injectStyle();
@@ -103,8 +104,8 @@ function App() {
                     <Route exact path="/firebase" component={FirebaseTestImage} />
                     <Route exact path="/thue-nha-dat" component={PageContentContainer} />
                     <Route exact path="/thue-nha-dat/:id" component={PageDetailNews} />
-                    {/* <Route path="*" component={PageNotFound} /> */}
-
+                    <Route path="/page/404" component={PageNotFound} />
+                    <Route path="*" component={NotFound} />
                     {/* <Route path="*">
                       <NoMatch />
                     </Route> */}

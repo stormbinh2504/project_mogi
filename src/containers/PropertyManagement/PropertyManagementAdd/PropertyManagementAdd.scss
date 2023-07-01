@@ -3,6 +3,16 @@
 .property-management-adđ {
     .body-container {
         .body-content {
+
+            .go-back {
+                font-weight: 500;
+                font-size  : 16px;
+                cursor     : pointer;
+                display    : flex;
+                gap        : 5px;
+            }
+
+
             .body-content-row {
                 margin: 10px 0px;
 

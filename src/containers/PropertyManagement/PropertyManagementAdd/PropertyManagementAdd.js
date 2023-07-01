@@ -325,6 +325,10 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
     console.log("binh_client", propertyInfo, imageUrls)
     console.log("binh_setPropertyInfo2", propertyInfo, dataEdit)
 
+    const goBack = () => {
+        history.push("/property-management")
+    }
+
     return (
         <PageContainerBroker
             titleId={isEdit ? "Sửa tài sản" : "Thêm mới tài sản"}
@@ -332,7 +336,14 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
             <div className="body property-management-adđ">
                 <div className="body-container">
                     <div className="body-content">
-
+                        <div className="go-back" onClick={goBack}>
+                            <span>
+                                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                            </span>
+                            <span>
+                                Quay lại
+                            </span>
+                        </div>
                         <div className="body-content-row row gutters-5">
                             <div className="col-12 col-sm-4 label">
                                 Loại bất động sản
