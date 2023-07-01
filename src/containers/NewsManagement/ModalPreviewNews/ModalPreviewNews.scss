@@ -1,0 +1,82 @@
+@import "../../../styles/common";
+
+.modal-preview-news {
+    max-width: 800px;
+    margin   : auto;
+    height   : auto;
+
+
+    .body {
+        overflow-y: scroll;
+        height    : 80vh;
+        overflow-x: hidden;
+
+        .info-title {
+            font-weight: bold;
+            font-size  : 18px;
+            color      : #3c4146;
+            margin     : 40px 0px 10px 0px;
+        }
+
+        .main-info {
+
+            .info-addr {
+                margin-top : 4px;
+                font-weight: normal;
+                font-size  : 15px;
+                color      : #3c4146;
+                line-height: 22px;
+            }
+
+            .info-price {
+                margin-top : 4px;
+                font-weight: bold;
+                font-size  : 24px;
+                line-height: 150%;
+                color      : #0499a8;
+            }
+
+            .info-attr {
+
+                .content-info-attr {
+                    display: flex;
+                    gap    : 10px;
+
+                    .label-info-attr {
+                        padding-left: 20px;
+                        position    : relative;
+                        width       : 160px;
+                        color       : #657786;
+                        font-size   : 15px;
+                        line-height : 22px;
+                        text-align  : left;
+                        display     : inline-block;
+                        float       : left;
+
+                        &::before {
+                            width        : 8px;
+                            height       : 8px;
+                            border-radius: 50%;
+                            background   : #bec8d2;
+                            content      : "";
+                            position     : absolute;
+                            top          : 8px;
+                            left         : 0;
+                        }
+                    }
+
+
+                    .value-info-attr {}
+                }
+            }
+
+            .info-introduce {
+                margin-top : 12px;
+                font-size  : 15px;
+                line-height: 22px;
+                color      : #3c4146;
+            }
+        }
+
+    }
+}

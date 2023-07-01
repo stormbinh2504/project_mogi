@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '../Header/Header'
 import "./Home.scss"
 import ProjectTop from './ProjectTop/ProjectTop'
+import ProjectLoan from './ProjectLoan/ProjectLoan'
 
 
 const df_listfeatures = [
@@ -92,21 +93,21 @@ const Home = () => {
                             <ProjectTop />
                         </div>
                     </div>
-                    <div id="banner-home-center" class="banner-home-center home-banner">
+                    <div id="banner-home-center" class="banner-home-center home-banner block-info">
                         <div class="banner-content">
                             <a href="https://trogiup.mogi.vn/bang-gia-phi-thanh-vien-va-dich-vu-tren-mogi/" target="_blank" rel="follow" gtm-cat="banner" gtm-event="link" gtm-act="view-banner-home-top">
                                 <img src="https://cdn.mogi.vn/banner/2023/6_34b060cf-12ca-469a-ae05-971959d3535c.png" />
                             </a>
                         </div>
                     </div>
-                    {/* <div id="project-list" class="block-info list-items" ng-non-bindable="">
+                    <div id="project-list" class="block-info list-items" ng-non-bindable="">
                         <h2 class="title">Bất động sản cho thuê</h2>
                         <div class="property-items clearfix">
-                            <ProjectTop />
+                            <ProjectLoan />
                         </div>
-                    </div> */}
+                    </div>
 
-                    <div id="features" class="features" ng-non-bindable="">
+                    <div id="features" class="features block-info" ng-non-bindable="">
                         <h2 class="title">Tiện ích từ Mogi.vn</h2>
                         <div class="list-features clearfix">
                             <div className="row">{

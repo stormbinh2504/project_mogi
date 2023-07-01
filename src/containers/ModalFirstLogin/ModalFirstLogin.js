@@ -36,6 +36,16 @@ const ModalFirstLogin = (props) => {
         let body = {
             "codeClient": userInfo.codeClient,
             "phone": phone,
+            "codeClient": userInfo.codeClient,
+            "provinceCode": userInfo.provinceCode,
+            "districtCode": userInfo.districtCode,
+            "wardsCode": userInfo.wardsCode,
+            "introduces": userInfo.introduces,
+            "typeLoan": userInfo.typeLoan,
+            "passport": userInfo.passport,
+            "url": userInfo.url,
+            "firstName": userInfo.firstName,
+            "lastName": userInfo.lastName,
         }
 
         dispatch(alertType(true))

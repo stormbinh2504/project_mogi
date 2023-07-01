@@ -106,12 +106,13 @@ const PropertyManagement = () => {
                                                 fetchGetAllProperty(page);
                                             },
                                         }}
+                                        scroll={{ x: 1000 }}
                                     >
-                                        <Column title="Id" dataIndex="codeProperty" key="codeProperty" />
-                                        <Column title="Tên tài sản" dataIndex="nameProperty" key="nameProperty" />
-                                        <Column title="Địa chỉ" dataIndex="addressView" key="addressView" />
-                                        <Column title="Trạng thái" dataIndex="status" key="status" />
-                                        <Column title="Ngày sửa" dataIndex="lastDateUpdate" key="lastDateUpdate" />
+                                        <Column title="Mã tài sản" dataIndex="codeProperty" key="codeProperty" width={100} align='center' />
+                                        <Column title="Tên tài sản" dataIndex="nameProperty" key="nameProperty" width={250} align='center' />
+                                        <Column title="Địa chỉ" dataIndex="addressView" key="addressView" width={250} align='center' />
+                                        <Column title="Trạng thái" dataIndex="status" key="status" width={150} align='center' />
+                                        <Column title="Ngày sửa" dataIndex="lastDateUpdate" key="lastDateUpdate" width={150} align='center' />
                                         {/* <Column
                                     title="Tags"
                                     dataIndex="tags"
@@ -127,8 +128,11 @@ const PropertyManagement = () => {
                                     )}
                                 /> */}
                                         <Column
-                                            title="Action"
+                                            title="Thao tác"
                                             key="action"
+                                            width={150}
+                                            align='center'
+                                            fixed="right"
                                             render={(_, record) => (
                                                 <Space size="middle">
                                                     <span className="cursor-pointer" onClick={() => { onHandleEdit(record) }}>

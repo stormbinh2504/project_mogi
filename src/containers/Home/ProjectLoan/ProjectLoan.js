@@ -5,7 +5,7 @@ import { alertType } from '../../../redux/actions';
 import { ToastUtil, uploadImgToFireBase, deleteFromFirebase, TYPE_PROPERTY_CATEGORY, CommonUtils } from '../../../utils';
 import { accountService, globalService } from '../../../services';
 import Slider from "react-slick";
-import "./ProjectTop.scss"
+import "./ProjectLoan.scss"
 
 const settings = {
     dots: false,
@@ -41,7 +41,7 @@ const settings = {
     ]
 };
 
-const ProjectTop = () => {
+const ProjectLoan = () => {
     const history = useHistory()
     const dispatch = useDispatch()
     const state = useSelector((state) => state);
@@ -60,13 +60,34 @@ const ProjectTop = () => {
 
 
     const fetchGetOutstandingProject = async () => {
+
+        let body = {
+            "nameSearch": null,
+            "provinceCode": null,
+            "districtCode": null,
+            "codeTypeProperty": null, // important
+            "codeCateTypePropertyCategory": null,
+            "priceStart": null,
+            "priceEnd": null,
+            "areaMinRange": null,
+            "areaMaxRange": null,
+            "totalRoom": null,
+            "rangeDaySearch": 365,
+            "page": 0,
+            "size": 10
+        }
+
         dispatch(alertType(true))
-        await globalService.getOutstandingProject()
+        await globalService.getFindAllNewsCustomer(body)
             .then(res => {
-                if (res && res.length > 0) {
-                    setListNewsSame(res)
+                if (res) {
+                    if (res.content && res.content.length > 0) {
+                        setListNewsSame(res.content)
+                    } else {
+                        setListNewsSame([])
+                    }
+                    dispatch(alertType(false))
                 }
-                dispatch(alertType(false))
             })
             .catch(error => {
                 dispatch(alertType(false))
@@ -83,8 +104,7 @@ const ProjectTop = () => {
         }
     }
 
-    console.log("binh_ProjectTop", { listNewsSame, history })
-    let src = "https://firebasestorage.googleapis.com/v0/b/mogiproject-33024.appspot.com/o/Category%2Fclient.3%2F063eba4d0ae64159b83eb874cd090e24.jpgf957dd55-62b0-44f7-944d-e99593c9d141?alt=media&token=132f548e-8f77-4822-8b8e-be4d33ab55a1"
+    console.log("binh_ProjectLoan", { listNewsSame, history })
     return (
         <div class="project-top" >
             <Slider {...settings}>
@@ -115,4 +135,4 @@ const ProjectTop = () => {
     )
 }
 
-export default ProjectTop
+export default ProjectLoan

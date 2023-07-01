@@ -84,7 +84,7 @@ const PageDetailNews = () => {
     }
 
     // console.log("binh_PageDetailNews", { infoDetail, infoNews, infoUser, introducesConvert })
-    console.log("binh_PageDetailNews", { infoDetail1: infoDetail && infoDetail.introduces, introducesConvert })
+    console.log("binh_PageDetailNews", { infoDetail1: infoDetail, phone })
     return (
         <div class="page-detail-news" >
             <div className="container">
@@ -102,7 +102,7 @@ const PageDetailNews = () => {
                                 />
                             </div>
                             <h1 className="info-title">
-                                {infoNews && infoNews.nameNews}
+                                {infoDetail && infoDetail.nameProperty}
                             </h1>
                             <div className="info-addr">
                                 {infoNews && infoNews.address}

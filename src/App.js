@@ -97,13 +97,13 @@ function App() {
                 {/* <Route path='*' element={<Navigate to={route.error} />} /> */}
                 {app.typeUser === TYPE_USER.CUSTOMER &&
                   < div id="container-page-content" className="container-page-content ">
-                    <Route path="/home" component={Home} />
-                    <Route path="/login" component={Login} />
-                    <Route path="/register" component={Register} />
-                    <Route path="/firebase" component={FirebaseTestImage} />
-                    <Route path="/thue-nha-dat" component={PageContentContainer} />
-                    <Route path="/thue-nha-dat/:id" component={PageDetailNews} />
-                    <Route path="*" component={PageNotFound} />
+                    <Route exact path="/home" component={Home} />
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/register" component={Register} />
+                    <Route exact path="/firebase" component={FirebaseTestImage} />
+                    <Route exact path="/thue-nha-dat" component={PageContentContainer} />
+                    <Route exact path="/thue-nha-dat/:id" component={PageDetailNews} />
+                    {/* <Route path="*" component={PageNotFound} /> */}
 
                     {/* <Route path="*">
                       <NoMatch />

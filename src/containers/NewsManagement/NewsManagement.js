@@ -17,6 +17,7 @@ import ModalAddNewsManagement from './ModalAddNewsManagement/ModalAddNewsManagem
 import ModalListPropertyManagement from './ModalListPropertyManagement/ModalListPropertyManagement';
 import DatePickerCustom from '../../components/DatePickerCustom/DatePickerCustom';
 import ModalUptoNews from './ModalUptoNews/ModalUptoNews';
+import ModalPreviewNews from './ModalPreviewNews/ModalPreviewNews';
 
 const { Column, ColumnGroup } = Table;
 
@@ -51,10 +52,12 @@ const NewsManagement = () => {
         "dateExpiration": null,
     });
     const [dataUpto, setDataUpto] = useState(null);
+    const [dataPreview, setDataPreview] = useState(null);
 
     const [isOpenModalList, setIsOpenModalList] = useState(false);
     const [isOpenModalAdd, setIsOpenModalAdd] = useState(false);
     const [isOpenModalUpto, setIsOpenModalUpto] = useState(false);
+    const [isOpenModalPreview, setIsOpenModalPreview] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const [statusNewsAll, setStatusNewsAll] = useState([]);
     const [bodyGetManagerNews, setBodyGetManagerNews] = useState(df_bodyGetManagerNews);
@@ -187,8 +190,16 @@ const NewsManagement = () => {
         setIsOpenModalUpto(true)
     }
 
+
+    const onHandlePreview = async (record) => {
+        console.log("onHandleUpto", record)
+        setDataPreview(record)
+        setIsOpenModalPreview(true)
+    }
+
+
     const onSearch = () => {
-        fetchGetNewsManagerAll(1)
+        fetchGetNewsManagerAll(0)
     }
     console.log("binh_check_NewsManagement", dataSource, totalPages)
     return (
@@ -224,7 +235,11 @@ const NewsManagement = () => {
                                 onClose={() => { setIsOpenModalUpto(false) }}
                                 dataUpto={dataUpto}
                             />}
-
+                            {isOpenModalPreview && <ModalPreviewNews
+                                isOpen={isOpenModalPreview}
+                                onClose={() => { setIsOpenModalPreview(false) }}
+                                dataPreview={dataPreview}
+                            />}
                             <div className="list-lookup row row gutters-5">
                                 <div className="col-6 col-md-3">
                                     <div className="body-content-row row gutters-5">
@@ -312,21 +327,25 @@ const NewsManagement = () => {
                                             fetchGetNewsManagerAll(page - 1);
                                         },
                                     }}
+                                    // scroll={{ x: true }}
+                                    scroll={{ x: 1000 }}
                                 >
-                                    <Column title="Mã" dataIndex="id" key="id" />
+                                    <Column title="Mã" dataIndex="id" key="id" width={80} align='center' />
                                     <Column
                                         title="Ảnh"
                                         key="url"
+                                        width={200}
+                                        align='center'
                                         render={(t, r) => <img src={`${r.url}`}
                                             className="img-news"
                                         />}
                                     />
-                                    <Column title="Tên tin" dataIndex="nameNews" key="nameNews" />
-                                    <Column title="Địa chỉ" dataIndex="address" key="address" />
-                                    <Column title="Ngày tạo" dataIndex="dateCreate" key="dateCreate" />
-                                    <Column title="Ngày hết hạn" dataIndex="dateExpiration" key="dateExpiration" />
-                                    <Column title="Trạng thái" dataIndex="statusNews" key="statusNews" />
-                                    <Column title="Trạng thái đẩy top" key="statusUpTop"
+                                    <Column title="Tên tin" dataIndex="nameNews" key="nameNews" width={250} align='center' />
+                                    <Column title="Địa chỉ" dataIndex="address" key="address" width={250} align='center' />
+                                    <Column title="Ngày tạo" dataIndex="dateCreate" key="dateCreate" width={150} align='center' />
+                                    <Column title="Ngày hết hạn" dataIndex="dateExpiration" key="dateExpiration" width={150} align='center' />
+                                    <Column title="Trạng thái" dataIndex="statusNews" key="statusNews" width={150} align='center' />
+                                    <Column title="Trạng thái đẩy top" key="statusUpTop" width={150} align='center'
                                         render={(t, r) => {
                                             let text = "Chưa hoạt động"
                                             if (t.statusUpTop == 1) {
@@ -342,6 +361,8 @@ const NewsManagement = () => {
                                     <Column
                                         title="Thao tác"
                                         key="action"
+                                        fixed="right"
+                                        width={150} align='center'
                                         render={(_, record) => (
                                             <Space size="middle">
                                                 <span className="cursor-pointer item-center" onClick={() => { onHandleEdit(record) }}>
@@ -352,6 +373,19 @@ const NewsManagement = () => {
                                                 </span>
                                                 <span className="cursor-pointer item-center" onClick={() => { onHandleUpto(record) }}>
                                                     <i class="fa fa-level-up" aria-hidden="true"></i>
+                                                </span>
+                                            </Space>
+                                        )}
+                                    />
+                                    <Column
+                                        title="Xem trước"
+                                        key="detail"
+                                        fixed="right"
+                                        width={150} align='center'
+                                        render={(_, record) => (
+                                            <Space size="middle">
+                                                <span className="cursor-pointer item-center" onClick={() => { onHandlePreview(record) }}>
+                                                    Chi tiết
                                                 </span>
                                             </Space>
                                         )}
