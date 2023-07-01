@@ -123,7 +123,7 @@ const ProjectLoan = () => {
                                         {item.address}
                                     </div>
                                     <div className="info-price">
-                                        {CommonUtils.formatNumber(item.money, 0)}
+                                        {CommonUtils.formatNumber(item.priceLoan, 0)}
                                     </div>
                                 </div>
                             </div>

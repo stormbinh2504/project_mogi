@@ -6,7 +6,7 @@ import { compressImage } from "../../utils/imageUpload"
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from 'react-router-dom'
 import { alertType } from '../../redux/actions/alertActions'
-import { ToastUtil } from '../../utils'
+import { RegexUtils, ToastUtil } from '../../utils'
 
 import axios from 'axios';
 
@@ -31,8 +31,39 @@ const Register = () => {
         setUserData({ ...userData, [name]: value })
     }
 
+    const ValidateForm = () => {
+        if (!userData.firstName) {
+            ToastUtil.error("Họ không dược để trống");
+            return false
+        }
+        if (!userData.lastName) {
+            ToastUtil.error("Têm không dược để trống");
+            return false
+        }
+        if (!userData.email) {
+            ToastUtil.error("Email không dược để trống");
+            return false
+        }
+        if (!userData.password) {
+            ToastUtil.error("Password không dược để trống");
+            return false
+        }
+
+        let isValidEmail = RegexUtils.regexEmail.test(userData.email.toString())
+        if (!isValidEmail) {
+            ToastUtil.error("Email không hợp lệ");
+            return false
+        }
+
+        return true
+    }
+
     const Submit = async () => {
 
+
+        if (!ValidateForm()) {
+            return
+        }
         let body = {
             "email": userData.email,
             "password": userData.password,
@@ -67,7 +98,7 @@ const Register = () => {
         setStep(step - 1)
     }
 
-    let disableSubmit = userData.password !== "" && userData.username !== ""
+    let disableSubmit = true
 
     return (
         <div div className='regiter' >
@@ -102,13 +133,13 @@ const Register = () => {
 
                 <div className="form-group">
                     <label htmlFor="username">Mật khẩu</label>
-                    <input type="text" className="form-control-input" id="password"
+                    <input type="password" className="form-control-input" id="password"
                         name="password"
                         onChange={handleChangeInput} value={userData.password}
                     />
                 </div>
 
-                <button className="btn btn-dark w-100" onClick={Submit} disabled={!disableSubmit} >Đăng ký</button>
+                <button className="btn btn-submit w-100" onClick={Submit} disabled={!disableSubmit} >Đăng ký</button>
                 <p className="my-2">
                     Bạn đã có tài khoản? <Link to="/login" style={{ color: "crimson" }}>Đăng nhập ngay</Link>
                 </p>

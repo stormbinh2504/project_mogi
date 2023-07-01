@@ -28,9 +28,23 @@ const Login = () => {
         setUserData({ ...userData, [name]: value })
     }
 
+    const ValidateForm = () => {
+        if (!userData.email) {
+            ToastUtil.error("Email không dược để trống");
+            return false
+        }
+        if (!userData.password) {
+            ToastUtil.error("Password không dược để trống");
+            return false
+        }
+
+        return true
+    }
 
     const Submit = async () => {
-
+        if (!ValidateForm()) {
+            return
+        }
         let body = {
             "email": userData.email,
             "password": userData.password
@@ -56,7 +70,7 @@ const Login = () => {
     return (
         <div div className='login' >
             <div div className='form-login' >
-                <h3 className="text-uppercase text-center mb-4">Login</h3>
+                <h3 className="text-uppercase text-center mb-4">Đăng nhập</h3>
 
                 <div className="form-group">
                     <label htmlFor="email">Email</label>
@@ -68,14 +82,14 @@ const Login = () => {
 
                 <div className="form-group">
                     <label htmlFor="password">Mật khẩu</label>
-                    <input type="text" className="form-control-input" id="password"
+                    <input type="password" className="form-control-input" id="password"
                         name="password"
                         onChange={handleChangeInput} value={userData.password}
                     />
                 </div>
                 < button
                     type="submit"
-                    className="btn btn-dark w-100"
+                    className="btn btn-submit w-100"
                     // disabled={email && password ? false : true}
                     onClick={Submit}
                 >

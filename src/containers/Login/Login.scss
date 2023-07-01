@@ -29,9 +29,14 @@
                 color           : #495057;
                 background-color: #fff;
                 background-clip : padding-box;
-                border          : 1px solid #ced4da;
+                border          : 1px solid #dfdfe1;
                 border-radius   : 5px;
                 transition      : border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+                &:focus-visible {
+                    border : 1px solid #00deb6;
+                    outline: none;
+                }
             }
         }
 
@@ -43,6 +48,18 @@
                 object-fit: cover;
                 width     : 100%;
                 height    : auto;
+            }
+        }
+
+        .btn-submit {
+            color     : #333;
+            background: #00deb6;
+            border    : 0;
+            min-width : 100px;
+            height    : 40px;
+
+            &:hover {
+                color: #fff;
             }
         }
     }
