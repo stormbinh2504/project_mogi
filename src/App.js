@@ -37,6 +37,7 @@ import ModalFirstLogin from './containers/ModalFirstLogin/ModalFirstLogin';
 import _ from 'lodash';
 import PageNotFound from './containers/PageNotFound/PageNotFound';
 import NotFound from './containers/PageNotFound/NotFound';
+import NewsStatistics from './containers/NewsStatistics/NewsStatistics';
 
 if (typeof window !== "undefined") {
   injectStyle();
@@ -134,6 +135,7 @@ function App() {
                     <PrivateRouter exact path="/property-management-add" component={PropertyManagementAdd} />
                     <PrivateRouter exact path="/register-type-account" component={RegisterTypeAccount} />
                     <PrivateRouter exact path="/change-password" component={ChangePassword} />
+                    <PrivateRouter exact path="/report" component={NewsStatistics} />
                     {/* <Route exact path="/stripe" element={StripeCheckoutButton} /> */}
                   </div>}
                 <div id="scrollToTop" className='item-center'>

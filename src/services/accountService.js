@@ -75,5 +75,34 @@ const accountService = {
         return axios.post(`${REACT_APP_BASE_URL_API}accountslever/switchAccount`, body)
     },
 
+
+    getStatisticsByDistrict(body) { //Chuyển đổi loại tài khoản
+        const { provinceCode,
+            month,
+            year,
+            codeCategoryTypeProperty } = body
+        var queryParams = {
+            provinceCode,
+            month,
+            year,
+            codeCategoryTypeProperty,
+        };
+        return axios.get(`${REACT_APP_BASE_URL_API}news/statisticsByDistrict?` + queryString.stringify(queryParams))
+    },
+
+    getStatisticsByPrice(body) { //Chuyển đổi loại tài khoản
+        const { provinceCode,
+            month,
+            year,
+            codeCategoryTypeProperty } = body
+        var queryParams = {
+            provinceCode,
+            month,
+            year,
+            codeCategoryTypeProperty,
+        };
+        return axios.get(`${REACT_APP_BASE_URL_API}news/statisticsByPrice?` + queryString.stringify(queryParams))
+    },
+
 }
 export default accountService

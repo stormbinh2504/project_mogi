@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { CommonUtils } from '../../utils';
 const DatePickerCustom = (props) => {
-    const { date, onChange } = props
+    const { date, onChange, dateFormatValue } = props
     // const [startDate, setStartDate] = useState(new Date().setHours(0, 0, 0, 0));
     const [startDate, setStartDate] = useState(null);
 
@@ -49,14 +49,17 @@ const DatePickerCustom = (props) => {
         return date
     }
 
+
+    let dateFormat = dateFormatValue ? dateFormatValue : "dd/MM/yyyy"
     return (
         <div className="date-picker-custom">
             <DatePicker
                 selected={startDate} //https://github.com/Hacker0x01/react-datepicker/issues/1787#top
                 onChange={date => handleDateChange(convertLocalToUTCDate(date))}
                 // selected={convertUTCToLocalDate(startDate)}
-                dateFormat="dd/MM/yyyy"
+                dateFormat={dateFormat}
                 placeholderText="Click to select a date"
+                className="class-date-datepicker"
             />
         </div>
     )
