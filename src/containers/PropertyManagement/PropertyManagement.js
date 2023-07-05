@@ -14,6 +14,7 @@ import IconDelete from '../../assets/svgs/common/icon_delete.svg';
 import IconEdit from '../../assets/svgs/common/icon_edit.svg';
 import { Space, Table, Tag } from 'antd';
 import PropertyManagementAdd from './PropertyManagementAdd/PropertyManagementAdd';
+import PropertyManagementDelete from './PropertyManagementDelete/PropertyManagementDelete';
 
 const { Column, ColumnGroup } = Table;
 
@@ -28,7 +29,9 @@ const PropertyManagement = () => {
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
     const [dataEdit, setDataEdit] = useState({});
+    const [dataDelete, setDataDelete] = useState({});
     const [step, setStep] = useState(1);
+    const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
 
     const onHandleAdd = () => {
         history.push("/property-management-add")
@@ -77,6 +80,15 @@ const PropertyManagement = () => {
                 ToastUtil.error(error);
             });
     }
+
+    const onHandleDelete = async (record) => {
+        console.log("onHandleDelete", record)
+        if (record) {
+            setDataDelete(record)
+            setIsOpenModalDelete(true)
+        }
+
+    }
     // console.log("binh_check_PropertyManagement", dataEdit)
     return (
 
@@ -85,6 +97,11 @@ const PropertyManagement = () => {
                 <PageContainerBroker
                     titleId={"Quản lý tài sản"}
                 >
+                    {isOpenModalDelete && <PropertyManagementDelete
+                        isOpen={isOpenModalDelete}
+                        onClose={() => { setIsOpenModalDelete(false) }}
+                        dataDelete={dataDelete}
+                    />}
                     <div className="property-management">
                         <div className="property-management-container">
                             <div className="property-management-content">
@@ -147,7 +164,7 @@ const PropertyManagement = () => {
                                                     <span className="cursor-pointer" onClick={() => { onHandleEdit(record) }}>
                                                         <img src={IconEdit} />
                                                     </span>
-                                                    <span className="cursor-pointer">
+                                                    <span className="cursor-pointer" onClick={() => { onHandleDelete(record) }} >
                                                         <img src={IconDelete} />
                                                     </span>
                                                 </Space>

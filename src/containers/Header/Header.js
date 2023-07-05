@@ -38,7 +38,7 @@ const Header = () => {
                                 Tìm thuê
                             </Link>
                         </div>
-                        <div className="menu-item item-center">
+                        {/* <div className="menu-item item-center">
                             <Link to="/find">
                                 Giá nhà đất
                             </Link>
@@ -52,10 +52,15 @@ const Header = () => {
                             <Link to="/find">
                                 Môi giới
                             </Link>
+                        </div> */}
+                        <div className="menu-item item-center">
+                            <Link to="/recommend">
+                                Giới thiệu
+                            </Link>
                         </div>
                         <div className="menu-item item-center">
-                            <Link to="/find">
-                                Dự án
+                            <Link to="/contact">
+                                Liên hệ
                             </Link>
                         </div>
                     </div>

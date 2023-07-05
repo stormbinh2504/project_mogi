@@ -35,6 +35,15 @@ export const TYPE_USER = {
     ADMIN: "ADMIN" // Admin
 }
 
+
+
+
+export const TYPE_ROLE = {
+    BROKER: "ROLE_CLIENT", // Người mua
+    ADMIN: "ROLE_ADMIN" // Admin
+}
+
+
 export const TYPE_PROPERTY_CATEGORY = {
     ALL: "1",
     HOME: "2",

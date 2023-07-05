@@ -9,7 +9,7 @@ import "./PageListNews.scss"
 import PageDesciption from '../PageDesciption/PageDesciption'
 import PaginationComponent from '../../../components/PaginationComponent/PaginationComponent';
 
-
+let pageSize = 5
 let df_body_news = {
     "nameSearch": null,
     "provinceCode": null,
@@ -23,7 +23,7 @@ let df_body_news = {
     "totalRoom": null,
     "rangeDaySearch": 365,
     "page": 0,
-    "size": 12
+    "size": pageSize
 }
 
 const PageListNews = () => {
@@ -34,16 +34,28 @@ const PageListNews = () => {
     const { userInfo } = user
     const { filterNews } = app
     const [dataListNews, setDataListNews] = useState([])
+    const [dataFavorite, setDataFavorite] = useState([])
+    const [totalPages, setTotalPages] = useState(1);
 
 
     useEffect(() => {
-        onFilterNews()
+        onFilterNews(0)
     }, [filterNews]);
 
-    const onFilterNews = async () => {
+
+    useEffect(() => {
+        let storedArray = localStorage.getItem('ListFavorite');
+        let arrFavorite = JSON.parse(storedArray) || []
+        if (arrFavorite && arrFavorite.length > 0) {
+            setDataFavorite(arrFavorite)
+        }
+    }, []);
+
+    const onFilterNews = async (page) => {
         let body = {
             ...df_body_news,
-            ...filterNews
+            ...filterNews,
+            page: page
         }
 
         dispatch(alertType(true))
@@ -55,6 +67,7 @@ const PageListNews = () => {
                     } else {
                         setDataListNews([])
                     }
+                    setTotalPages(res.totalElements)
                     dispatch(alertType(false))
                 }
             })
@@ -79,6 +92,43 @@ const PageListNews = () => {
         }
     }
 
+
+    const onChangePage = (page) => {
+        onFilterNews(page)
+    }
+
+    const toggleFavorite = (e, record) => {
+        e.stopPropagation();
+        const { id } = record
+        let storedArray = localStorage.getItem('ListFavorite');
+        let arrFavorite = JSON.parse(storedArray) || []
+        if (arrFavorite) {
+            let found = arrFavorite.find((item, index) => item == id)
+            if (found) {
+                arrFavorite = arrFavorite.filter((item, index) => item != id)
+            } else {
+                arrFavorite.push(id);
+            }
+        }
+        console.log("binh_toggleFavorite", toggleFavorite)
+        localStorage.setItem('ListFavorite', JSON.stringify(arrFavorite))
+        setDataFavorite(arrFavorite)
+    }
+
+    const isCheckFavorite = (record) => {
+        const { id } = record
+        let storedArray = localStorage.getItem('ListFavorite');
+        let arrFavorite = JSON.parse(storedArray) || []
+        if (arrFavorite) {
+            let found = arrFavorite.find((item, index) => item == id)
+            if (found) {
+                return true
+            } else {
+                return false
+            }
+        }
+        return false
+    }
     console.log("PageListNews_render", { filterNews: filterNews, dataListNews: dataListNews })
 
     return (
@@ -89,6 +139,7 @@ const PageListNews = () => {
             </div>
             <div className="list-news">
                 {dataListNews && dataListNews.length > 0 && dataListNews.map((item, index) => {
+                    let isFavorite = isCheckFavorite(item)
                     return (
                         < div className="item-news" onClick={() => onRedirectDetail(item)}>
                             <div className="row">
@@ -118,6 +169,14 @@ const PageListNews = () => {
                                             Hôm nay
                                         </div>
                                     </div>
+                                    <div className="prop-favorite" onClick={(e) => toggleFavorite(e, item)}>
+                                        {isFavorite ?
+                                            <i class="fa fa-heart" aria-hidden="true"> </i>
+                                            :
+
+                                            <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -129,7 +188,9 @@ const PageListNews = () => {
             <div className="pagination-news">
                 <PaginationComponent
                     dataPage={dataListNews}
-                    itemsPerPage={10}
+                    totalPages={totalPages}
+                    itemsPerPage={pageSize}
+                    onChangePage={onChangePage}
                 />
             </div>
         </div >

@@ -38,6 +38,10 @@ import _ from 'lodash';
 import PageNotFound from './containers/PageNotFound/PageNotFound';
 import NotFound from './containers/PageNotFound/NotFound';
 import NewsStatistics from './containers/NewsStatistics/NewsStatistics';
+import NewsManagementAdmin from './containers/NewsManagement/NewsManagementAdmin';
+import Recommend from './containers/Recommend/Recommend';
+import Contact from './containers/Contact/Contact';
+import ToolPhoneZaloChat from './containers/Common/ToolPhoneZaloChat/ToolPhoneZaloChat';
 
 if (typeof window !== "undefined") {
   injectStyle();
@@ -102,11 +106,14 @@ function App() {
                     <Route exact path="/home" component={Home} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/register" component={Register} />
+                    <Route exact path="/recommend" component={Recommend} />
+                    <Route exact path="/contact" component={Contact} />
                     <Route exact path="/firebase" component={FirebaseTestImage} />
                     <Route exact path="/thue-nha-dat" component={PageContentContainer} />
                     <Route exact path="/thue-nha-dat/:id" component={PageDetailNews} />
-                    <Route path="/page/404" component={PageNotFound} />
-                    <Route path="*" component={NotFound} />
+                    {/* <Route exact path="/page/404" component={PageNotFound} /> */}
+                    {/* <Route path="/*" component={NotFound} /> */}
+
                     {/* <Route path="*">
                       <NoMatch />
                     </Route> */}
@@ -136,8 +143,14 @@ function App() {
                     <PrivateRouter exact path="/register-type-account" component={RegisterTypeAccount} />
                     <PrivateRouter exact path="/change-password" component={ChangePassword} />
                     <PrivateRouter exact path="/report" component={NewsStatistics} />
+
+
+                    {/* admin */}
+                    <PrivateRouter exact path="/news-management-admin" component={NewsManagementAdmin} />
                     {/* <Route exact path="/stripe" element={StripeCheckoutButton} /> */}
                   </div>}
+
+                {app.typeUser === TYPE_USER.CUSTOMER && <ToolPhoneZaloChat />}
                 <div id="scrollToTop" className='item-center'>
                   <i class="fa fa-angle-double-up" aria-hidden="true">
                   </i>

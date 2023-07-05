@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from '../../redux/actions'
-import { TYPE_USER, CommonUtils, useOnClickOutside } from '../../utils';
+import { TYPE_USER, CommonUtils, useOnClickOutside, TYPE_ROLE } from '../../utils';
 import NoAvatar from '../../assets/images/no-avatar-small.png'
 import "./HeaderBroker.scss"
 import DropDownSettingUserBroker from './DropDownSettingUserBroker/DropDownSettingUserBroker';
@@ -13,7 +13,7 @@ const listMenuHeaderBroker = [
         path: "/home-broker"
     },
     {
-        title: "Báo cáo",
+        title: "Thống kê",
         path: "/report"
     },
     {
@@ -32,16 +32,24 @@ const listMenuHeaderBroker = [
         title: "Nạp tiền",
         path: "/recharge-broker"
     },
-    // {
-    //     title: "Mã thưởng",
-    //     path: "/recharge-broker"
-    // },
-    // {
-    //     title: "Tin nhắn",
-    //     path: "/profile"
-    // },
 ]
 
+
+
+const listMenuHeaderAdmin = [
+    {
+        title: "Trang chủ",
+        path: "/home-broker"
+    },
+    {
+        title: "Quản lý tin",
+        path: "/news-management-admin"
+    },
+    {
+        title: "Quản lý tài khoản",
+        path: "/account-management"
+    },
+]
 
 const HeaderBroker = () => {
     const history = useHistory()
@@ -50,9 +58,15 @@ const HeaderBroker = () => {
     const [isShowSetting, setIsShowSetting] = useState(false);
     const settingRef = useRef();
 
+    const state = useSelector((state) => state);
+    const { auth, app, user } = state
+    const { userInfo } = user
+
     const onRedirectHome = () => {
         dispatch(actions.setTypeUser(TYPE_USER.CUSTOMER))
-        history.push("/home")
+        setTimeout(() => {
+            history.push("/home")
+        }, 50)
     }
 
     useOnClickOutside(settingRef, () => {
@@ -71,18 +85,32 @@ const HeaderBroker = () => {
                 </div>
                 <div className="navbar-menu">
                     <div className="menu-list">
-                        {listMenuHeaderBroker && listMenuHeaderBroker.map((item, index) => {
-                            return (
-                                <div className={("menu-item item-center " + (pathCur === item.path ? "active" : ""))
-                                } onClick={() => {
-                                    setPathCur(item.path)
-                                }}>
-                                    <Link to={item.path}>
-                                        {item.title}
-                                    </Link>
-                                </div>
-                            )
-                        })}
+                        {userInfo.role === TYPE_ROLE.BROKER &&
+                            listMenuHeaderBroker && listMenuHeaderBroker.map((item, index) => {
+                                return (
+                                    <div className={("menu-item item-center " + (pathCur === item.path ? "active" : ""))
+                                    } onClick={() => {
+                                        setPathCur(item.path)
+                                    }}>
+                                        <Link to={item.path}>
+                                            {item.title}
+                                        </Link>
+                                    </div>
+                                )
+                            })}
+                        {userInfo.role === TYPE_ROLE.ADMIN &&
+                            listMenuHeaderAdmin && listMenuHeaderAdmin.map((item, index) => {
+                                return (
+                                    <div className={("menu-item item-center " + (pathCur === item.path ? "active" : ""))
+                                    } onClick={() => {
+                                        setPathCur(item.path)
+                                    }}>
+                                        <Link to={item.path}>
+                                            {item.title}
+                                        </Link>
+                                    </div>
+                                )
+                            })}
                     </div>
                     <div className="noti-broker item-center">
                         <div className="wrap-noti">
@@ -91,7 +119,7 @@ const HeaderBroker = () => {
                     </div>
                     <div className="info-user-broker item-center">
                         <div className="user-name">
-                            Nguyễn
+                            {userInfo && userInfo.firstName}
                         </div>
                         <div className="user-avatar" onClick={() => {
                             setIsShowSetting(!isShowSetting)

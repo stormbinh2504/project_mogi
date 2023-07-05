@@ -246,8 +246,8 @@ const Footer = () => {
                     <div class="col-3 footer-left">
                         <ul class="footer-01">
                             <li><img src={logo} alt="Mogi.vn" height="32" width="96" /></li>
-                            <li><i class="fa fa-phone"></i>(028) 73001234</li>
-                            <li><i class="fa fa-envelope"></i><a href="mailto:trogiup@mogi.vn">trogiup@mogi.vn</a></li>
+                            <li><i class="fa fa-phone"></i>0522 982 504</li>
+                            <li><i class="fa fa-envelope"></i><a href="mailto:nnbinh2504@gmail.com">nnbinh2504@gmail.com</a></li>
                             <li class="social-icon">
                                 <span>
                                     <i class="fa fa-facebook-official" aria-hidden="true"></i>

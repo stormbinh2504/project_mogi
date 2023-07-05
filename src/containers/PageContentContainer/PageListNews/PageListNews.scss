@@ -5,7 +5,7 @@
 
     .list-news {
         .item-news {
-            height: 165px;
+            height: 180px;
             margin: 15px 0px;
             cursor: pointer;
 
@@ -63,7 +63,31 @@
                         }
                     }
                 }
+
+                .prop-favorite {
+                    z-index      : 2;
+                    cursor       : pointer;
+                    /* width     : 30px; */
+                    /* height    : 30px; */
+                    border-radius: 50%;
+                    display      : flex;
+                    position     : absolute;
+                    bottom       : 0;
+                    right        : 40px;
+
+                    i {
+                        font-size: 25px;
+                    }
+
+                    .fa-heart {
+                        color: red;
+                    }
+                }
             }
         }
+    }
+
+    .pagination-news {
+        margin: 10px 0px;
     }
 }

@@ -27,6 +27,13 @@ const accountService = {
         return axios.post(`${REACT_APP_BASE_URL_API}property/loan/saveProperty`, body)
     },
 
+    deleteProperty(codeProperty) {
+        var queryParams = {
+            codeProperty
+        };
+        return axios.get(`${REACT_APP_BASE_URL_API}property/loan/deleteProperty?` + queryString.stringify(queryParams))
+    },
+
 
     getAllProperty(page, records, codeClient, codeProperty, codeTypeProperty, nameProperty) {  // Lấy ra danh sách tài sản
         var queryParams = {

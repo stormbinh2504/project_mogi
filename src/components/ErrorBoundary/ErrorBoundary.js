@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+//https://codepen.io/tag/404-page
 import './ErrorBoundary.scss';
 
 class ErrorBoundary extends Component {
@@ -24,18 +24,19 @@ class ErrorBoundary extends Component {
             return (
                 <div className="error-boundary">
                     <div className="error-boundary-wrapper">
-                        <div className="error-boundary-content">
-                            <div className="icon">
-                                <i className="far fa-exclamation-triangle" />
-                            </div>
-                            <div className="message">
-                                Có lỗi xảy ra yêu cầu tải lại trang
-                            </div>
-                            <div className="action">
-                                <button className="btn btn-info" onClick={this.reloadContent}>
-                                   Tải lại
-                                </button>
-                            </div>
+                        <div class="gif">
+                            <img src="https://i.postimg.cc/2yrFyxKv/giphy.gif" alt="gif_ing" />
+                        </div>
+                        <div class="content">
+                            <h1 class="main-heading">Có lỗi xảy ra yêu cầu tải lại trang</h1>
+                            <p>
+                                ...maybe the page you're looking for is not found or never existed.
+                            </p>
+                            <button onClick={this.reloadContent}>
+                                Tải lại
+                                <i class="far fa-hand-point-right">
+                                </i>
+                            </button>
                         </div>
                     </div>
                 </div>

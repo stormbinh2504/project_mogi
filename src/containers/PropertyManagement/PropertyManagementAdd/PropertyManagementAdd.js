@@ -326,7 +326,11 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
     console.log("binh_setPropertyInfo2", propertyInfo, dataEdit)
 
     const goBack = () => {
-        history.push("/property-management")
+        if (isEdit) {
+            setStep(1)
+        } else {
+            history.push("/property-management")
+        }
     }
 
     return (

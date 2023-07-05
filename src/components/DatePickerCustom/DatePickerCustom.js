@@ -58,7 +58,7 @@ const DatePickerCustom = (props) => {
                 onChange={date => handleDateChange(convertLocalToUTCDate(date))}
                 // selected={convertUTCToLocalDate(startDate)}
                 dateFormat={dateFormat}
-                placeholderText="Click to select a date"
+                // placeholderText="Click to select a date"
                 className="class-date-datepicker"
             />
         </div>
