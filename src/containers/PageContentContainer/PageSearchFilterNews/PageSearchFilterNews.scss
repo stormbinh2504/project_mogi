@@ -2,6 +2,28 @@
     display: flex;
     gap    : 10px;
 
+    .search-filter-name {
+        position: relative;
+
+        input {
+            width        : 100%;
+            height       : 100%;
+            padding      : 0px 10px 0px 10px;
+            border       : none;
+            border-radius: 5px;
+            color        : #3c4146;
+            text-overflow: ellipsis;
+            border       : 1px solid #d0d6e0;
+            min-width    : 250px;
+        }
+
+        span {
+            position: absolute;
+            top     : 20%;
+            right   : 10px;
+        }
+    }
+
     .search-dropdown {
         border-radius: 5px;
         border       : 1px solid #d0d6e0;

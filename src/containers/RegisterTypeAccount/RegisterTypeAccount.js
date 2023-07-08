@@ -188,6 +188,7 @@ const RegisterTypeAccount = () => {
                                     <div className="body-content-row row gutters-5">
                                         {typeAccountAll && typeAccountAll.length > 0 && typeAccountAll.map((item, index) => {
                                             let isDisabledSwitch = item.value === userInfo.accountTypeLever
+                                            let price = Number(dataResgister.countMonth) * Number(item.denominations)
                                             return (
                                                 <div className="col-12 col-sm-3 level-account" onClick={() => onNextStep(item, isDisabledSwitch)}>
                                                     <div className={`box-item box-item-${index} ` + (isDisabledSwitch ? "disabled-switch" : "")}>
@@ -204,7 +205,9 @@ const RegisterTypeAccount = () => {
                                                                 </div>
                                                             </div>
                                                         </div>
-
+                                                        {dataResgister.countMonth && <div className="price-convert text-center">
+                                                            <NumberFormatCustom value={price} />&nbsp;(VND)
+                                                        </div>}
                                                         <div className="action-switch text-center">
                                                             <button className="btn btn-switch">
                                                                 Chuyển đổi
@@ -252,6 +255,11 @@ const RegisterTypeAccount = () => {
                                             <td>Số tháng đăng ký</td>
                                             <td></td>
                                             <td className="text-center" >{dataResgister.countMonth}</td>
+                                        </tr>
+                                        <tr className="text-center">
+                                            <td>Giá</td>
+                                            <td></td>
+                                            <td><NumberFormatCustom value={Number(dataResgister.countMonth) * Number(newPackage.denominations)} />&nbsp;(VND)</td>
                                         </tr>
                                     </tbody>
                                 </table>

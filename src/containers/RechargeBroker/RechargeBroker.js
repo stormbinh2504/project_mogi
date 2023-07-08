@@ -229,7 +229,8 @@ const RechargeBroker = () => {
                                     </div>
                                     }
 
-                                    {paymentSelect === 2 && <div className="stripe-button-container">
+                                    {/* {paymentSelect === 2 && */}
+                                    <div className="stripe-button-container">
                                         <StripeCheckoutButton
                                             product={{
                                                 description: "Design+Code React Hooks Course",
@@ -237,13 +238,13 @@ const RechargeBroker = () => {
                                             }}
                                         />
                                     </div>
-                                    }
+                                    {/* } */}
                                 </div>
                             </div>
                             <div class="col-12 ">
                                 <div className="container-action style-add">
                                     <button class="btn btn-mogi-1" onClick={() => { setStep(2) }}><i class="icon icon-arrow-line-left" ></i> Quay lại</button>
-                                    <button class="btn btn-continue" onClick={() => { setStep(3) }} >Nạp ngay</button>
+                                    {paymentSelect != 1 && <button class="btn btn-continue" onClick={() => { setStep(3) }} >Nạp ngay</button>}
                                 </div>
                             </div>
                         </div>

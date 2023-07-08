@@ -71,6 +71,7 @@
                         }
 
                         .level-desc {
+                            margin-bottom: 20px;
 
                             .level-title {
                                 font-size  : 22px;
@@ -80,11 +81,18 @@
                             .level-detail {}
                         }
 
+
+                        .price-convert {
+                            color      : #262637;
+                            font-weight: 600;
+                            font-size  : 18px;
+                        }
+
                         .action-switch {
                             width        : 100%;
                             border       : 1px solid #000;
                             border-radius: 5px;
-                            margin-top   : 30px;
+                            margin-top   : 20px;
 
                             .btn-switch {}
                         }

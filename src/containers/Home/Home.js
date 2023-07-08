@@ -3,6 +3,7 @@ import Header from '../Header/Header'
 import "./Home.scss"
 import ProjectTop from './ProjectTop/ProjectTop'
 import ProjectLoan from './ProjectLoan/ProjectLoan'
+import SearchNewsHome from './SearchNewsHome/SearchNewsHome'
 
 
 const df_listfeatures = [
@@ -42,9 +43,7 @@ const Home = () => {
     return (
         <div className='container-home'>
             <div className="container-slider">
-                <div id="search-bar">
-
-                </div>
+                <SearchNewsHome />
             </div>
             <div className="container-top-properties">
                 <div className="container top-properties-info">

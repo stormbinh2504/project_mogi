@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
 import { alertType, updateDataFilterNews } from '../../../redux/actions';
-import { ToastUtil, uploadImgToFireBase, deleteFromFirebase, TYPE_PROPERTY_CATEGORY } from '../../../utils';
+import { ToastUtil, uploadImgToFireBase, deleteFromFirebase, TYPE_PROPERTY_CATEGORY, useOnClickOutside } from '../../../utils';
 import { accountService, globalService } from '../../../services';
 
 import "./PageSearchFilterNews.scss"
 import PageDesciption from '../PageDesciption/PageDesciption'
+import _ from 'lodash';
 
 
 const df_PRICE = [
@@ -61,6 +62,29 @@ const PageSearchFilterNews = () => {
     const [locationFilterName, setLocationFilterName] = useState("Toàn quốc")
     const [propertyFilterName, setPropertyFilterName] = useState("Loại bất động sản")
     const [priceFilterName, setPriceFilterName] = useState("Giá thuê")
+    const [filterNameSearch, setFilterNameSearch] = useState(null)
+
+    const locationRef = useRef();
+    const propertyRef = useRef();
+    const priceRef = useRef();
+
+    useOnClickOutside(locationRef, () => {
+        setListOpen({
+            isOpenLocation: false,
+        })
+    });
+
+    useOnClickOutside(propertyRef, () => {
+        setListOpen({
+            isOpenProperty: false,
+        })
+    });
+
+    useOnClickOutside(priceRef, () => {
+        setListOpen({
+            isOpenPrice: false,
+        })
+    });
 
     useEffect(() => {
         fetchGetFindAllProvinceAndDistrict()
@@ -166,7 +190,18 @@ const PageSearchFilterNews = () => {
             });
     }
 
+    const debounceSetFilterNews = useCallback(
+        _.debounce((value) => {
+            let objData = { "nameSearch": value }
+            dispatch(updateDataFilterNews(objData))
+        }, 2000), [dispatch]
+    )
 
+    const handleChangeInput = e => {
+        const { value } = e.target;
+        setFilterNameSearch(value);
+        debounceSetFilterNews(value);
+    }
 
     const onHandleUpdateDataFilterNews = (e, objData) => {
         e.stopPropagation()
@@ -178,6 +213,15 @@ const PageSearchFilterNews = () => {
 
     return (
         <div class="page-search-filter-news" >
+            <div className="search-filter-name">
+                <input className="custom-focus-input" value={filterNameSearch}
+                    onChange={handleChangeInput} placeholder='Từ khóa' />
+
+                <span>
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </span>
+            </div>
+
             <div className="property-location-filter search-dropdown" onClick={() => {
                 setListOpen({
                     isOpenLocation: !listOpen.isOpenLocation,
@@ -197,7 +241,7 @@ const PageSearchFilterNews = () => {
                     </span>
                 </div>
                 {listOpen.isOpenLocation &&
-                    <div className="wrap-dropdown-menusub-filter">
+                    <div className="wrap-dropdown-menusub-filter" ref={locationRef}>
                         <ul className="dropdown-menusub-filter">
                             {dataProvinceAndDistrictAll && dataProvinceAndDistrictAll.map((e, i) => {
                                 if (e.districsList && e.districsList.length > 0) {
@@ -258,7 +302,7 @@ const PageSearchFilterNews = () => {
             }}>
                 <div className="btn btn-search-dropdown">
                     <span className="icon">
-                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        <i class="fa fa-home" aria-hidden="true"></i>
                     </span>
                     <span className="nane">
                         {propertyFilterName}
@@ -268,7 +312,7 @@ const PageSearchFilterNews = () => {
                     </span>
                 </div>
                 {listOpen.isOpenProperty &&
-                    <div className="wrap-dropdown-menusub-filter">
+                    <div className="wrap-dropdown-menusub-filter" ref={propertyRef}>
                         <ul className="dropdown-menusub-filter">
                             {dataTypePropertyAndCategoryTypePropertyAll && dataTypePropertyAndCategoryTypePropertyAll.map((e, i) => {
                                 if (e.propertyList && e.propertyList.length > 0) {
@@ -338,7 +382,7 @@ const PageSearchFilterNews = () => {
                     </span>
                 </div>
                 {listOpen.isOpenPrice &&
-                    <div className="wrap-dropdown-menusub-filter d-flex">
+                    <div className="wrap-dropdown-menusub-filter d-flex" ref={priceRef}>
                         <div className="price-filter price-min">
                             <div className="item-price title-price">
                                 Giá thấp nhất

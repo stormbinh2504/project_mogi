@@ -5,6 +5,14 @@ let REACT_APP_BASE_URL_API = process.env.REACT_APP_BASE_URL_API
 // let BASE_URL_API = process.env.REACT_APP_PAYPAL_CLIENT_ID
 
 const accountService = {
+
+    getHomeClient(codeClient) {
+        let queryParams = {
+            codeClient
+        };
+        return axios.get(`${REACT_APP_BASE_URL_API}client/homeClient?` + queryString.stringify(queryParams))
+    },
+
     setRechargeAccount(body) {
         return axios.post(`${REACT_APP_BASE_URL_API}client/recharge`, body)
     },
@@ -31,7 +39,7 @@ const accountService = {
         var queryParams = {
             codeProperty
         };
-        return axios.get(`${REACT_APP_BASE_URL_API}property/loan/deleteProperty?` + queryString.stringify(queryParams))
+        return axios.delete(`${REACT_APP_BASE_URL_API}property/loan/deleteProperty?` + queryString.stringify(queryParams))
     },
 
 

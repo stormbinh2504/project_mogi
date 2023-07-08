@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
 import Header from '../Header/Header'
@@ -6,16 +6,46 @@ import "./HomeBroker.scss"
 import PageContainerBroker from './../../components/Broker/PageContainerBroker/PageContainerBroker';
 import Avatar from '../../assets/images/avatar.png'
 import Zalo from '../../assets/images/zalo.png'
+import { accountService } from '../../services';
+import { ToastUtil } from '../../utils';
+import { alertType } from '../../redux/actions';
 const HomeBroker = () => {
     const state = useSelector((state) => state);
     const { auth, app, user } = state
     const { userInfo } = user
-
+    const { codeClient } = userInfo
     const history = useHistory()
     const dispatch = useDispatch()
+
+    const [dataHome, setDataHome] = useState({})
+
+
     const onGoToRecharge = () => {
         history.push("/recharge-broker")
     }
+
+
+    useEffect(() => {
+        fetchGetHomeClient();
+    }, []);
+
+    const fetchGetHomeClient = async (page) => {
+        dispatch(alertType(true))
+
+        await accountService.getHomeClient(codeClient)
+            .then(res => {
+                if (res) {
+                    setDataHome(res);
+                }
+                dispatch(alertType(false))
+            })
+            .catch(error => {
+                dispatch(alertType(false))
+                ToastUtil.errorApi(error, "Không thể tải vè thông tin");
+            });
+    }
+
+
 
     return (
         <PageContainerBroker

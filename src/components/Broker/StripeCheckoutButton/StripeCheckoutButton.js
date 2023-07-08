@@ -24,7 +24,7 @@ const CheckoutForm = () => {
             type: 'card',
             card: elements.getElement(CardElement),
         });
-
+        console.log("binh_handleSubmit", { error, paymentMethod })
         return
 
         const { error: backendError, clientSecret } = await fetch(

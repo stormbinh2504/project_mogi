@@ -42,13 +42,6 @@ const PaypalCheckoutButton = (props) => {
     return (
         <>
             <PayPalButtons
-                style={{
-                    color: "silver",
-                    layout: "horizontal",
-                    height: 48,
-                    tagline: false,
-                    shape: "pill"
-                }}
                 createOrder={(data, actions) => {
                     return actions.order.create({
                         purchase_units: [

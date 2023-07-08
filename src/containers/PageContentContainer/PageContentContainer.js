@@ -50,9 +50,7 @@ const PageContentContainer = () => {
         <div class="page-content-container" >
             <div className="container">
                 <div className="search-bar">
-                    <div className="container">
-                        <PageSearchFilterNews />
-                    </div>
+                    <PageSearchFilterNews />
                 </div>
 
                 <div className="breadcrumb-content">
