@@ -34,6 +34,14 @@ const df_bodyGetManagerNews = {
     "order": null
 }
 
+const df_dataNews = {
+    "id": null,
+    "nameNews": null,
+    "codeProperty": null,
+    "dateCreate": null,
+    "dateExpiration": null,
+}
+
 const NewsManagement = () => {
     const history = useHistory()
     const dispatch = useDispatch()
@@ -44,13 +52,7 @@ const NewsManagement = () => {
     const [dataSource, setDataSource] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
-    const [dataAdd, setDataAdd] = useState({
-        "id": null,
-        "nameNews": null,
-        "codeProperty": null,
-        "dateCreate": null,
-        "dateExpiration": null,
-    });
+    const [dataAdd, setDataAdd] = useState(df_dataNews);
     const [dataUpto, setDataUpto] = useState(null);
     const [dataPreview, setDataPreview] = useState(null);
 
@@ -224,7 +226,10 @@ const NewsManagement = () => {
                             />}
                             {isOpenModalAdd && <ModalAddNewsManagement
                                 isOpen={isOpenModalAdd}
-                                onClose={() => { setIsOpenModalAdd(false) }}
+                                onClose={() => {
+                                    setIsOpenModalAdd(false)
+                                    setDataAdd(df_dataNews)
+                                }}
                                 setDataAdd={(data) => { setDataAdd((prev) => ({ ...prev, ...data })) }}
                                 dataAdd={dataAdd}
                                 setIsEdit={(data) => { setIsEdit(data) }}
@@ -341,8 +346,12 @@ const NewsManagement = () => {
                                             className="img-news"
                                         />}
                                     />
-                                    <Column title="Tên tin" dataIndex="nameNews" key="nameNews" width={250} align='center' />
-                                    <Column title="Địa chỉ" dataIndex="address" key="address" width={250} align='center' />
+                                    <Column title="Tên tin" dataIndex="nameNews" key="nameNews" width={250} align='center'
+                                        sorter={(a, b) => a.nameNews.length - b.nameNews.length}
+                                    />
+                                    <Column title="Địa chỉ" dataIndex="address" key="address" width={250} align='center'
+                                        sorter={(a, b) => a.address.length - b.address.length}
+                                    />
 
                                     <Column title="Ngày tạo" key="dateCreate" width={150} align='center'
                                         render={(t, r) => {
@@ -378,6 +387,19 @@ const NewsManagement = () => {
                                                 </div>
                                             )
                                         }}
+
+                                        filters={[
+                                            {
+                                                text: 'Đang hoạt động',
+                                                value: 1,
+                                            },
+                                            {
+                                                text: 'Chưa hoạt động',
+                                                value: 2,
+                                            }
+                                        ]}
+                                        onFilter={(value, record) => record.statusUpTop == value}
+                                        filterSearch={true}
                                     />
                                     <Column
                                         title="Thao tác"

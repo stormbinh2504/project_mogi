@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from '../../redux/actions'
@@ -49,6 +49,10 @@ const listMenuHeaderAdmin = [
         title: "Quản lý tài khoản",
         path: "/account-management"
     },
+    {
+        title: "Quản lý môi giới",
+        path: "/broker-management"
+    },
 ]
 
 const HeaderBroker = () => {
@@ -73,7 +77,13 @@ const HeaderBroker = () => {
         setIsShowSetting(false)
     });
 
-    console.log("HeaderBroker", isShowSetting)
+
+
+    useEffect(() => {
+        setPathCur(history.location.pathname)
+    }, [history.location.pathname]);
+
+    console.log("HeaderBroker", isShowSetting, history)
 
     return (
         <div className='header-broker'>

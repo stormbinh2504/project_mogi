@@ -105,7 +105,7 @@ const accountService = {
         return axios.get(`${REACT_APP_BASE_URL_API}news/statisticsByDistrict?` + queryString.stringify(queryParams))
     },
 
-    getStatisticsByPrice(body) { //Chuyển đổi loại tài khoản
+    getStatisticsByPrice(body) { // Thống kê
         const { provinceCode,
             month,
             year,
@@ -118,6 +118,46 @@ const accountService = {
         };
         return axios.get(`${REACT_APP_BASE_URL_API}news/statisticsByPrice?` + queryString.stringify(queryParams))
     },
+
+    getFindAllUser(body) { // Quản lý tài khoản
+        const { searchName,
+            page,
+            size } = body
+        var queryParams = {
+            searchName,
+            page,
+            size,
+        };
+        return axios.get(`${REACT_APP_BASE_URL_API}auth/findAllUser?` + queryString.stringify(queryParams))
+    },
+
+    setResetPassword(id) { // Khôi phục password
+        var queryParams = {
+            id,
+        };
+        return axios.get(`${REACT_APP_BASE_URL_API}auth/resetPassword?` + queryString.stringify(queryParams))
+    },
+
+
+    updateSaveAgency(body) { // update môi giới
+        return axios.post(`${REACT_APP_BASE_URL_API}agency/saveAgency?`, body)
+    },
+
+
+    getFindAllAgency(body) { // Quản lý môi giới
+        const { nameSearch,
+            provinceCode,
+            page,
+            size } = body
+        var queryParams = {
+            nameSearch,
+            provinceCode,
+            page,
+            size,
+        };
+        return axios.get(`${REACT_APP_BASE_URL_API}agency/findAllAgency?` + queryString.stringify(queryParams))
+    },
+
 
 }
 export default accountService

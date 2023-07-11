@@ -93,19 +93,40 @@ const ModalListPropertyManagement = (props) => {
                             <Column title="Mã tài sản" dataIndex="codeProperty" key="codeProperty" width={100} align='center' />
                             <Column title="Tên tài sản" dataIndex="nameProperty" key="nameProperty" width={350} align='center' />
                             <Column title="Địa chỉ" dataIndex="addressView" key="addressView" width={350} align='center' />
-                            <Column title="Trạng thái" dataIndex="status" key="status" width={150} align='center' />
+                            <Column title="Trạng thái" dataIndex="status" key="status" width={150} align='center'
+                                filters={[
+                                    {
+                                        text: 'Tạo mới',
+                                        value: 'Tạo mới',
+                                    },
+                                    {
+                                        text: 'Đang cho thuê',
+                                        value: 'Đang cho thuê',
+                                    },
+                                    {
+                                        text: 'Đã chỉnh sửa',
+                                        value: 'Đã chỉnh sửa',
+                                    }
+                                ]}
+                                onFilter={(value, record) => record.status.includes(value)}
+                                filterSearch={true}
+                            />
                             <Column
                                 title="Thao tác"
                                 key="action"
                                 width={100}
                                 align='center'
-                                render={(_, record) => (
-                                    <Space size="middle">
-                                        <span className="cursor-pointer" onClick={() => { onHandleUpdate(record) }}>
-                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                        </span>
-                                    </Space>
-                                )}
+                                render={(_, record) => {
+                                    if (!(record.status.includes('Đang cho thuê'))) {
+                                        return (
+                                            <Space size="middle">
+                                                <span className="cursor-pointer" onClick={() => { onHandleUpdate(record) }}>
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                                </span>
+                                            </Space>
+                                        )
+                                    }
+                                }}
                             />
                         </Table>
                     </div>

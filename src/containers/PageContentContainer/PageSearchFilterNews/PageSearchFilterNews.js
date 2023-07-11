@@ -86,12 +86,12 @@ const PageSearchFilterNews = () => {
         })
     });
 
-    useEffect(() => {
-        fetchGetFindAllProvinceAndDistrict()
-        fetchGetFindAllTypePropertyAndCategoryTypeProperty()
+    useEffect(async () => {
+        await fetchGetFindAllProvinceAndDistrict()
+        await fetchGetFindAllTypePropertyAndCategoryTypeProperty()
     }, []);
 
-    const onHandleSetLocationFilterName = () => {
+    const onHandleSetLocationFilterName = async () => {
         if (dataProvinceAndDistrictAll && dataProvinceAndDistrictAll.length > 0) {
             dataProvinceAndDistrictAll.forEach((e, i) => {
                 if (e.provinceCode === filterNews.provinceCode) {
@@ -142,17 +142,24 @@ const PageSearchFilterNews = () => {
 
     useEffect(() => {
         onHandleSetLocationFilterName()
-    }, [filterNews.provinceCode]);
+    }, [filterNews.provinceCode, dataProvinceAndDistrictAll]);
 
 
     useEffect(() => {
         onHandleSetPropertyFilterName()
-    }, [filterNews.codeCateTypePropertyCategory]);
+    }, [filterNews.codeCateTypePropertyCategory, dataTypePropertyAndCategoryTypePropertyAll]);
 
 
     useEffect(() => {
         onHandleSetPriceFilterName()
     }, [filterNews.priceStart, filterNews.priceEnd]);
+
+
+    useEffect(() => {
+        if (filterNews.nameSearch) {
+            setFilterNameSearch(filterNews.nameSearch)
+        }
+    }, [filterNews.nameSearch]);
 
     const fetchGetFindAllProvinceAndDistrict = async () => {
         dispatch(alertType(true))

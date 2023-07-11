@@ -6,9 +6,10 @@ import "./HomeBroker.scss"
 import PageContainerBroker from './../../components/Broker/PageContainerBroker/PageContainerBroker';
 import Avatar from '../../assets/images/avatar.png'
 import Zalo from '../../assets/images/zalo.png'
-import { accountService } from '../../services';
-import { ToastUtil } from '../../utils';
+import { accountService, } from '../../services';
+import { ToastUtil, CommonUtils } from '../../utils';
 import { alertType } from '../../redux/actions';
+
 const HomeBroker = () => {
     const state = useSelector((state) => state);
     const { auth, app, user } = state
@@ -22,6 +23,15 @@ const HomeBroker = () => {
 
     const onGoToRecharge = () => {
         history.push("/recharge-broker")
+    }
+
+
+    const onGoToManagementNews = () => {
+        history.push("/news-management")
+    }
+
+    const onGoToManagementProperty = () => {
+        history.push("/property-management")
     }
 
 
@@ -46,7 +56,6 @@ const HomeBroker = () => {
     }
 
 
-
     return (
         <PageContainerBroker
             titleId={"Thông tin cá nhân"}
@@ -59,12 +68,15 @@ const HomeBroker = () => {
                                 <img src={userInfo.url ? userInfo.url : Avatar} />
                             </div>
                             <div className="user-name item-center ">
-                                {userInfo.fullName}
+                                {dataHome.fullName}
                             </div>
                             <div className="user-phone item-center">
                                 {userInfo.phone}
                             </div>
-                            <div className="user-level item-center">
+                            <div className="user-phone item-center">
+                                {dataHome && dataHome.email}
+                            </div>
+                            <div className="user-level item-center" style={{ display: "flex", gap: "5px" }} onClick={() => { history.push("/register-type-account") }}>
                                 <i className="fa fa-edit"></i>
                                 <span className="savings">{userInfo.accountLeverTypeName}</span>
                             </div>
@@ -81,14 +93,13 @@ const HomeBroker = () => {
                                 <li>
                                     <i className="zaloicon"></i>0899381845
                                 </li>
-
                             </ul>
                         </div>
                         <div className="widget mbpay">
                             <ul className="mbpay-balance">
                                 <li className="">
                                     <i className="fa fa-dollar"></i>Tài khoản chính
-                                    <span className="value ng-binding text-right" >{userInfo.money}</span>
+                                    <span className="value ng-binding text-right" >{CommonUtils.formatNumber(userInfo.money, 0)}</span>
                                 </li>
                                 <li className="">
                                     <i className="fa fa-gift"></i>Khuyến mãi
@@ -112,23 +123,28 @@ const HomeBroker = () => {
                             <div className="summary">
                                 <div className="summary-item">
                                     <span>Đang đăng:</span>
-                                    <span className="counter ng-binding">0</span>
-                                    <button className="btn-detail">Chi tiết</button>
+                                    <span className="counter ng-binding">{dataHome && dataHome.expiredNews}</span>
+                                    {/* <button className="btn-detail">Chi tiết</button> */}
                                 </div>
                                 <div className="summary-item">
                                     <span>Tin lỗi:</span>
                                     <span className="counter ng-binding" >0</span>
-                                    <button className="btn-detail">Chi tiết</button>
+                                    {/* <button className="btn-detail">Chi tiết</button> */}
                                 </div>
                                 <div className="summary-item">
                                     <span>Tin khác:</span>
                                     <span className="counter ng-binding" >0</span>
-                                    <button className="btn-detail">Chi tiết</button>
+                                    {/* <button className="btn-detail">Chi tiết</button> */}
                                 </div>
                                 <div className="summary-item">
                                     <span>Tổng số tin:</span>
-                                    <span className="counter ng-binding">0/20</span>
-                                    <button className="btn-detail">Chi tiết</button>
+                                    <span className="counter ng-binding">{dataHome && dataHome.allNews}</span>
+                                    <button className="btn-detail" onClick={onGoToManagementNews}>Chi tiết</button>
+                                </div>
+                                <div className="summary-item">
+                                    <span>Tổng số tài sản:</span>
+                                    <span className="counter ng-binding">{dataHome && dataHome.postingProperty}</span>
+                                    <button className="btn-detail" onClick={onGoToManagementProperty}>Chi tiết</button>
                                 </div>
                             </div>
                         </div>

@@ -126,9 +126,30 @@ const PropertyManagement = () => {
                                         scroll={{ x: 1000 }}
                                     >
                                         <Column title="Mã tài sản" dataIndex="codeProperty" key="codeProperty" width={100} align='center' />
-                                        <Column title="Tên tài sản" dataIndex="nameProperty" key="nameProperty" width={250} align='center' />
-                                        <Column title="Địa chỉ" dataIndex="addressView" key="addressView" width={250} align='center' />
-                                        <Column title="Trạng thái" dataIndex="status" key="status" width={150} align='center' />
+                                        <Column title="Tên tài sản" dataIndex="nameProperty" key="nameProperty" width={250} align='center'
+                                            sorter={(a, b) => a.nameProperty.length - b.nameProperty.length}
+                                        />
+                                        <Column title="Địa chỉ" dataIndex="addressView" key="addressView" width={250} align='center'
+                                            sorter={(a, b) => a.addressView.length - b.addressView.length}
+                                        />
+                                        <Column title="Trạng thái" dataIndex="status" key="status" width={150} align='center'
+                                            filters={[
+                                                {
+                                                    text: 'Tạo mới',
+                                                    value: 'Tạo mới',
+                                                },
+                                                {
+                                                    text: 'Đang cho thuê',
+                                                    value: 'Đang cho thuê',
+                                                },
+                                                {
+                                                    text: 'Đã chỉnh sửa',
+                                                    value: 'Đã chỉnh sửa',
+                                                }
+                                            ]}
+                                            onFilter={(value, record) => record.status.includes(value)}
+                                            filterSearch={true}
+                                        />
                                         <Column title="Ngày sửa" key="lastDateUpdate" width={150} align='center'
                                             render={(t, r) => {
                                                 let data = t.lastDateUpdate

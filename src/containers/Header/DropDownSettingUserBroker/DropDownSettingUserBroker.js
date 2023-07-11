@@ -34,7 +34,7 @@ const DropDownSettingUserBroker = (props) => {
                 <li onClick={() => onHandelRedirect("/favorite")}><a href="/favorite"><i class="fa fa-heart"></i>Bất động sản yêu thích</a></li>
                 <li onClick={() => onHandelRedirect("/profile")}><a href="/profile"><i class="fa fa-user"></i>Thông tin cá nhân</a></li>
 
-                <li onClick={() => onHandelRedirect("/nap-tien")} ><a href="/nap-tien"><i class="fa fa-vcard-o"></i>Nạp tiền</a></li>
+                <li onClick={() => onHandelRedirect("/recharge-broker")} ><a href="/recharge-broker"><i class="fa fa-vcard-o"></i>Nạp tiền</a></li>
 
                 <li onClick={() => onHandelRedirect("/Coupon/CouponList")}><a  ><i class="fa fa-gift"></i>Mã thưởng</a></li>
                 <li onClick={() => onHandelRedirect("/change-password")}><a ><i class="fa fa-lock"></i>Thay đổi mật khẩu</a></li>

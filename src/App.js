@@ -42,6 +42,8 @@ import NewsManagementAdmin from './containers/NewsManagement/NewsManagementAdmin
 import Recommend from './containers/Recommend/Recommend';
 import Contact from './containers/Contact/Contact';
 import ToolPhoneZaloChat from './containers/Common/ToolPhoneZaloChat/ToolPhoneZaloChat';
+import AccountManagement from './containers/AccountManagement/AccountManagement';
+import BrokerManagement from './containers/BrokerManagement/BrokerManagement';
 
 if (typeof window !== "undefined") {
   injectStyle();
@@ -143,6 +145,8 @@ function App() {
                     <PrivateRouter exact path="/register-type-account" component={RegisterTypeAccount} />
                     <PrivateRouter exact path="/change-password" component={ChangePassword} />
                     <PrivateRouter exact path="/report" component={NewsStatistics} />
+                    <PrivateRouter exact path="/account-management" component={AccountManagement} />
+                    <PrivateRouter exact path="/broker-management" component={BrokerManagement} />
 
 
                     {/* admin */}

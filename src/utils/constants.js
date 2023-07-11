@@ -52,6 +52,8 @@ export const TYPE_PROPERTY_CATEGORY = {
     GROUND: "5"
 }
 
-
+export const DF_IMAGE = {
+    AVATAR_USER_DF: "https://res.cloudinary.com/stormbinh2504/image/upload/v1689013915/mogi/avatar_user.png"
+}
 
 

@@ -45,7 +45,7 @@ const RechargeBroker = () => {
     const dispatch = useDispatch()
 
     const onGoToRecharge = () => {
-        history.push("/nap-tien")
+        history.push("/recharge-broker")
     }
     const onChangePayment = (e) => {
         console.log('radio checked', e.target.value);

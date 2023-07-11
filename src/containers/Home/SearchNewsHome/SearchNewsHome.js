@@ -43,13 +43,28 @@ const df_PRICE = [
         value: 100000000,
     },
 ]
+
+
+let filterNews_df = {
+    "nameSearch": null,
+    "provinceCode": null,
+    "districtCode": null,
+    "codeTypeProperty": null,
+    "codeCateTypePropertyCategory": null,
+    "priceStart": null,
+    "priceEnd": null,
+    "areaMinRange": null,
+    "areaMaxRange": null,
+    "totalRoom": null,
+    "rangeDaySearch": 365,
+}
+
 const SearchNewsHome = () => {
     const history = useHistory()
     const dispatch = useDispatch()
     const state = useSelector((state) => state);
     const { auth, app, user } = state
     const { userInfo } = user
-    const { filterNews } = app
 
     const [dataProvinceAndDistrictAll, setDataProvinceAndDistrictAll] = useState([])
     const [dataTypePropertyAndCategoryTypePropertyAll, setDataTypePropertyAndCategoryTypePropertyAll] = useState([])
@@ -58,10 +73,14 @@ const SearchNewsHome = () => {
         isOpenProperty: false,
         isOpenPrice: false,
     })
+
     const [locationFilterName, setLocationFilterName] = useState("Toàn quốc")
     const [propertyFilterName, setPropertyFilterName] = useState("Loại bất động sản")
     const [priceFilterName, setPriceFilterName] = useState("Giá thuê")
-    const [filterNameSearch, setFilterNameSearch] = useState(null)
+
+    const [inputFormFilter, setInputFormFilter] = useState(filterNews_df)
+
+
 
     const locationRef = useRef();
     const propertyRef = useRef();
@@ -93,7 +112,7 @@ const SearchNewsHome = () => {
     const onHandleSetLocationFilterName = () => {
         if (dataProvinceAndDistrictAll && dataProvinceAndDistrictAll.length > 0) {
             dataProvinceAndDistrictAll.forEach((e, i) => {
-                if (e.provinceCode === filterNews.provinceCode) {
+                if (e.provinceCode === inputFormFilter.provinceCode) {
                     setLocationFilterName(e.provinceName)
                 }
             })
@@ -103,7 +122,7 @@ const SearchNewsHome = () => {
     const onHandleSetPropertyFilterName = () => {
         if (dataTypePropertyAndCategoryTypePropertyAll && dataTypePropertyAndCategoryTypePropertyAll.length > 0) {
             dataTypePropertyAndCategoryTypePropertyAll.forEach((e, i) => {
-                if (e.codeCateTypePropertyCategory == filterNews.codeCateTypePropertyCategory) {
+                if (e.codeCateTypePropertyCategory == inputFormFilter.codeCateTypePropertyCategory) {
                     setPropertyFilterName(e.nameCodeCateTypePropertyCategory)
                 }
             })
@@ -112,8 +131,8 @@ const SearchNewsHome = () => {
 
 
     const onHandleSetPriceFilterName = () => {
-        const { priceStart, priceEnd } = filterNews
-        console.log("binh_onHandleSetPriceFilterName", filterNews)
+        const { priceStart, priceEnd } = inputFormFilter
+        console.log("binh_onHandleSetPriceFilterName", inputFormFilter)
         if (priceStart == null && priceEnd == null) {
             setPriceFilterName("Giá thuê")
         }
@@ -141,17 +160,17 @@ const SearchNewsHome = () => {
 
     useEffect(() => {
         onHandleSetLocationFilterName()
-    }, [filterNews.provinceCode]);
+    }, [inputFormFilter.provinceCode]);
 
 
     useEffect(() => {
         onHandleSetPropertyFilterName()
-    }, [filterNews.codeCateTypePropertyCategory]);
+    }, [inputFormFilter.codeCateTypePropertyCategory]);
 
 
     useEffect(() => {
         onHandleSetPriceFilterName()
-    }, [filterNews.priceStart, filterNews.priceEnd]);
+    }, [inputFormFilter.priceStart, inputFormFilter.priceEnd]);
 
     const fetchGetFindAllProvinceAndDistrict = async () => {
         dispatch(alertType(true))
@@ -189,26 +208,24 @@ const SearchNewsHome = () => {
             });
     }
 
-    const debounceSetFilterNews = useCallback(
-        _.debounce((value) => {
-            let objData = { "nameSearch": value }
-            dispatch(updateDataFilterNews(objData))
-        }, 2000), [dispatch]
-    )
-
     const handleChangeInput = e => {
-        const { value } = e.target;
-        setFilterNameSearch(value);
-        debounceSetFilterNews(value);
+        const { name, value } = e.target
+        setInputFormFilter((prev) => ({ ...prev, [name]: value }))
     }
 
     const onHandleUpdateDataFilterNews = (e, objData) => {
         e.stopPropagation()
-        dispatch(updateDataFilterNews(objData))
+        setInputFormFilter((prev) => ({ ...prev, ...objData }))
     }
 
 
-    console.log("PageSearchFilterNews_render", { locationFilterName, propertyFilterName, dataTypePropertyAndCategoryTypePropertyAll, filterNews: filterNews })
+    const searchFilter = () => {
+        history.push("/thue-nha-dat")
+        let objData = { ...inputFormFilter }
+        dispatch(updateDataFilterNews(objData))
+    }
+
+    console.log("PageSearchFilterNews_render", { locationFilterName, propertyFilterName, dataTypePropertyAndCategoryTypePropertyAll, inputFormFilter: inputFormFilter })
 
     return (
         <div class="search-news-home" >
@@ -219,12 +236,15 @@ const SearchNewsHome = () => {
                 <div className="search-content">
                     <div className="search-input">
                         <div className="search-filter-name">
-                            <input className="" value={filterNameSearch}
-                                onChange={handleChangeInput} placeholder='Từ khóa' />
+                            <input className="" value={inputFormFilter.nameSearch}
+                                onChange={handleChangeInput}
+                                placeholder='Từ khóa'
+                                name="nameSearch"
+                            />
 
 
                         </div>
-                        <div className="btn-search item-center">
+                        <div className="btn-search item-center" onClick={searchFilter}>
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </div>
                     </div>
@@ -255,7 +275,7 @@ const SearchNewsHome = () => {
                                         {dataProvinceAndDistrictAll && dataProvinceAndDistrictAll.map((e, i) => {
                                             if (e.districsList && e.districsList.length > 0) {
                                                 return (
-                                                    <li className={"dropdown-menuitem-filter " + (e.provinceCode == filterNews.provinceCode ? "active" : "")}
+                                                    <li className={"dropdown-menuitem-filter " + (e.provinceCode == inputFormFilter.provinceCode ? "active" : "")}
                                                         onClick={(event) => onHandleUpdateDataFilterNews(event, { "provinceCode": e.provinceCode, "districtCode": null })}
                                                     >
                                                         <div className="wrap-content">
@@ -269,7 +289,7 @@ const SearchNewsHome = () => {
                                                         <ul className="dropdown-menu-child">
                                                             {e.districsList.map((e2, i2) => {
                                                                 return (
-                                                                    <li className={(e2.districtCode == filterNews.districtCode ? "active" : "")}
+                                                                    <li className={(e2.districtCode == inputFormFilter.districtCode ? "active" : "")}
                                                                         onClick={(event) => onHandleUpdateDataFilterNews(event, { "provinceCode": e.provinceCode, "districtCode": e2.districtCode })}
                                                                     >
                                                                         <div className={"wrap-content"}>
@@ -283,7 +303,7 @@ const SearchNewsHome = () => {
                                                 )
                                             } else {
                                                 return (
-                                                    <li className={"dropdown-menuitem-filter " + (e.provinceCode == filterNews.provinceCode ? "active" : "")}
+                                                    <li className={"dropdown-menuitem-filter " + (e.provinceCode == inputFormFilter.provinceCode ? "active" : "")}
                                                         onClick={(event) => onHandleUpdateDataFilterNews(event, { "provinceCode": e.provinceCode, "districtCode": null })}
                                                     >
                                                         <div className="wrap-content">
@@ -326,7 +346,7 @@ const SearchNewsHome = () => {
                                         {dataTypePropertyAndCategoryTypePropertyAll && dataTypePropertyAndCategoryTypePropertyAll.map((e, i) => {
                                             if (e.propertyList && e.propertyList.length > 0) {
                                                 return (
-                                                    <li className={"dropdown-menuitem-filter " + (e.codeCateTypePropertyCategory == filterNews.codeCateTypePropertyCategory ? "active" : "")}
+                                                    <li className={"dropdown-menuitem-filter " + (e.codeCateTypePropertyCategory == inputFormFilter.codeCateTypePropertyCategory ? "active" : "")}
                                                         onClick={(event) => onHandleUpdateDataFilterNews(event, { "codeCateTypePropertyCategory": e.codeCateTypePropertyCategory, "codeTypeProperty": null })}
                                                     >
                                                         <div className="wrap-content">
@@ -340,7 +360,7 @@ const SearchNewsHome = () => {
                                                         <ul className="dropdown-menu-child">
                                                             {e.propertyList.map((e2, i2) => {
                                                                 return (
-                                                                    <li className={(e2.codeTypeProperty == filterNews.codeTypeProperty ? "active" : "")}
+                                                                    <li className={(e2.codeTypeProperty == inputFormFilter.codeTypeProperty ? "active" : "")}
                                                                         onClick={(event) => onHandleUpdateDataFilterNews(event, { "codeCateTypePropertyCategory": e.codeCateTypePropertyCategory, "codeTypeProperty": e2.codeTypeProperty })}
                                                                     >
                                                                         <div className={"wrap-content"}>
@@ -354,7 +374,7 @@ const SearchNewsHome = () => {
                                                 )
                                             } else {
                                                 return (
-                                                    <li className={"dropdown-menuitem-filter " + (e.codeCateTypePropertyCategory == filterNews.codeCateTypePropertyCategory ? "active" : "")}
+                                                    <li className={"dropdown-menuitem-filter " + (e.codeCateTypePropertyCategory == inputFormFilter.codeCateTypePropertyCategory ? "active" : "")}
                                                         onClick={(event) => onHandleUpdateDataFilterNews(event, { "codeCateTypePropertyCategory": e.codeCateTypePropertyCategory, "codeTypeProperty": null })}
                                                     >
                                                         <div className="wrap-content">
@@ -398,7 +418,7 @@ const SearchNewsHome = () => {
                                         </div>
                                         {df_PRICE.map((item, index) => {
                                             return (
-                                                <div className={"item-price " + (filterNews.priceStart === item.value ? " active" : "")} onClick={(event) => onHandleUpdateDataFilterNews(event, { "priceStart": item.value })}>
+                                                <div className={"item-price " + (inputFormFilter.priceStart === item.value ? " active" : "")} onClick={(event) => onHandleUpdateDataFilterNews(event, { "priceStart": item.value })}>
                                                     {item.label}
                                                 </div>
                                             )
@@ -410,7 +430,7 @@ const SearchNewsHome = () => {
                                         </div>
                                         {df_PRICE.map((item, index) => {
                                             return (
-                                                <div className={"item-price " + (filterNews.priceEnd === item.value ? " active" : "")} onClick={(event) => onHandleUpdateDataFilterNews(event, { "priceEnd": item.value })} >
+                                                <div className={"item-price " + (inputFormFilter.priceEnd === item.value ? " active" : "")} onClick={(event) => onHandleUpdateDataFilterNews(event, { "priceEnd": item.value })} >
                                                     {item.label}
                                                 </div>
                                             )

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from '../../redux/actions'
@@ -6,9 +6,28 @@ import { TYPE_USER } from '../../utils';
 import logo from "../../assets/svgs/logo.svg"
 
 import "./Header.scss"
+
+
+const listMenuHeaderCustomer = [
+    {
+        title: "Tìm thuê",
+        path: "/thue-nha-dat"
+    },
+    {
+        title: "Giới thiệu",
+        path: "/recommend"
+    },
+    {
+        title: "Liên hệ",
+        path: "/contact"
+    },
+]
+
+
 const Header = () => {
     const history = useHistory()
     const dispatch = useDispatch()
+    const [pathCur, setPathCur] = useState(history.location.pathname);
 
     const onRedirectPosting = () => {
         dispatch(actions.setTypeUser(TYPE_USER.BROKER, () => {
@@ -23,6 +42,12 @@ const Header = () => {
 
     }
 
+
+    useEffect(() => {
+        setPathCur(history.location.pathname)
+    }, [history.location.pathname]);
+
+
     return (
         <div className='header'>
             <div className="container container-header">
@@ -33,36 +58,18 @@ const Header = () => {
                 </div>
                 <div className="navbar-menu">
                     <div className="menu-list">
-                        <div className="menu-item item-center">
-                            <Link to="/thue-nha-dat">
-                                Tìm thuê
-                            </Link>
-                        </div>
-                        {/* <div className="menu-item item-center">
-                            <Link to="/find">
-                                Giá nhà đất
-                            </Link>
-                        </div>
-                        <div className="menu-item item-center">
-                            <Link to="/find">
-                                Hỏi đáp
-                            </Link>
-                        </div>
-                        <div className="menu-item item-center">
-                            <Link to="/find">
-                                Môi giới
-                            </Link>
-                        </div> */}
-                        <div className="menu-item item-center">
-                            <Link to="/recommend">
-                                Giới thiệu
-                            </Link>
-                        </div>
-                        <div className="menu-item item-center">
-                            <Link to="/contact">
-                                Liên hệ
-                            </Link>
-                        </div>
+                        {listMenuHeaderCustomer && listMenuHeaderCustomer.map((item, index) => {
+                            return (
+                                <div className={("menu-item item-center " + (pathCur === item.path ? "active" : ""))
+                                } onClick={() => {
+                                    setPathCur(item.path)
+                                }}>
+                                    <Link to={item.path}>
+                                        {item.title}
+                                    </Link>
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
                 <div className="navbar-user item-center">

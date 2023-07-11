@@ -11,6 +11,13 @@ import DatePickerCustom from '../../../components/DatePickerCustom/DatePickerCus
 
 const { Column, ColumnGroup } = Table;
 
+const df_dataNews = {
+    "id": null,
+    "nameNews": null,
+    "codeProperty": null,
+    "dateCreate": new Date(),
+    "dateExpiration": new Date(),
+}
 const ModalAddNewsManagement = (props) => {
     const { isOpen, onClose, dataAdd, setDataAdd, isEdit, onHandleCallBack } = props
     const history = useHistory()
@@ -22,13 +29,7 @@ const ModalAddNewsManagement = (props) => {
     const [dataSource, setDataSource] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
-    const [dataNews, setDataNews] = useState({
-        "id": null,
-        "nameNews": null,
-        "codeProperty": null,
-        "dateCreate": new Date(),
-        "dateExpiration": new Date(),
-    });
+    const [dataNews, setDataNews] = useState(df_dataNews);
 
     const [step, setStep] = useState(1);
 
@@ -75,8 +76,8 @@ const ModalAddNewsManagement = (props) => {
         await accountService.updateSaveNews(body)
             .then(res => {
                 dispatch(alertType(false))
-                setDataNews(dataNews)
-                setDataAdd(dataNews)
+                setDataNews(df_dataNews)
+                setDataAdd(df_dataNews)
                 ToastUtil.success(isEdit ? "Sửa tin thành công" : "Tạo tin mới thành công");
                 onHandleCallBack()
                 onClose()

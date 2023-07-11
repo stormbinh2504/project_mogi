@@ -68,6 +68,7 @@ const PageListNews = () => {
                         setDataListNews([])
                     }
                     setTotalPages(res.totalElements)
+                    window.scrollTo(0, 0);
                     dispatch(alertType(false))
                 }
             })
@@ -134,9 +135,9 @@ const PageListNews = () => {
     return (
         <div class="page-list-news" >
             .<h1 class="page-title">Thuê Nhà Đất Giá Rẻ Tại Việt Nam, Giá Thuê Mới Nhất T6/2023</h1>
-            <div class="property-list-result">
+            {/* <div class="property-list-result">
                 <span ng-non-bindable=""><b>1 - 15</b> trong <b>355.731</b></span>
-            </div>
+            </div> */}
             <div className="list-news">
                 {dataListNews && dataListNews.length > 0 && dataListNews.map((item, index) => {
                     let isFavorite = isCheckFavorite(item)
@@ -182,10 +183,10 @@ const PageListNews = () => {
                         </div>
                     )
                 })}
-                {dataListNews && dataListNews.length == 0 && <div className='not-result'>Không có kết quả tìm kiếm phù hợp </div>}
+                {dataListNews && dataListNews.length == 0 && <div className='not-result item-center'>Không có kết quả tìm kiếm phù hợp </div>}
             </div >
 
-            <div className="pagination-news">
+            {dataListNews && dataListNews.length > 0 && <div className="pagination-news">
                 <PaginationComponent
                     dataPage={dataListNews}
                     totalPages={totalPages}
@@ -193,6 +194,7 @@ const PageListNews = () => {
                     onChangePage={onChangePage}
                 />
             </div>
+            }
         </div >
     )
 }
