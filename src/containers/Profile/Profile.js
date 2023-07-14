@@ -96,8 +96,51 @@ const Profile = () => {
     }
 
 
-    const onHandleUpdate = async () => {
+    const validate = () => {
+        const {
+            codeClient,
+            provinceCode,
+            districtCode,
+            wardsCode,
+            introduces,
+            phone,
+            typeLoan,
+            passport,
+            url,
+            firstName,
+            lastName,
+        } = clientData
 
+        if (!firstName) {
+            ToastUtil.error("Họ không được để trống")
+            return false
+        }
+        if (!lastName) {
+            ToastUtil.error("Tên không được để trống")
+            return false
+        }
+        if (!phone) {
+            ToastUtil.error("Số điện thoại không được để trống")
+            return false
+        }
+        if (!provinceCode) {
+            ToastUtil.error("Tỉnh/Thành phố không được để trống")
+            return false
+        }
+        if (!districtCode) {
+            ToastUtil.error("Quận/Huyện không được để trống")
+            return false
+        }
+
+        return true
+    }
+
+
+
+    const onHandleUpdate = async () => {
+        if (!validate()) {
+            return
+        }
         let body = {
             "codeClient": clientData.codeClient,
             "provinceCode": clientData.provinceCode,
@@ -225,7 +268,7 @@ const Profile = () => {
 
                         <div className="profile-content-row row gutters-5">
                             <div className="col-12 col-sm-4 label">
-                                Họ
+                                Họ (*)
                             </div>
                             <div className="col-12 col-sm-8 value">
                                 <div className="mg-form-control">
@@ -237,7 +280,7 @@ const Profile = () => {
 
                         <div className="profile-content-row row gutters-5">
                             <div className="col-12 col-sm-4 label">
-                                Tên
+                                Tên (*)
                             </div>
                             <div className="col-12 col-sm-8 value">
                                 <div className="mg-form-control">
@@ -249,7 +292,7 @@ const Profile = () => {
 
                         <div className="profile-content-row row gutters-5">
                             <div className="col-12 col-sm-4 label">
-                                Số điện thoại
+                                Số điện thoại (*)
                             </div>
                             <div className="col-12 col-sm-8 value">
                                 <div className="mg-form-control">
@@ -261,7 +304,7 @@ const Profile = () => {
 
                         <div className="profile-content-row row gutters-5">
                             <div className="col-12 col-sm-4 label">
-                                Tỉnh/Thành phố
+                                Tỉnh/Thành phố (*)
                             </div>
                             <div className="col-12 col-sm-8 value">
                                 <div className="custom-input-react-select">
@@ -281,7 +324,7 @@ const Profile = () => {
 
                         <div className="profile-content-row row gutters-5">
                             <div className="col-12 col-sm-4 label">
-                                Quận/Huyện
+                                Quận/Huyện (*)
                             </div>
                             <div className="col-12 col-sm-8 value">
                                 <div className="custom-input-react-select">
@@ -309,9 +352,11 @@ const Profile = () => {
                                         defaultValue={clientData.typeLoan}
                                         onChange={onChangeSelectTypeLoan}
                                         options={typeLoanAll}
+                                        isDisabled={true}
                                         value={
                                             typeLoanAll.filter((option) => {
-                                                return option.value == clientData.typeLoan
+                                                // return option.value == clientData.typeLoan
+                                                return option.value == "2"
                                             })
                                         }
                                     />

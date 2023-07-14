@@ -67,7 +67,30 @@ const ModalAddNewsManagement = (props) => {
             });
     }
 
+    const validate = () => {
+        const { id, nameNews, codeProperty, dateCreate, dateExpiration,
+        } = dataNews
+
+        if (!nameNews) {
+            ToastUtil.error("Tên tin không được để trống")
+            return false
+        }
+        if (!dateCreate) {
+            ToastUtil.error("Ngày tạo không được để trống")
+            return false
+        }
+        if (!dateExpiration) {
+            ToastUtil.error("Ngày hết hạn không được để trống")
+            return false
+        }
+
+        return true
+    }
+
     const onHandleUpdate = async () => {
+        if (!(validate())) {
+            return
+        }
         let body = {
             ...dataNews
         }
@@ -128,7 +151,7 @@ const ModalAddNewsManagement = (props) => {
 
                 <div className="body-content-row row gutters-5">
                     <div className="col-12 col-sm-4 label">
-                        Tên tin
+                        Tên tin (*)
                     </div>
                     <div className="col-12 col-sm-8 value">
                         <div className="mg-form-control">
@@ -140,7 +163,7 @@ const ModalAddNewsManagement = (props) => {
 
                 <div className="body-content-row row gutters-5">
                     <div className="col-12 col-sm-4 label">
-                        Ngày tạo
+                        Ngày tạo (*)
                     </div>
                     <div className="col-12 col-sm-8 value">
                         <div className="mg-form-control">
@@ -155,7 +178,7 @@ const ModalAddNewsManagement = (props) => {
 
                 <div className="body-content-row row gutters-5">
                     <div className="col-12 col-sm-4 label">
-                        Ngày hết hạn
+                        Ngày hết hạn (*)
                     </div>
                     <div className="col-12 col-sm-8 value">
                         <div className="mg-form-control">

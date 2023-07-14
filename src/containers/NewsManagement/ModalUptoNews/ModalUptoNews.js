@@ -34,7 +34,29 @@ const ModalUptoNews = (props) => {
         }
     }, [dataUpto]);
 
+
+
+    const validate = () => {
+        const { id, timeUpTopStart, timeUpTopEnd,
+        } = dataNews
+
+        if (!timeUpTopStart) {
+            ToastUtil.error("Ngày tạo không được để trống")
+            return false
+        }
+        if (!timeUpTopEnd) {
+            ToastUtil.error("Ngày hết hạn không được để trống")
+            return false
+        }
+
+        return true
+    }
+
     const onHandleUpdate = async () => {
+        if (!(validate())) {
+            return
+        }
+
         let body = {
             ...dataNews
         }
@@ -93,7 +115,7 @@ const ModalUptoNews = (props) => {
 
                 <div className="body-content-row row gutters-5">
                     <div className="col-12 col-sm-4 label">
-                        Ngày bắt đầu
+                        Ngày bắt đầu (*)
                     </div>
                     <div className="col-12 col-sm-8 value">
                         <div className="mg-form-control">
@@ -108,7 +130,7 @@ const ModalUptoNews = (props) => {
 
                 <div className="body-content-row row gutters-5">
                     <div className="col-12 col-sm-4 label">
-                        Ngày kết thúc
+                        Ngày kết thúc (*)
                     </div>
                     <div className="col-12 col-sm-8 value">
                         <div className="mg-form-control">

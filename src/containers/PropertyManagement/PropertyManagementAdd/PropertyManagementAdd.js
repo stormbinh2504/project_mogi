@@ -171,7 +171,69 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
     }
 
 
+    const validate = () => {
+        const { codeProperty, codeCateTypePropertyCategory, codeTypeProperty, nameProperty, provinceCode, districtCode, wardsCode, codeClient, areaUse, usableArea, landArea, bedCount, livingCount, kitchenCount, bathCount, law, priceBuy, priceLoan, introduces, location, imageList
+        } = propertyInfo
+
+        if (!codeCateTypePropertyCategory) {
+            ToastUtil.error("Loại bất động sản không được để trống")
+            return false
+        }
+        if (!codeTypeProperty) {
+            ToastUtil.error("Loại cho thuê không được để trống")
+            return false
+        }
+        if (!nameProperty) {
+            ToastUtil.error("Tên cho thuê không được để trống")
+            return false
+        }
+        if (!provinceCode) {
+            ToastUtil.error("Tỉnh/Thành phố không được để trống")
+            return false
+        }
+        if (!districtCode) {
+            ToastUtil.error("Quận/Huyện không được để trống")
+            return false
+        }
+        if (!wardsCode) {
+            ToastUtil.error("Phường/Xã không được để trống")
+            return false
+        }
+        if (!priceLoan || (priceLoan && _.isEmpty(priceLoan.toString()))) {
+            ToastUtil.error("Giá cho thuê không được để trống")
+            return false
+        }
+        if (!imageList || imageUrls.length == 0) {
+            ToastUtil.error("Ảnh không được để trống")
+            return false
+        }
+        if (!areaUse) {
+            ToastUtil.error("Diện tích sử dụng không được để trống")
+            return false
+        }
+        if (!landArea) {
+            ToastUtil.error("Diện tích đất không được để trống")
+            return false
+        }
+        if (!law) {
+            ToastUtil.error("Pháp lý không được để trống")
+            return false
+        }
+        if (!location) {
+            ToastUtil.error("Địa chỉ không được để trống")
+            return false
+        }
+        if (!introduces) {
+            ToastUtil.error("Giới thiệu không được để trống")
+            return false
+        }
+        return true
+    }
+
     const onHandleUpdate = async () => {
+        if (!validate()) {
+            return
+        }
         let body = _.cloneDeep(propertyInfo)
         body.imageList = imageUrls
 
@@ -323,7 +385,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
 
     let textLength = propertyInfo && propertyInfo.introduces ? propertyInfo.introduces.length : 0
     console.log("binh_client", propertyInfo, imageUrls)
-    console.log("binh_setPropertyInfo2", propertyInfo, dataEdit)
+    console.log("binh_setPropertyInfo2", propertyInfo)
 
     const goBack = () => {
         if (isEdit) {
@@ -350,7 +412,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
                         </div>
                         <div className="body-content-row row gutters-5">
                             <div className="col-12 col-sm-4 label">
-                                Loại bất động sản
+                                Loại bất động sản (*)
                             </div>
                             <div className="col-12 col-sm-8 value">
                                 <div className="custom-input-react-select">
@@ -372,7 +434,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
                             <>
                                 <div className="body-content-row row gutters-5">
                                     <div className="col-12 col-sm-4 label">
-                                        Loại cho thuê
+                                        Loại cho thuê (*)
                                     </div>
                                     <div className="col-12 col-sm-8 value">
                                         <div className="custom-input-react-select">
@@ -391,7 +453,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
 
                                 <div className="body-content-row row gutters-5">
                                     <div className="col-12 col-sm-4 label">
-                                        Tên cho thuê
+                                        Tên cho thuê (*)
                                     </div>
                                     <div className="col-12 col-sm-8 value">
                                         <div className="mg-form-control">
@@ -403,7 +465,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
 
                                 <div className="body-content-row row gutters-5">
                                     <div className="col-12 col-sm-4 label">
-                                        Tỉnh/Thành phố
+                                        Tỉnh/Thành phố (*)
                                     </div>
                                     <div className="col-12 col-sm-8 value">
                                         <div className="custom-input-react-select">
@@ -422,7 +484,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
 
                                 <div className="body-content-row row gutters-5">
                                     <div className="col-12 col-sm-4 label">
-                                        Quận/Huyện
+                                        Quận/Huyện (*)
                                     </div>
                                     <div className="col-12 col-sm-8 value">
                                         <div className="custom-input-react-select">
@@ -442,7 +504,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
 
                                 <div className="body-content-row row gutters-5">
                                     <div className="col-12 col-sm-4 label">
-                                        Phường/Xã
+                                        Phường/Xã (*)
                                     </div>
                                     <div className="col-12 col-sm-8 value">
                                         <div className="custom-input-react-select">
@@ -462,7 +524,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
 
                                 <div className="body-content-row row gutters-5">
                                     <div className="col-12 col-sm-4 label">
-                                        Giá cho thuê
+                                        Giá cho thuê (*)
                                     </div>
                                     <div className="col-12 col-sm-8 value">
                                         <div className="mg-form-control">
@@ -490,7 +552,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
 
                                 <div className="body-content-row row gutters-5">
                                     <div className="col-8 col-sm-4 label">
-                                        Ảnh
+                                        Ảnh (*)
                                     </div>
                                     <div className="col-12 col-sm-8 value">
                                         <div className="block-image">
@@ -551,7 +613,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
                                     <div className="col-12 col-sm-8 value">
                                         <div className="info-attrs row">
                                             <div className="info-attr col-12 col-sm-6">
-                                                <div className="label-info-attr">Diện tích sử dụng</div>
+                                                <div className="label-info-attr">Diện tích sử dụng (*)</div>
                                                 <div className="mg-form-control">
                                                     <div className="input-number">
                                                         <NumberInput
@@ -574,7 +636,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
                                             </div>
 
                                             <div className="info-attr col-12 col-sm-6">
-                                                <div className="label-info-attr">Diện tích đất</div>
+                                                <div className="label-info-attr">Diện tích đất (*)</div>
                                                 <div className="mg-form-control">
                                                     <div className="input-number">
                                                         <NumberInput
@@ -597,56 +659,59 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
                                             </div>
 
 
-                                            <div className="info-attr col-12 col-sm-6">
-                                                <div className="label-info-attr">Phòng ngủ</div>
-                                                <div className="mg-form-control">
-                                                    <div className="input-number">
-                                                        <NumberInput
-                                                            name="To_Amount"
-                                                            className="input-money"
-                                                            min={0}
-                                                            max={999999999999}
-                                                            step={1}
-                                                            value={propertyInfo.bedCount}
-                                                            valid={true}
-                                                            onChange={onChangeBedCount}
-                                                            allowZero={false}
-                                                            allowDecimal={false}
-                                                            allowNegative={false}
-                                                            disabled={false}
-                                                            placeholder="Nhập số phòng"
-                                                        />
+                                            {(propertyInfo.codeCateTypePropertyCategory == 2 || propertyInfo.codeCateTypePropertyCategory == 3) &&
+                                                <div className="info-attr col-12 col-sm-6">
+                                                    <div className="label-info-attr">Phòng ngủ</div>
+                                                    <div className="mg-form-control">
+                                                        <div className="input-number">
+                                                            <NumberInput
+                                                                name="To_Amount"
+                                                                className="input-money"
+                                                                min={0}
+                                                                max={999999999999}
+                                                                step={1}
+                                                                value={propertyInfo.bedCount}
+                                                                valid={true}
+                                                                onChange={onChangeBedCount}
+                                                                allowZero={false}
+                                                                allowDecimal={false}
+                                                                allowNegative={false}
+                                                                disabled={false}
+                                                                placeholder="Nhập số phòng"
+                                                            />
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            }
 
 
-                                            <div className="info-attr col-12 col-sm-6">
-                                                <div className="label-info-attr">Phòng tắm</div>
-                                                <div className="mg-form-control">
-                                                    <div className="input-number">
-                                                        <NumberInput
-                                                            name="To_Amount"
-                                                            className="input-money"
-                                                            min={0}
-                                                            max={999999999999}
-                                                            step={1}
-                                                            value={propertyInfo.bathCount}
-                                                            valid={true}
-                                                            onChange={onChangeBathCount}
-                                                            allowZero={false}
-                                                            allowDecimal={false}
-                                                            allowNegative={false}
-                                                            disabled={false}
-                                                            placeholder="Nhập số phòng"
-                                                        />
+                                            {(propertyInfo.codeCateTypePropertyCategory == 2 || propertyInfo.codeCateTypePropertyCategory == 3) &&
+                                                <div className="info-attr col-12 col-sm-6">
+                                                    <div className="label-info-attr">Phòng tắm</div>
+                                                    <div className="mg-form-control">
+                                                        <div className="input-number">
+                                                            <NumberInput
+                                                                name="To_Amount"
+                                                                className="input-money"
+                                                                min={0}
+                                                                max={999999999999}
+                                                                step={1}
+                                                                value={propertyInfo.bathCount}
+                                                                valid={true}
+                                                                onChange={onChangeBathCount}
+                                                                allowZero={false}
+                                                                allowDecimal={false}
+                                                                allowNegative={false}
+                                                                disabled={false}
+                                                                placeholder="Nhập số phòng"
+                                                            />
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-
+                                            }
 
                                             <div className="info-attr col-12 col-sm-6">
-                                                <div className="label-info-attr">Pháp lý</div>
+                                                <div className="label-info-attr">Pháp lý (*)</div>
                                                 <div className="custom-input-react-select">
                                                     <Select
                                                         onChange={onChangeLaw}
@@ -665,7 +730,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
 
                                 <div className="body-content-row row gutters-5">
                                     <div className="col-12 col-sm-4 label">
-                                        Địa chỉ
+                                        Địa chỉ (*)
                                     </div>
                                     <div className="col-12 col-sm-8 value">
                                         <div className="mg-form-control">
@@ -691,7 +756,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
 
                                 <div className="body-content-row row gutters-5">
                                     <div className="col-12 col-sm-4 label">
-                                        Giới thiệu
+                                        Giới thiệu (*)
                                     </div>
                                     <div className="col-12 col-sm-8 value">
                                         <div className="mg-form-control">
@@ -717,7 +782,10 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
                                     </div>
                                     <div className="col-12 col-sm-8">
                                         <div className="container-action style-add">
-                                            <button class="btn btn-continue" onClick={onHandleUpdate} >Cập nhật</button>
+                                            <button class="btn btn-continue" onClick={onHandleUpdate} >
+                                                {!isEdit && "Tạo mới"}
+                                                {isEdit && "Cập nhật"}
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

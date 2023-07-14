@@ -124,8 +124,34 @@ const ModalAddBroker = (props) => {
         }
     }, [dataAdd, isEdit]);
 
+    const validate = () => {
+        const { nameAgency, provinceCode, phone } = bodyUpdate
+
+        if (!nameAgency) {
+            ToastUtil.error("Tên môi giới không được để trống")
+            return false
+        }
+        if (!phone) {
+            ToastUtil.error("Số điện thoại không được để trống")
+            return false
+        }
+        if (!provinceCode) {
+            ToastUtil.error("Tỉnh/Thành phố không được để trống")
+            return false
+        }
+        if (!listDistrictSelect || (listDistrictSelect && listDistrictSelect.length == 0)) {
+            ToastUtil.error("Quận/huyện không được để trống")
+            return false
+        }
+
+        return true
+    }
 
     const onHandleUpdate = async () => {
+
+        if (!(validate())) {
+            return
+        }
         let _district1st = ""
         if (listDistrictSelect && listDistrictSelect.length > 0) {
             _district1st = listDistrictSelect.join(',');
@@ -252,7 +278,7 @@ const ModalAddBroker = (props) => {
 
                 <div className="body-content-row row gutters-5">
                     <div className="col-12 col-sm-4 label">
-                        Tên môi giới
+                        Tên môi giới (*)
                     </div>
                     <div className="col-12 col-sm-8 value">
                         <div className="mg-form-control">
@@ -311,7 +337,7 @@ const ModalAddBroker = (props) => {
 
                 <div className="body-content-row row gutters-5">
                     <div className="col-12 col-sm-4 label">
-                        Số điện thoại
+                        Số điện thoại (*)
                     </div>
                     <div className="col-12 col-sm-8 value">
                         <div className="mg-form-control">
@@ -324,7 +350,7 @@ const ModalAddBroker = (props) => {
 
                 <div className="body-content-row row gutters-5">
                     <div className="col-12 col-sm-4 label">
-                        Tỉnh/Thành phố
+                        Tỉnh/Thành phố (*)
                     </div>
                     <div className="col-12 col-sm-8 value">
                         <div className="custom-input-react-select">
@@ -344,7 +370,7 @@ const ModalAddBroker = (props) => {
 
                 {districtsAll && districtsAll.length > 0 && <div className="body-content-row row gutters-5">
                     <div className="col-12 col-sm-4 label">
-                        Chọn số quận quản lý
+                        Chọn số quận quản lý (*)
                     </div>
                     <div className="col-12 col-sm-8 value">
                         <div className="value-label">
@@ -368,7 +394,7 @@ const ModalAddBroker = (props) => {
                     return (
                         <div className="body-content-row row gutters-5">
                             <div className="col-12 col-sm-4 label">
-                                Quận/Huyện {index + 1}
+                                Quận/Huyện {index + 1} (*)
                             </div>
                             <div className="col-12 col-sm-8 value">
                                 <div className="value-label">
