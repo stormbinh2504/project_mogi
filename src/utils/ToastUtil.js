@@ -35,7 +35,7 @@ class ToastUtil {
         this.show(TYPE_ERROR, title, message, true, autoCloseDelay);
     }
 
-    static errorApi(error, title = 'common.fail-to-load-data', autoCloseDelay = 100000000) {
+    static errorApi(error, title = 'Thất bại', autoCloseDelay = 10000) {
         if (axios.isCancel(error)) {
             // Do nothing if request was cancelled
             return;

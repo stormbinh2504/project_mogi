@@ -91,7 +91,7 @@ const ProjectLoan = () => {
             })
             .catch(error => {
                 dispatch(alertType(false))
-                ToastUtil.error(error);
+                ToastUtil.errorApi(error);
             });
     }
 

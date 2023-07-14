@@ -82,3 +82,15 @@ export const updateDataFilterNews = (objData) => {
         })
     };
 };
+
+
+export const updateDataFilterAgency = (objData) => {
+    return (dispatch, getState) => {
+        const state = getState();
+        console.log("updateDataFilterNews", objData)
+        dispatch({
+            type: "UPDATE_DATA_FILTER_AGENCY",
+            data: objData
+        })
+    };
+};

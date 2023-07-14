@@ -74,7 +74,7 @@ const PageListNews = () => {
             })
             .catch(error => {
                 dispatch(alertType(false))
-                ToastUtil.error(error);
+                ToastUtil.errorApi(error);
             });
     }
 
@@ -86,7 +86,7 @@ const PageListNews = () => {
                 .then(res => {
                 })
                 .catch(error => {
-                    ToastUtil.error(error);
+                    ToastUtil.errorApi(error);
                 });
             let pathname = `thue-nha-dat/${id}`
             history.push(pathname)
@@ -134,7 +134,7 @@ const PageListNews = () => {
 
     return (
         <div class="page-list-news" >
-            .<h1 class="page-title">Thuê Nhà Đất Giá Rẻ Tại Việt Nam, Giá Thuê Mới Nhất T6/2023</h1>
+            <h1 class="page-title">Thuê Nhà Đất Giá Rẻ Tại Việt Nam, Giá Thuê Mới Nhất T6/2023</h1>
             {/* <div class="property-list-result">
                 <span ng-non-bindable=""><b>1 - 15</b> trong <b>355.731</b></span>
             </div> */}

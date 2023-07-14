@@ -63,7 +63,6 @@ const ModalAddNewsManagement = (props) => {
             .catch(error => {
                 dispatch(alertType(false))
                 setLoading(false);
-                // ToastUtil.error(error);
                 ToastUtil.errorApi(error, "Không thể tải về danh sách tài sản");
             });
     }

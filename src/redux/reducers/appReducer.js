@@ -15,7 +15,11 @@ const initialState = {
         "areaMaxRange": null,
         "totalRoom": null,
         "rangeDaySearch": 365,
-    }
+    },
+    filterAgency: {
+        "nameSearch": null,
+        "provinceCode": null,
+    },
 }
 
 const appReducer = (state = initialState, action) => {
@@ -39,7 +43,15 @@ const appReducer = (state = initialState, action) => {
                     ...action.data
                 }
             };
-
+        case "UPDATE_DATA_FILTER_AGENCY":
+            console.log("binh_filterNews", action.data)
+            return {
+                ...state,
+                filterAgency: {
+                    ...state.filterAgency,
+                    ...action.data
+                }
+            };
         default:
             return state;
     }

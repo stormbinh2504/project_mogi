@@ -71,7 +71,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
             })
             .catch(error => {
                 dispatch(alertType(false))
-                ToastUtil.error(error);
+                ToastUtil.errorApi(error);
             });
     }
 
@@ -89,7 +89,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
             })
             .catch(error => {
                 dispatch(alertType(false))
-                ToastUtil.error(error);
+                ToastUtil.errorApi(error);
             });
     }
 
@@ -107,7 +107,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
             })
             .catch(error => {
                 dispatch(alertType(false))
-                ToastUtil.error(error);
+                ToastUtil.errorApi(error);
             });
     }
 
@@ -125,7 +125,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
             })
             .catch(error => {
                 dispatch(alertType(false))
-                ToastUtil.error(error);
+                ToastUtil.errorApi(error);
             });
     }
 
@@ -143,7 +143,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
             })
             .catch(error => {
                 dispatch(alertType(false))
-                ToastUtil.error(error);
+                ToastUtil.errorApi(error);
             });
     }
 
@@ -161,7 +161,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
             })
             .catch(error => {
                 dispatch(alertType(false))
-                ToastUtil.error(error);
+                ToastUtil.errorApi(error);
             });
     }
 

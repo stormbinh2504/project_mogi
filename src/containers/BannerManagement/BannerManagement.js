@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
 import Header from '../Header/Header'
-import "./BrokerManagement.scss"
+import "./BannerManagement.scss"
 import PageContainerBroker from '../../components/Broker/PageContainerBroker/PageContainerBroker';
 import Avatar from '../../assets/images/avatar.png'
 import Zalo from '../../assets/images/zalo.png'
@@ -13,23 +13,22 @@ import Select from 'react-select';
 import IconDelete from '../../assets/svgs/common/icon_delete.svg';
 import IconEdit from '../../assets/svgs/common/icon_edit.svg';
 import { Space, Table, Tag } from 'antd';
-import ModalAddBroker from './ModalAddBroker/ModalAddBroker';
 import ModalDeleteBroker from './ModalDeleteBroker/ModalDeleteBroker';
+import ModalAddBanner from './ModalAddBanner/ModalAddBanner';
 
 const { Column, ColumnGroup } = Table;
 
 
 const df_dataAdd = {
     "id": null,
+    "imageUrl": null,
+    "description": null,
     "url": null,
-    "nameAgency": null,
-    "phone": null,
-    "dateCreate": null,
-    "provinceCode": null,
-    "district1st": null,
+    "lever": 1,
+    "dateUpdated": null
 }
 
-const BrokerManagement = () => {
+const BannerManagement = () => {
     const history = useHistory()
     const dispatch = useDispatch()
     const state = useSelector((state) => state);
@@ -40,15 +39,11 @@ const BrokerManagement = () => {
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
     const [dataEdit, setDataEdit] = useState({});
-    const [step, setStep] = useState(1);
-    const [isOpenModalResetPassword, setIsOpenModalResetPassword] = useState(false);
-    const [dataResetPassword, setDataResetPassword] = useState(false);
     const [nameSearch, setNameSearch] = useState("");
     const [provinceCodeFilter, setProvinceCodeFilter] = useState("");
     const [isOpenModalAdd, setIsOpenModalAdd] = useState(false);
     const [dataAdd, setDataAdd] = useState(df_dataAdd);
     const [isEdit, setIsEdit] = useState(false);
-    const [provinceAll, setProvinceAll] = useState([])
 
 
     const [dataDelete, setDataDelete] = useState({});
@@ -56,13 +51,12 @@ const BrokerManagement = () => {
 
     useEffect(() => {
         fetchGetFindAllAgency(0);
-        fetchGetProvinceAll()
     }, []);
 
     const fetchGetFindAllAgency = async (page) => {
 
         let body = {
-            nameSearch: nameSearch,
+            nameSearch,
             page,
             size: 5,
             provinceCode: provinceCodeFilter,
@@ -84,24 +78,6 @@ const BrokerManagement = () => {
                 dispatch(alertType(false))
                 setLoading(false);
                 ToastUtil.errorApi(error, "Không thể tải về danh sách tài khoản");
-            });
-    }
-
-    const fetchGetProvinceAll = async () => {
-        dispatch(alertType(true))
-        await globalService.getProvinceAll()
-            .then(res => {
-                if (res && res.length > 0) {
-                    let _provinceAll = res.map((item, index) => {
-                        return { value: item.provinceCode, label: item.provinceName }
-                    })
-                    setProvinceAll(_provinceAll)
-                    dispatch(alertType(false))
-                }
-            })
-            .catch(error => {
-                dispatch(alertType(false))
-                ToastUtil.errorApi(error);
             });
     }
 
@@ -131,21 +107,13 @@ const BrokerManagement = () => {
 
     const handleChangeInput = e => {
         const { name, value } = e.target
-        setNameSearch((prev) => (value))
+        setNameSearch((prev) => ({ ...prev, [name]: value }))
     }
 
-    const onChangeSelectProvince = (objValue) => {
-        setProvinceCodeFilter(objValue.value)
-    }
-
-
-    const onSearch = () => {
-        fetchGetFindAllAgency(0)
-    }
     console.log("binh_check_PropertyManagement", dataEdit)
     return (
         <PageContainerBroker
-            titleId={"Quản lý môi giới"}
+            titleId={"Quản lý banner"}
         >
 
             <div className="property-management">
@@ -154,10 +122,10 @@ const BrokerManagement = () => {
 
                         <div className="container-action style-add">
                             <button className='btn btn-add' onClick={onHandleAdd}>
-                                Thêm mới môi giới
+                                Thêm mới banner
                             </button>
                         </div>
-                        {isOpenModalAdd && <ModalAddBroker
+                        {isOpenModalAdd && <ModalAddBanner
                             isOpen={isOpenModalAdd}
                             onClose={() => {
                                 setIsOpenModalAdd(false)
@@ -189,29 +157,6 @@ const BrokerManagement = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="col-6 col-md-3">
-                                <div className="body-content-row row gutters-5">
-                                    <div className="col-12 label">
-                                        Tỉnh/Thành phố
-                                    </div>
-                                    <div className="col-12 value">
-                                        <div className="custom-input-react-select">
-                                            <Select
-                                                onChange={onChangeSelectProvince}
-                                                options={provinceAll}
-                                                value={
-                                                    provinceAll.filter((option) => {
-                                                        return option.value == provinceCodeFilter
-                                                    })
-                                                }
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-12">
-                                <div className="container-action item-center"><button class="btn btn-add" onClick={onSearch}>Tìm kiếm</button></div>
                             </div>
                         </div>
 
@@ -286,4 +231,4 @@ const BrokerManagement = () => {
     )
 }
 
-export default BrokerManagement
+export default BannerManagement

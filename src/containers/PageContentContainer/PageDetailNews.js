@@ -52,7 +52,7 @@ const PageDetailNews = () => {
             })
             .catch(error => {
                 dispatch(alertType(false))
-                ToastUtil.error(error);
+                ToastUtil.errorApi(error);
             });
     }
     let images = []
@@ -91,6 +91,10 @@ const PageDetailNews = () => {
                 <div className="breadcrumb-content">
                     <PageBreadcrumb
                         nameDetail={(infoNews && infoNews.nameNews) || ''}
+                        prevPageTitle={{
+                            "name": "Cho thuê nhà đất",
+                            "pathName": "/thue-nha-dat"
+                        }}
                     />
                 </div>
                 <div className="row">

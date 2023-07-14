@@ -53,6 +53,10 @@ const listMenuHeaderAdmin = [
         title: "Quản lý môi giới",
         path: "/broker-management"
     },
+    {
+        title: "Quản lý banner",
+        path: "/banner-management"
+    },
 ]
 
 const HeaderBroker = () => {

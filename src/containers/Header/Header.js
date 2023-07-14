@@ -14,6 +14,10 @@ const listMenuHeaderCustomer = [
         path: "/thue-nha-dat"
     },
     {
+        title: "Môi giới",
+        path: "/tim-moi-gioi"
+    },
+    {
         title: "Giới thiệu",
         path: "/recommend"
     },

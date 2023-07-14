@@ -12,7 +12,7 @@ const PageBreadcrumb = (props) => {
     const { location } = history
     const { pathname } = location
 
-    const { nameDetail } = props
+    const { nameDetail, prevPageTitle } = props
 
     return (
         <div className="page-breadcrumb">
@@ -21,9 +21,9 @@ const PageBreadcrumb = (props) => {
                     Mogi
                 </span>
                 <span>/</span>
-                <span onClick={() => history.push("/thue-nha-dat")}>
-                    Cho thuê nhà đất
-                </span>
+                {prevPageTitle && <span onClick={() => history.push(prevPageTitle.pathName)}>
+                    {prevPageTitle.name}
+                </span>}
                 {nameDetail &&
                     <>
                         <span>/</span>

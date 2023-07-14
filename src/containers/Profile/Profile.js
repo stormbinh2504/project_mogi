@@ -49,7 +49,7 @@ const Profile = () => {
             })
             .catch(error => {
                 dispatch(alertType(false))
-                ToastUtil.error(error);
+                ToastUtil.errorApi(error);
             });
     }
 
@@ -67,7 +67,7 @@ const Profile = () => {
             })
             .catch(error => {
                 dispatch(alertType(false))
-                ToastUtil.error(error);
+                ToastUtil.errorApi(error);
             });
     }
 
@@ -86,7 +86,7 @@ const Profile = () => {
             })
             .catch(error => {
                 dispatch(alertType(false))
-                ToastUtil.error(error);
+                ToastUtil.errorApi(error);
             });
     }
 

@@ -131,6 +131,13 @@ const accountService = {
         return axios.get(`${REACT_APP_BASE_URL_API}auth/findAllUser?` + queryString.stringify(queryParams))
     },
 
+    setChangeStatusAccount(id) { // Thay đổi trạng thái tài khoản
+        var queryParams = {
+            id,
+        };
+        return axios.get(`${REACT_APP_BASE_URL_API}auth/changeStatus?` + queryString.stringify(queryParams))
+    },
+
     setResetPassword(id) { // Khôi phục password
         var queryParams = {
             id,
@@ -149,7 +156,7 @@ const accountService = {
             provinceCode,
             page,
             size } = body
-        var queryParams = {
+        let queryParams = {
             nameSearch,
             provinceCode,
             page,
@@ -158,6 +165,29 @@ const accountService = {
         return axios.get(`${REACT_APP_BASE_URL_API}agency/findAllAgency?` + queryString.stringify(queryParams))
     },
 
+    deleteAgency(id) {
+        let queryParams = {
+            id
+        };
+        return axios.delete(`${REACT_APP_BASE_URL_API}agency/deleteAgency?` + queryString.stringify(queryParams))
+    },
+
+
+    updateAddBanner(body) { // update môi giới
+        return axios.post(`${REACT_APP_BASE_URL_API}banner/addBanner`, body)
+    },
+
+
+    updateSaveBanner(body) { // update môi giới
+        return axios.post(`${REACT_APP_BASE_URL_API}banner/updateBanner`, body)
+    },
+
+    deleteBanner(id) { // update môi giới
+        let queryParams = {
+            id
+        };
+        return axios.delete(`${REACT_APP_BASE_URL_API}banner/deleteBanner?`, + queryString.stringify(queryParams))
+    },
 
 }
 export default accountService

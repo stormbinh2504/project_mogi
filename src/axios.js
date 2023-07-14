@@ -146,21 +146,13 @@ const parseCookiesToObj = (cookieStr) => {
 
 instance.interceptors.request.use(request => {
     const state = reduxStore.getState();
+    const { data } = request
     console.log('binh_check_request', request, state);
     // Edit request config
     // if (request.baseURL === globalVar.api.API_BASE_URL) {
     if (request && request.url) {
         const token = state.user.token != null ? state.user.token : null;
-
-        // request.headers.common['track_log_id'] = trackLogId;
-        // let cookie = parseCookiesToObj(document.cookie);
-        // let currentBaseID = getValueFromLocalStorage(keyFactory.baseid);
-        // if (!currentBaseID) currentBaseID = genBaseId();
-        // request.headers.common['baseid'] = currentBaseID;
-        // request.headers.common['user'] = cookie.ssouserid;
-        // request.headers.common['x-device'] = cookie['fs2prosid'] ? cookie['fs2prosid'] : '';
         request.headers.common['x-devicetype'] = 'SessionID';
-        // request.headers.common['x-lang'] = state.app.language;
         request.headers.common['x-lang'] = 'vi';
 
         if (token) {
@@ -170,9 +162,9 @@ instance.interceptors.request.use(request => {
         if (request.method === 'post' && typeof request.data === 'string') {
             request.headers['Content-Type'] = 'application/x-www-form-urlencoded';
         }
+        console.log('binh_check_request2', request);
+        return request;
     }
-    console.log('binh_check_request2', request);
-    return request;
 }, (error) => {
     // console.log(error);
     return Promise.reject(error);

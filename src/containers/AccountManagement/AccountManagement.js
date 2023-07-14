@@ -13,7 +13,7 @@ import Select from 'react-select';
 import IconEdit from '../../assets/svgs/common/icon_edit.svg';
 import { Space, Table, Tag } from 'antd';
 import ModalResetPassword from './ModalResetPassword/ModalResetPassword';
-
+import { Switch } from 'antd';
 const { Column, ColumnGroup } = Table;
 
 const AccountManagement = () => {
@@ -27,7 +27,6 @@ const AccountManagement = () => {
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
     const [dataEdit, setDataEdit] = useState({});
-    const [step, setStep] = useState(1);
     const [isOpenModalResetPassword, setIsOpenModalResetPassword] = useState(false);
     const [dataResetPassword, setDataResetPassword] = useState(false);
     const [searchName, setSearchName] = useState("");
@@ -62,7 +61,6 @@ const AccountManagement = () => {
             .catch(error => {
                 dispatch(alertType(false))
                 setLoading(false);
-                // ToastUtil.error(error);
                 ToastUtil.errorApi(error, "Không thể tải về danh sách tài khoản");
             });
     }
@@ -78,18 +76,32 @@ const AccountManagement = () => {
                     console.log("binh_check_PropertyManagement", res)
                     setDataEdit(res);
                     dispatch(alertType(false))
-                    setStep(2)
                 }
             })
             .catch(error => {
                 dispatch(alertType(false))
-                ToastUtil.error(error);
+                ToastUtil.errorApi(error);
             });
     }
 
     const handleChangeInput = e => {
         const { name, value } = e.target
         setSearchName((prev) => ({ ...prev, [name]: value }))
+    }
+
+    const onChangeSwitchAccount = (boolean, record) => {
+        console.log("onChangeSwitchAccount", boolean, record)
+        const { id } = record
+        accountService.setChangeStatusAccount(id)
+            .then(res => {
+                dispatch(alertType(false))
+                fetchGetFindAllUser(0)
+                ToastUtil.success("Thay đổi trạng thái tài khoản thành công")
+            })
+            .catch(error => {
+                dispatch(alertType(false))
+                ToastUtil.errorApi(error);
+            });
     }
 
     console.log("binh_check_PropertyManagement", dataEdit)
@@ -167,8 +179,8 @@ const AccountManagement = () => {
                                     width={150} align='center'
                                     render={(_, record) => (
                                         <Space size="middle">
-                                            <span className="cursor-pointer item-center" onClick={() => { onHandleEdit(record) }}>
-                                                Đổi trạng thái
+                                            <span className="cursor-pointer item-center"  >
+                                                <Switch checkedChildren={record.statusAccountName} unCheckedChildren={record.statusAccountName} checked={record.statusAccount === 1} onChange={(e) => onChangeSwitchAccount(e, record)} />
                                             </span>
                                         </Space>
                                     )}

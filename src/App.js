@@ -44,6 +44,8 @@ import Contact from './containers/Contact/Contact';
 import ToolPhoneZaloChat from './containers/Common/ToolPhoneZaloChat/ToolPhoneZaloChat';
 import AccountManagement from './containers/AccountManagement/AccountManagement';
 import BrokerManagement from './containers/BrokerManagement/BrokerManagement';
+import BannerManagement from './containers/BannerManagement/BannerManagement';
+import PageBroker from './containers/PageBroker/PageBroker';
 
 if (typeof window !== "undefined") {
   injectStyle();
@@ -113,6 +115,7 @@ function App() {
                     <Route exact path="/firebase" component={FirebaseTestImage} />
                     <Route exact path="/thue-nha-dat" component={PageContentContainer} />
                     <Route exact path="/thue-nha-dat/:id" component={PageDetailNews} />
+                    <Route exact path="/tim-moi-gioi" component={PageBroker} />
                     {/* <Route exact path="/page/404" component={PageNotFound} /> */}
                     {/* <Route path="/*" component={NotFound} /> */}
 
@@ -147,6 +150,7 @@ function App() {
                     <PrivateRouter exact path="/report" component={NewsStatistics} />
                     <PrivateRouter exact path="/account-management" component={AccountManagement} />
                     <PrivateRouter exact path="/broker-management" component={BrokerManagement} />
+                    <PrivateRouter exact path="/banner-management" component={BannerManagement} />
 
 
                     {/* admin */}

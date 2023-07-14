@@ -94,5 +94,26 @@
 
     .pagination-news {
         margin: 10px 0px;
+
+        .pagination-component {
+            .pagination {
+                .page-item {
+                    cursor: pointer;
+
+                    a {
+                        color  : #000 !important;
+                        padding: 10px !important;
+                    }
+
+                    &.active {
+                        a {
+                            color           : #fff !important;
+                            background-color: #262637 !important;
+                            border-color    : #262637 !important;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

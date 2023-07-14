@@ -82,7 +82,7 @@ const ModalAddBroker = (props) => {
             })
             .catch(error => {
                 dispatch(alertType(false))
-                ToastUtil.error(error);
+                ToastUtil.errorApi(error);
             });
     }
 
@@ -100,16 +100,29 @@ const ModalAddBroker = (props) => {
             })
             .catch(error => {
                 dispatch(alertType(false))
-                ToastUtil.error(error);
+                ToastUtil.errorApi(error);
             });
     }
 
 
     useEffect(() => {
-        if (dataAdd && dataAdd.id) {
+        if (isEdit && dataAdd && dataAdd.id) {
             setBodyUpdate((prev) => ({ ...prev, ...dataAdd }))
+            if (dataAdd.url) {
+                setUrlFireBase(dataAdd.url)
+            }
+            let _listDistrictSelect = dataAdd.district1st.split(",")
+            if (_listDistrictSelect && _listDistrictSelect.length > 0) {
+
+
+                let _numberDistrictObj = df_number_district[_listDistrictSelect.length - 1]
+                _numberDistrictObj && setNumberDistrict(_numberDistrictObj.value)
+                setListDistrictSelect(_listDistrictSelect)
+            }
+
+
         }
-    }, [dataAdd]);
+    }, [dataAdd, isEdit]);
 
 
     const onHandleUpdate = async () => {
@@ -119,9 +132,12 @@ const ModalAddBroker = (props) => {
         }
         let body = {
             ...df_bodyUpdate,
-            ...bodyUpdate,
+            id: bodyUpdate.id || null,
+            nameAgency: bodyUpdate.nameAgency || null,
+            provinceCode: bodyUpdate.provinceCode,
+            phone: bodyUpdate.phone || null,
             url: imageUrls[0].url || null,
-            district1st: _district1st
+            district1st: _district1st || null
         }
         console.log("binh_check_ModalAddNewsManagement2", body)
         // return
@@ -217,7 +233,7 @@ const ModalAddBroker = (props) => {
             isOpen={isOpen}
             onClose={onClose}
             className={"modal-add-broker"}
-            titleId={isEdit ? "Sửa tin" : "Thêm mới tin"}
+            titleId={isEdit ? "Sửa môi giới" : "Thêm mới môi giới"}
             toggle={onClose}
         >
             <div className="body">

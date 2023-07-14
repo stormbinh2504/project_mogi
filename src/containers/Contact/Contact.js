@@ -10,7 +10,7 @@ const Contact = () => {
                     Liên hệ
                 </h1>
                 <div class="entry-content">
-                    <p><strong>PHÒNG KINH DOANH BẤT ĐỘNG SẢN THỦ ĐÔ</strong></p>
+                    <p><strong>PHÒNG KINH DOANH BẤT ĐỘNG SẢN MOGI</strong></p>
                     <ul>
                         <li><strong>Hotline:</strong> <strong>0522 982 504</strong></li>
                         <li><strong>Email:</strong>&nbsp;<a class="text-is-email" href="mailto:nnbinh2504@gmail.com">nnbinh2504@gmail.com</a></li>

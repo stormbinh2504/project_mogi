@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
+import Header from '../Header/Header'
+import "./PageBroker.scss"
+import PageSearchFilterBroker from './PageSearchFilterBroker/PageSearchFilterBroker';
+import PageBreadcrumb from '../PageContentContainer/PageBreadcrumb/PageBreadcrumb';
+import PageListBroker from './PageListBroker/PageListBroker';
+import Banner from "../../assets/images/banner.png"
 import { alertType, updateDataFilterNews } from '../../redux/actions';
 import { ToastUtil, uploadImgToFireBase, deleteFromFirebase, TYPE_PROPERTY_CATEGORY } from '../../utils';
 import { accountService, globalService } from '../../services';
 
-import "./PageContentContainer.scss"
-import PageDesciption from './PageDesciption/PageDesciption'
-import PageSearchFilterNews from './PageSearchFilterNews/PageSearchFilterNews';
-import PageListNews from './PageListNews/PageListNews';
-import PageBreadcrumb from './PageBreadcrumb/PageBreadcrumb';
-import Banner from "../../assets/images/banner.png"
-const PageContentContainer = () => {
+const PageBroker = () => {
     const history = useHistory()
     const dispatch = useDispatch()
     const state = useSelector((state) => state);
     const { auth, app, user } = state
     const { userInfo } = user
-
     const [listCates, setListCates] = useState(null)
+
+    const [dataEdit, setDataEdit] = useState({});
 
     useEffect(() => {
         fetchGetFindNewByCodeCate()
@@ -40,31 +41,31 @@ const PageContentContainer = () => {
             });
     }
 
+
     const onHandleUpdateDataFilterNews = (record) => {
         dispatch(updateDataFilterNews({ "codeCateTypePropertyCategory": record.codeCate, "codeTypeProperty": null }))
+        history.push("/thue-nha-dat")
     }
 
-    console.log("binh_PageContentContainer", { listCates })
-
+    console.log("binh_check_PropertyManagement", dataEdit)
     return (
         <div class="page-content-container" >
             <div className="container">
                 <div className="search-bar">
-                    <PageSearchFilterNews />
+                    <PageSearchFilterBroker />
                 </div>
 
                 <div className="breadcrumb-content">
                     <PageBreadcrumb
                         prevPageTitle={{
-                            "name": "Cho thuê nhà đất",
-                            "pathName": "/thue-nha-dat"
-                        }}
-                    />
+                            "name": "Tìm môi giới",
+                            "pathName": "/tim-moi-gioi"
+                        }} />
                 </div>
                 <div className="row">
                     <div className="col-9">
                         <div className="property-list">
-                            <PageListNews />
+                            <PageListBroker />
                         </div>
                     </div>
                     <div className="col-3">
@@ -91,20 +92,9 @@ const PageContentContainer = () => {
                         </div>
                     </div>
                 </div>
-
-                <div className="property-news">
-                    <div className="row">
-                        <div className="col-9">
-                            <PageDesciption />
-                        </div>
-                        <div className="col-3">
-
-                        </div>
-                    </div>
-                </div>
             </div>
-        </div >
+        </div>
     )
 }
 
-export default PageContentContainer
+export default PageBroker
