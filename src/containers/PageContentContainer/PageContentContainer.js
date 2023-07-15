@@ -90,6 +90,22 @@ const PageContentContainer = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div className="info-statistic">
+                                {/* 
+                                <div class="ratio ratio-16x9">
+                                    <iframe src="https://www.youtube.com/embed/SZdjCHkKkZ8'" title="YouTube video" ></iframe>
+                                </div> */}
+
+                                <iframe
+                                    id="ytplayer"
+                                    className={""}
+                                    type="text/html"
+                                    width="100%"
+                                    height="200"
+                                    src={'https://www.youtube.com/embed/SZdjCHkKkZ8'}
+                                    frameBorder="0"
+                                ></iframe>
+                            </div>
                         </div>
                     </div>
                 </div>

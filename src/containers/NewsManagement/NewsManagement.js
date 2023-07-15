@@ -386,8 +386,15 @@ const NewsManagement = () => {
                                     />
                                     <Column title="Trạng thái" key="statusNews" width={150} align='center'
                                         render={(t, r) => {
+                                            let className = "status-table"
+                                            if (t.statusNews == "Đang hoạt động") {
+                                                className = className + "  status-active"
+                                            }
+                                            if (t.statusNews == "Đã hết hạn") {
+                                                className = className + "  status-error"
+                                            }
                                             return (
-                                                <div>
+                                                <div className={className}>
                                                     {t.statusNews}
                                                 </div>
                                             )
@@ -416,8 +423,12 @@ const NewsManagement = () => {
                                             if (t.statusUpTop == 1) {
                                                 text = "Đang hoạt động"
                                             }
+                                            let className = "status-table"
+                                            if (t.statusUpTop == 1) {
+                                                className = className + "  status-active"
+                                            }
                                             return (
-                                                <div>
+                                                <div className={className}>
                                                     {text}
                                                 </div>
                                             )
@@ -462,8 +473,8 @@ const NewsManagement = () => {
                                         width={150} align='center'
                                         render={(_, record) => (
                                             <Space size="middle">
-                                                <span className="cursor-pointer item-center" onClick={() => { onHandlePreview(record) }}>
-                                                    Chi tiết
+                                                <span className="cursor-pointer item-center text-table detail" onClick={() => { onHandlePreview(record) }}>
+                                                    Xem chi tiết
                                                 </span>
                                             </Space>
                                         )}

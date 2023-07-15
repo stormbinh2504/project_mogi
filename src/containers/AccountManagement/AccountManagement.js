@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
 import Header from '../Header/Header'
@@ -16,6 +16,7 @@ import ModalResetPassword from './ModalResetPassword/ModalResetPassword';
 import { Switch } from 'antd';
 import ModalEditAccount from './ModalEditAccount/ModalEditAccount';
 import ModalDetailAccount from './ModalDetailAccount/ModalDetailAccount';
+import _ from 'lodash';
 const { Column, ColumnGroup } = Table;
 
 const AccountManagement = () => {
@@ -45,12 +46,16 @@ const AccountManagement = () => {
         fetchGetFindAllUser(0);
     }, []);
 
-    const fetchGetFindAllUser = async (page) => {
+    const fetchGetFindAllUser = async (page, value) => {
 
         let body = {
-            searchName,
-            page,
+            searchName: searchName,
+            page: page,
             size: 5,
+        }
+
+        if (value) {
+            body.searchName = value
         }
 
         setLoading(true);
@@ -113,8 +118,16 @@ const AccountManagement = () => {
 
     const handleChangeInput = e => {
         const { name, value } = e.target
-        setSearchName((prev) => ({ ...prev, [name]: value }))
+        setSearchName(value)
+        debounceSetFilterNews(value);
     }
+
+
+    const debounceSetFilterNews = useCallback(
+        _.debounce((value) => {
+            fetchGetFindAllUser(0, value);
+        }, 1500), []
+    )
 
     const onChangeSwitchAccount = (boolean, record) => {
         console.log("onChangeSwitchAccount", boolean, record)
@@ -169,13 +182,13 @@ const AccountManagement = () => {
                         <div className="list-lookup row row gutters-5">
                             <div className="col-6 col-md-3">
                                 <div className="body-content-row row gutters-5">
-                                    <div className="col-12 label">
+                                    {/* <div className="col-12 label">
                                         Tên người cho thuê
-                                    </div>
+                                    </div> */}
                                     <div className="col-12 value">
                                         <div className="mg-form-control">
                                             <input className="text-control" value={searchName} name="searchName"
-                                                onChange={handleChangeInput} />
+                                                onChange={handleChangeInput} placeholder='Tên tài khoản' />
                                         </div>
                                     </div>
                                 </div>
@@ -197,26 +210,43 @@ const AccountManagement = () => {
                                 scroll={{ x: 1000 }}
                             >
                                 <Column title="Mã tài khoản" dataIndex="id" key="id" width={100} align='center' />
-                                <Column title="Tên người cho thuê" dataIndex="fullName" key="fullName" width={250} align='center'
+                                <Column title="Tên tài khoản" dataIndex="fullName" key="fullName" width={250} align='center'
                                     sorter={(a, b) => a.fullName.length - b.fullName.length}
                                 />
                                 <Column title="Số điện thoại" dataIndex="phone" key="phone" width={250} align='center'
                                     sorter={(a, b) => a.phone.length - b.phone.length}
                                 />
-                                <Column title="Trạng thái" dataIndex="statusAccountName" key="statusAccountName" width={150} align='center'
-                                />
-                                <Column
-                                    title="Xem chi tiết"
-                                    key="detail"
-                                    fixed="right"
-                                    width={150} align='center'
-                                    render={(_, record) => (
-                                        <Space size="middle">
-                                            <span className="cursor-pointer item-center" onClick={() => { onHandleDetail(record) }}>
-                                                Chi tiết
-                                            </span>
-                                        </Space>
-                                    )}
+                                <Column title="Trạng thái" key="statusAccountName" width={150} align='center'
+                                    render={(t, r) => {
+                                        let className = "status-table"
+                                        let _statusAccountName = t.statusAccountName
+                                        if (t.statusAccountName == "ĐANG SỬ DỤNG") {
+                                            className = className + "  status-active"
+                                            _statusAccountName = "Đang sử dụng"
+                                        }
+                                        if (t.statusAccountName == "KHÓA") {
+                                            className = className + "  status-error"
+                                            _statusAccountName = "Khóa"
+                                        }
+                                        return (
+                                            <div className={className}>
+                                                {_statusAccountName}
+                                            </div>
+                                        )
+                                    }}
+
+                                    filters={[
+                                        {
+                                            text: 'Đang sử dụng',
+                                            value: 'ĐANG SỬ DỤNG',
+                                        },
+                                        {
+                                            text: 'Khóa',
+                                            value: "KHÓA",
+                                        },
+                                    ]}
+                                    onFilter={(value, record) => record.statusAccountName == value}
+                                    filterSearch={true}
                                 />
                                 <Column
                                     title="Thay đổi trạng thái"
@@ -238,7 +268,7 @@ const AccountManagement = () => {
                                     width={150} align='center'
                                     render={(_, record) => (
                                         <Space size="middle">
-                                            <span className="cursor-pointer item-center" onClick={() => {
+                                            <span className="cursor-pointer item-center text-table restore" onClick={() => {
                                                 setDataResetPassword(record)
                                                 setIsOpenModalResetPassword(true)
                                             }}
@@ -251,13 +281,26 @@ const AccountManagement = () => {
                                 <Column
                                     title="Thao tác"
                                     key="action"
-                                    width={150}
+                                    width={100}
                                     align='center'
                                     fixed="right"
                                     render={(_, record) => (
                                         <Space size="middle">
                                             <span className="cursor-pointer" onClick={() => { onHandleEdit(record) }}>
                                                 <img src={IconEdit} />
+                                            </span>
+                                        </Space>
+                                    )}
+                                />
+                                <Column
+                                    title="Xem chi tiết"
+                                    key="detail"
+                                    fixed="right"
+                                    width={150} align='center'
+                                    render={(_, record) => (
+                                        <Space size="middle">
+                                            <span className="cursor-pointer item-center text-table detail" onClick={() => { onHandleDetail(record) }}>
+                                                Chi tiết
                                             </span>
                                         </Space>
                                     )}

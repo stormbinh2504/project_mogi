@@ -137,6 +137,17 @@ const Home = () => {
                             <ProjectLoan />
                         </div>
                     </div>
+                    <div id="project-list" class="block-info list-items" ng-non-bindable="">
+                        <iframe
+                            id="ytplayer"
+                            className={""}
+                            type="text/html"
+                            width="100%"
+                            height="400"
+                            src={'https://www.youtube.com/embed/PYv9_fOXMDA'}
+                            frameBorder="0"
+                        ></iframe>
+                    </div>
 
                     <div id="features" class="features block-info" ng-non-bindable="">
                         <h2 class="title">Tiện ích từ Mogi.vn</h2>

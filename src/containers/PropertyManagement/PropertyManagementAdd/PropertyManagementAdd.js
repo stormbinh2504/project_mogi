@@ -10,6 +10,7 @@ import { accountService, globalService } from '../../../services';
 import Select from 'react-select';
 import NumberInput from '../../../components/Input/NumberInput/NumberInput';
 import _ from 'lodash';
+import ModalGuideMaps from './ModalGuideMaps/ModalGuideMaps';
 
 const df_PropertyInfo = {
     "codeProperty": null,
@@ -52,6 +53,7 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
     const [typePropertyCategoryAll, SetTypePropertyCategoryAll] = useState([])
     const [typePropertyAll, setTypePropertyAll] = useState([])
     const [lawCategoryAll, SetLawCategoryAll] = useState([])
+    const [isOpenModalGuideMaps, setIsOpenModalGuideMaps] = useState(false)
 
 
     const [imgFirebaseOld, setImgFirebaseOld] = useState("")
@@ -400,6 +402,11 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
             titleId={isEdit ? "Sửa tài sản" : "Thêm mới tài sản"}
         >
             <div className="body property-management-adđ">
+
+                {isOpenModalGuideMaps && <ModalGuideMaps
+                    isOpen={isOpenModalGuideMaps}
+                    onClose={() => { setIsOpenModalGuideMaps(false) }}
+                />}
                 <div className="body-container">
                     <div className="body-content">
                         <div className="go-back" onClick={goBack}>
@@ -733,10 +740,15 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
                                         Địa chỉ (*)
                                     </div>
                                     <div className="col-12 col-sm-8 value">
-                                        <div className="mg-form-control">
-                                            <input className="text-control" value={propertyInfo.location} name="location"
-                                                onChange={handleChangeInput} />
+                                        <div className="wrap-adderss">
+                                            <div className="mg-form-control">
+                                                <input className="text-control" value={propertyInfo.location} name="location"
+                                                    onChange={handleChangeInput} />
 
+                                            </div>
+                                            <div className="guide-get-maps item-center" onClick={() => { setIsOpenModalGuideMaps(true) }}>
+                                                Hướng dẫn
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

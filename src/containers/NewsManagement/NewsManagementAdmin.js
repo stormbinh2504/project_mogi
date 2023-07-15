@@ -359,15 +359,51 @@ const NewsManagementAdmin = () => {
                                             )
                                         }}
                                     />
-                                    <Column title="Trạng thái" dataIndex="statusNews" key="statusNews" width={150} align='center' />
+                                    <Column title="Trạng thái" key="statusNews" width={150} align='center'
+                                        render={(t, r) => {
+                                            let className = "status-table"
+                                            if (t.statusNews == "Đang hoạt động") {
+                                                className = className + "  status-active"
+                                            }
+                                            if (t.statusNews == "Đã hết hạn") {
+                                                className = className + "  status-error"
+                                            }
+                                            return (
+                                                <div className={className}>
+                                                    {t.statusNews}
+                                                </div>
+                                            )
+                                        }}
+
+                                        filters={[
+                                            {
+                                                text: 'Đang hoạt động',
+                                                value: 'Đang hoạt động',
+                                            },
+                                            {
+                                                text: 'Đã hết hạn',
+                                                value: "Đã hết hạn",
+                                            },
+                                            {
+                                                text: "Đã xóa",
+                                                value: "Đã xóa",
+                                            },
+                                        ]}
+                                        onFilter={(value, record) => record.statusNews == value}
+                                        filterSearch={true}
+                                    />
                                     <Column title="Trạng thái đẩy top" key="statusUpTop" width={150} align='center'
                                         render={(t, r) => {
                                             let text = "Chưa hoạt động"
                                             if (t.statusUpTop == 1) {
                                                 text = "Đang hoạt động"
                                             }
+                                            let className = "status-table"
+                                            if (t.statusUpTop == 1) {
+                                                className = className + "  status-active"
+                                            }
                                             return (
-                                                <div>
+                                                <div className={className}>
                                                     {text}
                                                 </div>
                                             )
@@ -399,8 +435,8 @@ const NewsManagementAdmin = () => {
                                         width={150} align='center'
                                         render={(_, record) => (
                                             <Space size="middle">
-                                                <span className="cursor-pointer item-center" onClick={() => { onHandlePreview(record) }}>
-                                                    Chi tiết
+                                                <span className="cursor-pointer item-center text-table detail" onClick={() => { onHandlePreview(record) }}>
+                                                    Xem chi tiết
                                                 </span>
                                             </Space>
                                         )}

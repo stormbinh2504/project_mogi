@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
-import "./ModalAddBroker.scss"
+import "./ModalAddBanner.scss"
 import { Space, Table, Tag } from 'antd';
 import DraggableModal from '../../../components/DraggableModal/DraggableModal';
 import { alertType } from '../../../redux/actions';

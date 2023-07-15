@@ -34,7 +34,6 @@ const ModalListPropertyManagement = (props) => {
     }, [numberPageProperty]);
 
     useEffect(() => {
-        alert(1)
         fetchGetAllProperty();
     }, [isFetchProperty]);
 
