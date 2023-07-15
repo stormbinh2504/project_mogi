@@ -17,6 +17,8 @@ const PageContentContainer = () => {
     const state = useSelector((state) => state);
     const { auth, app, user } = state
     const { userInfo } = user
+    const { listBanner } = app
+    let imgBG3 = listBanner.find((item, index) => item.lever == 3)
 
     const [listCates, setListCates] = useState(null)
 
@@ -70,7 +72,7 @@ const PageContentContainer = () => {
                     <div className="col-3">
                         <div className="property-extra">
                             <div className="banner-img">
-                                <img src={Banner} />
+                                <img src={imgBG3 ? imgBG3.imageUrl : Banner} />
                             </div>
                             <div className="info-statistic">
                                 <div className="block-info">

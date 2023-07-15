@@ -373,7 +373,7 @@ const NewsManagementAdmin = () => {
                                             )
                                         }}
                                     />
-                                    <Column
+                                    {/* <Column
                                         title="Thao tác"
                                         key="action"
                                         fixed="right"
@@ -391,7 +391,7 @@ const NewsManagementAdmin = () => {
                                                 </span>
                                             </Space>
                                         )}
-                                    />
+                                    /> */}
                                     <Column
                                         title="Xem trước"
                                         key="detail"

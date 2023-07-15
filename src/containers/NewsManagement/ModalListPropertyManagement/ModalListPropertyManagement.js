@@ -12,7 +12,7 @@ const { Column, ColumnGroup } = Table;
 
 let pageSize = 4
 const ModalListPropertyManagement = (props) => {
-    const { isOpen, onClose, setOpenModalAdd, setDataAdd } = props
+    const { isOpen, onClose, setOpenModalAdd, setDataAdd, setNumberPageProperty, numberPageProperty, isFetchProperty } = props
     const history = useHistory()
     const dispatch = useDispatch()
     const state = useSelector((state) => state);
@@ -25,10 +25,21 @@ const ModalListPropertyManagement = (props) => {
     const [step, setStep] = useState(1);
 
     useEffect(() => {
-        fetchGetAllProperty(1);
+        fetchGetAllProperty();
     }, []);
 
-    const fetchGetAllProperty = async (page) => {
+
+    useEffect(() => {
+        fetchGetAllProperty();
+    }, [numberPageProperty]);
+
+    useEffect(() => {
+        alert(1)
+        fetchGetAllProperty();
+    }, [isFetchProperty]);
+
+    const fetchGetAllProperty = async () => {
+        let page = numberPageProperty
         setLoading(true);
         dispatch(alertType(true))
         // await accountService.getAllProperty(page, records = 10, codeProperty = null, codeTypeProperty = null, nameProperty = null)
@@ -84,7 +95,7 @@ const ModalListPropertyManagement = (props) => {
                                 pageSize: pageSize,
                                 total: totalPages,
                                 onChange: (page) => {
-                                    fetchGetAllProperty(page);
+                                    setNumberPageProperty(page);
                                 },
                             }}
                             scroll={{ x: 900 }}

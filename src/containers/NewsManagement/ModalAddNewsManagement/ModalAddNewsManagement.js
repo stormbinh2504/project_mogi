@@ -19,7 +19,7 @@ const df_dataNews = {
     "dateExpiration": new Date(),
 }
 const ModalAddNewsManagement = (props) => {
-    const { isOpen, onClose, dataAdd, setDataAdd, isEdit, onHandleCallBack } = props
+    const { isOpen, onClose, dataAdd, setDataAdd, isEdit, onHandleCallBack, setIsFetchProperty } = props
     const history = useHistory()
     const dispatch = useDispatch()
     const state = useSelector((state) => state);
@@ -102,6 +102,9 @@ const ModalAddNewsManagement = (props) => {
                 setDataAdd(df_dataNews)
                 ToastUtil.success(isEdit ? "Sửa tin thành công" : "Tạo tin mới thành công");
                 onHandleCallBack()
+                if (!isEdit) {
+                    setIsFetchProperty && setIsFetchProperty()
+                }
                 onClose()
             })
             .catch(error => {

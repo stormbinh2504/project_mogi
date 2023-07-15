@@ -64,6 +64,9 @@ const NewsManagement = () => {
     const [statusNewsAll, setStatusNewsAll] = useState([]);
     const [bodyGetManagerNews, setBodyGetManagerNews] = useState(df_bodyGetManagerNews);
 
+    const [numberPageProperty, setNumberPageProperty] = useState(1);
+    const [isFetchProperty, setIsFetchProperty] = useState(true);
+
     const onHandleAdd = () => {
         setIsOpenModalList(true)
         setIsEdit(false)
@@ -222,6 +225,11 @@ const NewsManagement = () => {
                                 onClose={() => { setIsOpenModalList(false) }}
                                 setOpenModalAdd={(flag) => { setIsOpenModalAdd(flag) }}
                                 setDataAdd={(data) => { setDataAdd((prev) => ({ ...prev, ...data })) }}
+                                numberPageProperty={numberPageProperty}
+                                setNumberPageProperty={(page) => {
+                                    setNumberPageProperty(page)
+                                }}
+                                isFetchProperty={isFetchProperty}
                             />}
                             {isOpenModalAdd && <ModalAddNewsManagement
                                 isOpen={isOpenModalAdd}
@@ -234,6 +242,9 @@ const NewsManagement = () => {
                                 setIsEdit={(data) => { setIsEdit(data) }}
                                 isEdit={isEdit}
                                 onHandleCallBack={onSearch}
+                                setIsFetchProperty={() => {
+                                    setIsFetchProperty(!isFetchProperty)
+                                }}
                             />}
                             {isOpenModalUpto && <ModalUptoNews
                                 isOpen={isOpenModalUpto}
@@ -373,7 +384,32 @@ const NewsManagement = () => {
                                             )
                                         }}
                                     />
-                                    <Column title="Trạng thái" dataIndex="statusNews" key="statusNews" width={150} align='center' />
+                                    <Column title="Trạng thái" key="statusNews" width={150} align='center'
+                                        render={(t, r) => {
+                                            return (
+                                                <div>
+                                                    {t.statusNews}
+                                                </div>
+                                            )
+                                        }}
+
+                                        filters={[
+                                            {
+                                                text: 'Đang hoạt động',
+                                                value: 'Đang hoạt động',
+                                            },
+                                            {
+                                                text: 'Đã hết hạn',
+                                                value: "Đã hết hạn",
+                                            },
+                                            {
+                                                text: "Đã xóa",
+                                                value: "Đã xóa",
+                                            },
+                                        ]}
+                                        onFilter={(value, record) => record.statusNews == value}
+                                        filterSearch={true}
+                                    />
                                     <Column title="Trạng thái đẩy top" key="statusUpTop" width={150} align='center'
                                         render={(t, r) => {
                                             let text = "Chưa hoạt động"

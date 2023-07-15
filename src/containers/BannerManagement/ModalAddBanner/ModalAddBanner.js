@@ -147,7 +147,7 @@ const ModalAddBanner = (props) => {
             isOpen={isOpen}
             onClose={onClose}
             className={"modal-add-broker"}
-            titleId={isEdit ? "Sửa môi giới" : "Thêm mới môi giới"}
+            titleId={isEdit ? "Sửa banner giới" : "Thêm mới banner"}
             toggle={onClose}
         >
             <div className="body">

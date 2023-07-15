@@ -20,6 +20,7 @@ const initialState = {
         "nameSearch": null,
         "provinceCode": null,
     },
+    listBanner: [],
 }
 
 const appReducer = (state = initialState, action) => {
@@ -32,7 +33,9 @@ const appReducer = (state = initialState, action) => {
         case actionTypes.USER_LOGOUT:
             return {
                 ...state,
-                ...initialState
+                typeUser: initialState.typeUser,
+                filterNews: initialState.filterNews,
+                filterAgency: initialState.filterAgency,
             };
         case "UPDATE_DATA_FILTER_NEWS":
             console.log("binh_filterNews", action.data)
@@ -44,13 +47,18 @@ const appReducer = (state = initialState, action) => {
                 }
             };
         case "UPDATE_DATA_FILTER_AGENCY":
-            console.log("binh_filterNews", action.data)
             return {
                 ...state,
                 filterAgency: {
                     ...state.filterAgency,
                     ...action.data
                 }
+            };
+        case "LOAD_DATA_BANNER":
+            console.log("binh_filterNews", action.data)
+            return {
+                ...state,
+                listBanner: action.data
             };
         default:
             return state;

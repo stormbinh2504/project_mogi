@@ -138,6 +138,15 @@ const accountService = {
         return axios.get(`${REACT_APP_BASE_URL_API}auth/changeStatus?` + queryString.stringify(queryParams))
     },
 
+
+    getDetailAccount(id) { // Thay đổi trạng thái tài khoản
+        var queryParams = {
+            id,
+        };
+        return axios.get(`${REACT_APP_BASE_URL_API}auth/detail?` + queryString.stringify(queryParams))
+    },
+
+
     setResetPassword(id) { // Khôi phục password
         var queryParams = {
             id,
@@ -187,6 +196,10 @@ const accountService = {
             id
         };
         return axios.delete(`${REACT_APP_BASE_URL_API}banner/deleteBanner?`, + queryString.stringify(queryParams))
+    },
+
+    getBanner() { // update môi giới
+        return axios.get(`${REACT_APP_BASE_URL_API}banner/findAllBanner`)
     },
 
 }

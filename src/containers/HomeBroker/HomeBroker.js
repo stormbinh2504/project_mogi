@@ -51,7 +51,7 @@ const HomeBroker = () => {
             })
             .catch(error => {
                 dispatch(alertType(false))
-                ToastUtil.errorApi(error, "Không thể tải vè thông tin");
+                // ToastUtil.errorApi(error, "Không thể tải vè thông tin");
             });
     }
 
@@ -138,20 +138,20 @@ const HomeBroker = () => {
                                 </div>
                                 <div className="summary-item">
                                     <span>Tổng số tin:</span>
-                                    <span className="counter ng-binding">{dataHome && dataHome.allNews}</span>
+                                    <span className="counter ng-binding">{dataHome && dataHome.allNews ? dataHome.allNews : "0/0"}</span>
                                     <button className="btn-detail" onClick={onGoToManagementNews}>Chi tiết</button>
                                 </div>
                                 <div className="summary-item">
                                     <span>Tổng số tài sản:</span>
-                                    <span className="counter ng-binding">{dataHome && dataHome.postingProperty}</span>
+                                    <span className="counter ng-binding">{dataHome && dataHome.postingProperty ? dataHome.postingProperty : 0}</span>
                                     <button className="btn-detail" onClick={onGoToManagementProperty}>Chi tiết</button>
                                 </div>
                             </div>
                         </div>
                         <div class="trial-warning">
-                            <p><b>Lưu ý:</b> Tài khoản dùng thử chỉ được đăng tối đa <b>3 tin</b>.</p>
+                            <p><b>Lưu ý:</b> Tài khoản dùng thử chỉ được đăng tối đa <b>1 tin</b>.</p>
                         </div>
-                        <div class="dashboard-section">
+                        {/* <div class="dashboard-section">
                             <div class="title">Khu vực môi giới</div>
                             <div class="summary dashboard-table subscription">
                                 <div class="dashboard-row clearfix ng-scope">
@@ -165,7 +165,7 @@ const HomeBroker = () => {
                             <div class="buy-more-subscription">
                                 <a ng-href="/phi-thanh-vien" href="/phi-thanh-vien"><i class="fa fa-plus-circle"></i> Thêm khu vực môi giới</a>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

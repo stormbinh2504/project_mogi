@@ -5,7 +5,7 @@ import "./ModalUptoNews.scss"
 import { Space, Table, Tag } from 'antd';
 import DraggableModal from '../../../components/DraggableModal/DraggableModal';
 import { alertType } from '../../../redux/actions';
-import { ToastUtil, uploadImgToFireBase, deleteFromFirebase } from '../../../utils';
+import { ToastUtil, uploadImgToFireBase, deleteFromFirebase, CommonUtils } from '../../../utils';
 import { accountService, globalService } from '../../../services';
 import DatePickerCustom from '../../../components/DatePickerCustom/DatePickerCustom';
 
@@ -96,7 +96,7 @@ const ModalUptoNews = (props) => {
             isOpen={isOpen}
             onClose={onClose}
             className={"modal-add-news-management"}
-            titleId={"Đây tin lên top"}
+            titleId={"Đẩy tin lên top"}
             toggle={onClose}
         >
             <div className="body">
@@ -109,6 +109,20 @@ const ModalUptoNews = (props) => {
                         <div className="mg-form-control">
                             <input className="text-control" value={dataNews.id} name="codeProperty"
                                 onChange={handleChangeInput} disabled={true} />
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div className="body-content-row row gutters-5">
+                    <div className="col-12 col-sm-4 label">
+                        Trạng thái đẩy top
+                    </div>
+                    <div className="col-12 col-sm-8 value">
+                        <div className="mg-form-control">
+                            {dataUpto.statusUpTop == 1 && "Đang hoạt động"}
+                            {dataUpto.statusUpTop == 2 && "Chưa hoạt động"}
                         </div>
                     </div>
                 </div>
@@ -141,6 +155,14 @@ const ModalUptoNews = (props) => {
                         </div>
                     </div>
                 </div>
+
+                {
+                    dataUpto.statusUpTop == 2 && <div className="body-content-row row gutters-5">
+                        <div className="note item-center">
+                            *Lưu ý: {CommonUtils.formatNumber(50000, 0)} cho một lần đẩy top
+                        </div>
+                    </div>
+                }
 
                 <div className="body-content-row row gutters-5">
                     <div className="container-action style-add">

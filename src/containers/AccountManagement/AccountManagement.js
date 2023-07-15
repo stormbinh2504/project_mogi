@@ -14,6 +14,8 @@ import IconEdit from '../../assets/svgs/common/icon_edit.svg';
 import { Space, Table, Tag } from 'antd';
 import ModalResetPassword from './ModalResetPassword/ModalResetPassword';
 import { Switch } from 'antd';
+import ModalEditAccount from './ModalEditAccount/ModalEditAccount';
+import ModalDetailAccount from './ModalDetailAccount/ModalDetailAccount';
 const { Column, ColumnGroup } = Table;
 
 const AccountManagement = () => {
@@ -26,8 +28,13 @@ const AccountManagement = () => {
     const [dataSource, setDataSource] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
-    const [dataEdit, setDataEdit] = useState({});
+    const [dataEdit, setDataEdit] = useState(null);
+    const [dataDetail, setDataDetail] = useState(null);
+
     const [isOpenModalResetPassword, setIsOpenModalResetPassword] = useState(false);
+    const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
+    const [isOpenModalDetail, setIsOpenModalDetail] = useState(false);
+
     const [dataResetPassword, setDataResetPassword] = useState(false);
     const [searchName, setSearchName] = useState("");
 
@@ -68,14 +75,34 @@ const AccountManagement = () => {
 
     const onHandleEdit = async (record) => {
         console.log("onHandleEdit", record)
-        let { codeProperty } = record
+        let { id } = record
         dispatch(alertType(true))
-        await accountService.getPropertyDetail(codeProperty)
+        await accountService.getDetailAccount(id)
             .then(res => {
                 if (res) {
-                    console.log("binh_check_PropertyManagement", res)
                     setDataEdit(res);
+                    setIsOpenModalEdit(true)
                     dispatch(alertType(false))
+                }
+            })
+            .catch(error => {
+                dispatch(alertType(false))
+                ToastUtil.errorApi(error);
+            });
+    }
+
+    const onHandleDetail = async (record) => {
+        console.log("onHandleEdit", record)
+        let { id, statusAccountName } = record
+        dispatch(alertType(true))
+        await accountService.getDetailAccount(id)
+            .then(res => {
+                if (res) {
+                    let _res = res
+                    _res.statusAccountName = statusAccountName
+                    setDataDetail(_res);
+                    dispatch(alertType(false))
+                    setIsOpenModalDetail(true)
                 }
             })
             .catch(error => {
@@ -116,6 +143,25 @@ const AccountManagement = () => {
                     setDataResetPassword(null)
                 }}
                 dataResetPassword={dataResetPassword}
+            />}
+            {isOpenModalEdit && <ModalEditAccount
+                isOpen={isOpenModalEdit}
+                onClose={() => {
+                    setIsOpenModalEdit(false)
+                    setDataEdit(null)
+                }}
+                dataEdit={dataEdit}
+                onHandleCallBack={() => {
+                    fetchGetFindAllUser(0)
+                }}
+            />}
+            {isOpenModalDetail && <ModalDetailAccount
+                isOpen={isOpenModalDetail}
+                onClose={() => {
+                    setIsOpenModalDetail(false)
+                    setDataDetail(null)
+                }}
+                dataDetail={dataDetail}
             />}
             <div className="property-management">
                 <div className="property-management-container">
@@ -166,7 +212,7 @@ const AccountManagement = () => {
                                     width={150} align='center'
                                     render={(_, record) => (
                                         <Space size="middle">
-                                            <span className="cursor-pointer item-center" onClick={() => { onHandleEdit(record) }}>
+                                            <span className="cursor-pointer item-center" onClick={() => { onHandleDetail(record) }}>
                                                 Chi tiết
                                             </span>
                                         </Space>

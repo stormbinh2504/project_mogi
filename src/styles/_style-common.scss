@@ -7,6 +7,13 @@ body {
     gap            : 10px;
     display        : flex;
 
+    button {
+      &[disabled] {
+        cursor : not-allowed;
+        opacity: 0.5;
+      }
+    }
+
     &.style-add {
       margin-top: 20px;
     }

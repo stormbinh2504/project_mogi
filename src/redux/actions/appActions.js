@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom'
 // import { browserHistory } from 'react-router'
 import { push } from "connected-react-router";
 import { batch } from 'react-redux';
-import { CommonUtils, TYPE_USER } from '../../utils';
+import { CommonUtils, TYPE_USER, ToastUtil } from '../../utils';
 import { setUserInfo, loginFail } from './userActions';
 import { accountService } from '../../services';
 
@@ -34,12 +34,13 @@ export const initializeApp = (custodycd) => {
     return (dispatch, getState) => {
         const state = getState();
         const haveSavedSession = state.user.token != null;
-
+        dispatch(loadDataBanner())
         // Lưu lại thông tin token nếu localStorage rỗng
         let usersTokens = JSON.parse(localStorage.getItem('token-users'));
         if (haveSavedSession && !usersTokens) {
             // dispatch(authorizationSuccess(state.user.token));
         }
+
 
         if (!haveSavedSession) {
             return
@@ -92,5 +93,24 @@ export const updateDataFilterAgency = (objData) => {
             type: "UPDATE_DATA_FILTER_AGENCY",
             data: objData
         })
+    };
+};
+
+
+export const loadDataBanner = () => {
+    return (dispatch, getState) => {
+        const state = getState();
+        accountService.getBanner()
+            .then((res) => {
+                if (res && res.length > 0) {
+                    dispatch({
+                        type: "LOAD_DATA_BANNER",
+                        data: res
+                    })
+                }
+            })
+            .catch((error) => {
+                ToastUtil.errorApi(error)
+            });
     };
 };

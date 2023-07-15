@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from "react-redux";
+
 import Header from '../Header/Header'
 import "./Home.scss"
 import ProjectTop from './ProjectTop/ProjectTop'
@@ -40,9 +42,39 @@ const df_listfeatures = [
 ]
 
 const Home = () => {
+
+    const state = useSelector((state) => state);
+    const { auth, app, user } = state
+    const { listBanner } = app
+    let imgBG1 = listBanner.find((item, index) => item.lever == 1)
+    let imgBG2 = listBanner.find((item, index) => item.lever == 2)
+
+    console.log("binh_imgBG", app, imgBG1, listBanner)
+    let sytle1 = {}
+    let sytle2 = {}
+    let url2 = {}
+    if (imgBG1) {
+        sytle1 = {
+            backgroundImage: "url(" + imgBG1.imageUrl + ")",
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat'
+        }
+    }
+    // if(imgBG2){
+    //     url2 = 
+    // }
+    // if (imgBG2) {
+    //     sytle2 = {
+    //         backgroundImage: "url(" + imgBG.imageUrl + ")",
+    //         backgroundPosition: 'center',
+    //         backgroundSize: 'cover',
+    //         backgroundRepeat: 'no-repeat'
+    //     }
+    // }
     return (
         <div className='container-home'>
-            <div className="container-slider">
+            <div className="container-slider" style={sytle1}>
                 <SearchNewsHome />
             </div>
             <div className="container-top-properties">
@@ -94,8 +126,8 @@ const Home = () => {
                     </div>
                     <div id="banner-home-center" class="banner-home-center home-banner block-info">
                         <div class="banner-content">
-                            <a href="https://trogiup.mogi.vn/bang-gia-phi-thanh-vien-va-dich-vu-tren-mogi/" target="_blank" rel="follow" gtm-cat="banner" gtm-event="link" gtm-act="view-banner-home-top">
-                                <img src="https://cdn.mogi.vn/banner/2023/6_34b060cf-12ca-469a-ae05-971959d3535c.png" />
+                            <a href={imgBG2 ? imgBG2.url : ""} target="_blank" rel="follow" gtm-cat="banner" gtm-event="link" gtm-act="view-banner-home-top">
+                                <img src={imgBG2 ? imgBG2.imageUrl : ""} />
                             </a>
                         </div>
                     </div>
