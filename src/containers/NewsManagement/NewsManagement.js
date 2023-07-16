@@ -250,6 +250,7 @@ const NewsManagement = () => {
                                 isOpen={isOpenModalUpto}
                                 onClose={() => { setIsOpenModalUpto(false) }}
                                 dataUpto={dataUpto}
+                                onHandleCallBack={onSearch}
                             />}
                             {isOpenModalPreview && <ModalPreviewNews
                                 isOpen={isOpenModalPreview}

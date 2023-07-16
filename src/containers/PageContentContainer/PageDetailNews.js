@@ -15,6 +15,21 @@ import Avatar from '../../assets/images/avatar.png'
 import PagePropertySame from './PagePropertySame/PagePropertySame';
 import img_zalo from "../../assets/images/img_zalo.png"
 
+
+const law_df = [
+    {
+        "value": "1",
+        "name": "Sổ hồng"
+    },
+    {
+        "value": "2",
+        "name": "Sổ đỏ"
+    },
+    {
+        "value": "3",
+        "name": "Chưa có sổ"
+    }
+]
 const PageDetailNews = () => {
     const history = useHistory()
     const dispatch = useDispatch()
@@ -24,7 +39,7 @@ const PageDetailNews = () => {
     const { location } = history
     const { pathname } = location
 
-    const [infoDetail, setInfoDetail] = useState(null)
+    const [infoDetail, setInfoDetail] = useState({})
     const [infoNews, setInfoNews] = useState(null)
     const [infoUser, setInfoUser] = useState(null)
 
@@ -83,6 +98,18 @@ const PageDetailNews = () => {
         introducesConvert = introducesConvert.replace(/\n/g, "<br />");
     }
 
+    const renderLaw = (value) => {
+        let _value = value
+        let found = law_df.find((e, i) => {
+            return e.value = _value
+        })
+        if (found) {
+            _value = found.name
+            return _value
+        }
+        return value
+    }
+
     // console.log("binh_PageDetailNews", { infoDetail, infoNews, infoUser, introducesConvert })
     console.log("binh_PageDetailNews", { infoDetail1: infoDetail, phone })
     return (
@@ -123,17 +150,23 @@ const PageDetailNews = () => {
                                         <div className="label-info-attr">Diện tích sử dụng</div>
                                         <div className="value-info-attr">{infoDetail && infoDetail.areaUse} m<sup>2</sup></div>
                                     </div>
-                                    <div className="col-6 content-info-attr">
-                                        <div className="label-info-attr">Phỏng ngủ</div>
-                                        <div className="value-info-attr">{infoDetail && infoDetail.bedCount}</div>
-                                    </div>
-                                    <div className="col-6 content-info-attr">
-                                        <div className="label-info-attr">Nhà tắm</div>
-                                        <div className="value-info-attr">{infoDetail && infoDetail.bathCount}</div>
-                                    </div>
+                                    {
+                                        (infoDetail.codeCateTypePropertyCategory == 2 || infoDetail.codeCateTypePropertyCategory == 3) &&
+                                        <div className="col-6 content-info-attr">
+                                            <div className="label-info-attr">Phỏng ngủ</div>
+                                            <div className="value-info-attr">{infoDetail && infoDetail.bedCount}</div>
+                                        </div>
+                                    }
+                                    {
+                                        (infoDetail.codeCateTypePropertyCategory == 2 || infoDetail.codeCateTypePropertyCategory == 3) &&
+                                        <div className="col-6 content-info-attr">
+                                            <div className="label-info-attr">Nhà tắm</div>
+                                            <div className="value-info-attr">{infoDetail && infoDetail.bathCount}</div>
+                                        </div>
+                                    }
                                     <div className="col-6 content-info-attr">
                                         <div className="label-info-attr">Pháp lý</div>
-                                        <div className="value-info-attr">{infoDetail && infoDetail.areaUse}</div>
+                                        <div className="value-info-attr">{infoDetail && renderLaw(infoDetail.law)}</div>
                                     </div>
                                     <div className="col-6 content-info-attr">
                                         <div className="label-info-attr">Ngày đăng</div>

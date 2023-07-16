@@ -243,13 +243,13 @@ const PropertyManagementAdd = ({ dataEdit, setStep, isEdit }) => {
         await accountService.updateProperty(body)
             .then(res => {
                 dispatch(alertType(false))
-                ToastUtil.success("Cập nhật thành công");
+                isEdit ? ToastUtil.success("Cập nhật tài sản thành công") : ToastUtil.success("Tạo tài sản thành công")
                 setPropertyInfo(df_PropertyInfo)
                 history.push("/property-management")
             })
             .catch(error => {
                 dispatch(alertType(false))
-                ToastUtil.errorApi(error, "Cập nhật không thành công");
+                isEdit ? ToastUtil.errorApi(error, "Cập nhật không thành công") : ToastUtil.errorApi(error, "Tạo không thành công");
             });
     }
 

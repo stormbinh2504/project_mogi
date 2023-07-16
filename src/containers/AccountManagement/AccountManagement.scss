@@ -12,20 +12,8 @@
         .property-management-content {
             padding: 10px;
 
-            .container-action {
-                display        : flex;
-                justify-content: flex-end;
-
-                .btn-add {
-                    color     : #333;
-                    background: #00deb6;
-                    border    : 0;
-                    min-width : 100px;
-
-                    &:hover {
-                        color: white;
-                    }
-                }
+            .list-lookup {
+                margin-bottom: 10px;
             }
         }
     }

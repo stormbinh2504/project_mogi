@@ -378,6 +378,22 @@ const NewsStatistics = () => {
         setConfigChartArea(configChart)
     }
 
+    const formatPrice = (value) => { //"1000000 - 5000000"
+        if (value) {
+            let [lowerBound, upperBound] = value.split(" - ");
+            // Convert the bounds to numbers
+            lowerBound = Number(lowerBound);
+            upperBound = Number(upperBound);
+
+            // Format the bounds using toLocaleString()
+            lowerBound = lowerBound.toLocaleString();
+            upperBound = upperBound.toLocaleString();
+            let _value = lowerBound + " - " + upperBound;
+            return _value || ""
+        }
+        return value
+    }
+
     const setDataChartPrice = () => {
 
         let labels = []
@@ -392,7 +408,8 @@ const NewsStatistics = () => {
             let percentItem = (Number(element.rangeCount) / totalCount) * 100
             percentItem = Number(percentItem) || 0
             if (percentItem) {
-                labels.push(element.rangeName)
+                let _rangeName = formatPrice(element.rangeName)
+                labels.push(_rangeName)
                 dataAssest.push(percentItem.toFixed(2))
                 backgroundColor.push('green')
             }

@@ -177,7 +177,7 @@ const ModalDetailAccount = (props) => {
 
                     <div class="property-info">
                         <div class="label-property">
-                            Tiền
+                            Số dư tài khoản
                         </div>
                         <div class="value-property">
                             {CommonUtils.formatNumber(clientData.money, 0)}

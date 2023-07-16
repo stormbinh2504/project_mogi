@@ -10,7 +10,7 @@ import StripeCheckoutButton from './../../components/Broker/StripeCheckoutButton
 import NumberFormatCustom from '../../components/NumberFormatCustom/NumberFormatCustom';
 import NumberInput from '../../components/Input/NumberInput/NumberInput';
 import { accountService } from '../../services';
-import { alertType } from '../../redux/actions';
+import { alertType, fetchUserInfoFromSavedSession } from '../../redux/actions';
 import { CommonUtils, ToastUtil } from '../../utils';
 
 const DF_PAYMENT_LIST = [
@@ -72,6 +72,7 @@ const RechargeBroker = () => {
                 if (res) {
                     dispatch(alertType(false))
                     ToastUtil.success("Nạp tiền thành công");
+                    dispatch(fetchUserInfoFromSavedSession());
                 }
             })
             .catch(error => {
@@ -121,7 +122,7 @@ const RechargeBroker = () => {
                                                 </input>
                                                 <div className="image-row">
                                                     <img src={item.img} />
-                                                    <span className="note">
+                                                    <span className="name-note">
                                                         {item.title}
                                                     </span>
                                                 </div>
@@ -229,16 +230,16 @@ const RechargeBroker = () => {
                                     </div>
                                     }
 
-                                    {/* {paymentSelect === 2 && */}
-                                    <div className="stripe-button-container">
-                                        <StripeCheckoutButton
-                                            product={{
-                                                description: "Design+Code React Hooks Course",
-                                                price: money.value
-                                            }}
-                                        />
-                                    </div>
-                                    {/* } */}
+                                    {paymentSelect === 2 &&
+                                        <div className="stripe-button-container">
+                                            <StripeCheckoutButton
+                                                product={{
+                                                    description: "Design+Code React Hooks Course",
+                                                    price: money.value
+                                                }}
+                                            />
+                                        </div>
+                                    }
                                 </div>
                             </div>
                             <div class="col-12 ">

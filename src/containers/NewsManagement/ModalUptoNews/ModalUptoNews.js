@@ -12,7 +12,7 @@ import DatePickerCustom from '../../../components/DatePickerCustom/DatePickerCus
 const { Column, ColumnGroup } = Table;
 
 const ModalUptoNews = (props) => {
-    const { isOpen, onClose, dataUpto } = props
+    const { isOpen, onClose, dataUpto, onHandleCallBack } = props
     const history = useHistory()
     const dispatch = useDispatch()
     const state = useSelector((state) => state);
@@ -66,6 +66,7 @@ const ModalUptoNews = (props) => {
             .then(res => {
                 dispatch(alertType(false))
                 ToastUtil.success("Up tin thành công");
+                onHandleCallBack();
                 onClose()
             })
             .catch(error => {
