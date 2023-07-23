@@ -1,5 +1,3 @@
-@import "../../styles/common";
-
 .property-management {
     width        : 100%;
     height       : 100%;
@@ -50,15 +48,3 @@
     }
 }
 
-
-
-
-// từ 575.98px trở xuống
-@include media-breakpoint-down(xs) {}
-
-
-// từ 767px trở xuống
-@include media-breakpoint-down(sm) {}
-
-// từ 991px trở xuống
-@include media-breakpoint-down(md) {}

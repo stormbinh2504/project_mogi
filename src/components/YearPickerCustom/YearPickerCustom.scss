@@ -65,9 +65,11 @@
 }
 
 .react-datepicker__navigation {
-  top        : 1em !important;
+  top        : 6px !important;
   line-height: 1.7em !important;
   border     : 0.45em solid transparent !important;
+  height     : 15px !important;
+  width      : 25px !important;
 }
 
 .react-datepicker__navigation--previous {

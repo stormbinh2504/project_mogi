@@ -126,7 +126,7 @@ const PageListNewsFavourite = () => {
 
     return (
         <div class="page-list-news" >
-            <h1 class="page-title">Thuê Nhà Đất Giá Rẻ Tại Việt Nam, Giá Thuê Mới Nhất T7/2023</h1>
+            <h1 class="page-title">Danh sách bất động sản yêu thích</h1>
             {/* <div class="property-list-result">
                 <span ng-non-bindable=""><b>1 - 15</b> trong <b>355.731</b></span>
             </div> */}
@@ -162,14 +162,14 @@ const PageListNewsFavourite = () => {
                                             Hôm nay
                                         </div>
                                     </div>
-                                    <div className="prop-favorite" onClick={(e) => toggleFavorite(e, item)}>
+                                    {/* <div className="prop-favorite" onClick={(e) => toggleFavorite(e, item)}>
                                         {isFavorite ?
                                             <i class="fa fa-heart" aria-hidden="true"> </i>
                                             :
 
                                             <i class="fa fa-heart-o" aria-hidden="true"></i>
                                         }
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>

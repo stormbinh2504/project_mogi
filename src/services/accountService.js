@@ -17,6 +17,16 @@ const accountService = {
         return axios.post(`${REACT_APP_BASE_URL_API}client/recharge`, body)
     },
 
+
+    getHistoryRechargeByClient(body) {  // Lấy ra danh sách tài sản
+        let { page, size, codeClient } = body
+        let queryParams = {
+            page, size, codeClient
+        };
+        return axios.get(`${REACT_APP_BASE_URL_API}client/findHistoryRechargeByClient?` + queryString.stringify(queryParams))
+        //http://localhost:8080/client/findHistoryRechargeByClient?codeClient=client.1&page=0&size=10
+    },
+
     getInfoClient() {
         return axios.get(`${REACT_APP_BASE_URL_API}auth/infoClient`)
     },
@@ -117,6 +127,17 @@ const accountService = {
             codeCategoryTypeProperty,
         };
         return axios.get(`${REACT_APP_BASE_URL_API}news/statisticsByPrice?` + queryString.stringify(queryParams))
+    },
+
+
+
+    getRepotByMoney(body) { // Thống kê
+        const { year } = body
+        var queryParams = {
+            year,
+        };
+        return axios.get(`${REACT_APP_BASE_URL_API}client/statisticsMoneyAdmin?` + queryString.stringify(queryParams))
+        //http://localhost:8080/client/statisticsMoneyAdmin?year=2023
     },
 
     getFindAllUser(body) { // Quản lý tài khoản

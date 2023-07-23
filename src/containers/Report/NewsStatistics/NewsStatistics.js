@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
 import "./NewsStatistics.scss"
-import PageContainerBroker from '../../components/Broker/PageContainerBroker/PageContainerBroker';
-import { alertType } from '../../redux/actions';
-import { ToastUtil, uploadImgToFireBase, deleteFromFirebase, CommonUtils } from '../../utils';
-import { accountService, globalService } from '../../services';
+import PageContainerBroker from '../../../components/Broker/PageContainerBroker/PageContainerBroker';
+import { alertType } from '../../../redux/actions';
+import { ToastUtil, uploadImgToFireBase, deleteFromFirebase, CommonUtils } from '../../../utils';
+import { accountService, globalService } from '../../../services';
 import Select from 'react-select';
-import DatePickerCustom from '../../components/DatePickerCustom/DatePickerCustom';
+import DatePickerCustom from '../../../components/DatePickerCustom/DatePickerCustom';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 import {
@@ -408,7 +408,7 @@ const NewsStatistics = () => {
             let percentItem = (Number(element.rangeCount) / totalCount) * 100
             percentItem = Number(percentItem) || 0
             if (percentItem) {
-                let _rangeName = formatPrice(element.rangeName)
+                let _rangeName = element.rangeName
                 labels.push(_rangeName)
                 dataAssest.push(percentItem.toFixed(2))
                 backgroundColor.push('green')
@@ -435,116 +435,108 @@ const NewsStatistics = () => {
     return (
 
         <>
-            <PageContainerBroker
-                titleId={"Thống kê tin"}
-            >
-                <div className="property-management">
-                    <div className="property-management-container">
-                        <div className="property-management-content">
-
-                            <div className="list-lookup row row gutters-5">
-
-                                <div className="col-6 col-md-3">
-                                    <div className="body-content-row row gutters-5">
-                                        <div className="col-12 label">
-                                            Tỉnh/Thành phố
-                                        </div>
-                                        <div className="col-12 value">
-                                            <div className="custom-input-react-select">
-                                                <Select
-                                                    onChange={onChangeSelectProvince}
-                                                    options={provinceAll}
-                                                    value={
-                                                        provinceAll.filter((option) => {
-                                                            return option.value == bodyGetStatistics.provinceCode
-                                                        })
-                                                    }
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
 
-                                <div className="col-6 col-md-3">
-                                    <div className="body-content-row row gutters-5">
-                                        <div className="col-12 label">
-                                            Tháng năm
-                                        </div>
-                                        <div className="col-12 value">
-                                            <div className="mg-form-control">
-                                                <DatePickerCustom
-                                                    date={bodyGetStatistics.date}
-                                                    onChange={(value) => onChangeDateCreate(value)}
-                                                    dateFormatValue="MM/yyyy"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
+            <div className="list-lookup row row gutters-5">
 
-                                <div className="col-6 col-md-3">
-                                    <div className="body-content-row row gutters-5">
-                                        <div className="col-12 label">
-                                            Loại tài sản
-                                        </div>
-                                        <div className="col-12 value">
-                                            <div className="custom-input-react-select">
-                                                <Select
-                                                    onChange={onChangeSelectCateTypePropertyCategory}
-                                                    options={typePropertyCategoryAll}
-                                                    value={
-                                                        typePropertyCategoryAll.filter((option) => {
-                                                            return option.value == bodyGetStatistics.codeCategoryTypeProperty
-                                                        })
-                                                    }
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div className="wrap-chart">
-                                <div className="block-chart">
-                                    <h2>Số lượng tin đăng bán theo khu vực</h2>
-                                    {configChartArea ?
-                                        <div className="chart-content" style={{ textAlign: 'center', width: "400px" }} >
-                                            <Pie
-                                                height={200}
-                                                width={200}
-                                                options={df_option_area}
-                                                data={configChartArea}
-                                                // data={setDataChart()}
-                                                plugins={[ChartDataLabels]}
-                                            />
-                                        </div>
-                                        : null
+                <div className="col-6 col-md-3">
+                    <div className="body-content-row row gutters-5">
+                        <div className="col-12 label">
+                            Tỉnh/Thành phố
+                        </div>
+                        <div className="col-12 value">
+                            <div className="custom-input-react-select">
+                                <Select
+                                    onChange={onChangeSelectProvince}
+                                    options={provinceAll}
+                                    value={
+                                        provinceAll.filter((option) => {
+                                            return option.value == bodyGetStatistics.provinceCode
+                                        })
                                     }
-                                </div>
-                                <div className="block-chart">
-                                    <h2>Số lượng tin đăng bán theo khoảng giá</h2>
-                                    {configChartPrice ?
-                                        <div className="chart-content" style={{ width: "400px" }} >
-                                            <Bar
-                                                height={200}
-                                                width={200}
-                                                options={df_config_price}
-                                                data={configChartPrice}
-                                                plugins={[ChartDataLabels]}
-                                            // data={setDataChart()}
-                                            // plugins={[ChartDataLabels]}
-                                            />
-                                        </div>
-                                        : null
-                                    }
-                                </div>
+                                />
                             </div>
                         </div>
                     </div>
                 </div>
-            </PageContainerBroker >
+
+
+                <div className="col-6 col-md-3">
+                    <div className="body-content-row row gutters-5">
+                        <div className="col-12 label">
+                            Tháng năm
+                        </div>
+                        <div className="col-12 value">
+                            <div className="mg-form-control">
+                                <DatePickerCustom
+                                    date={bodyGetStatistics.date}
+                                    onChange={(value) => onChangeDateCreate(value)}
+                                    dateFormatValue="MM/yyyy"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div className="col-6 col-md-3">
+                    <div className="body-content-row row gutters-5">
+                        <div className="col-12 label">
+                            Loại tài sản
+                        </div>
+                        <div className="col-12 value">
+                            <div className="custom-input-react-select">
+                                <Select
+                                    onChange={onChangeSelectCateTypePropertyCategory}
+                                    options={typePropertyCategoryAll}
+                                    value={
+                                        typePropertyCategoryAll.filter((option) => {
+                                            return option.value == bodyGetStatistics.codeCategoryTypeProperty
+                                        })
+                                    }
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div className="wrap-chart">
+                <div className="block-chart">
+                    <h2>Số lượng tin đăng bán theo khu vực</h2>
+                    {configChartArea ?
+                        <div className="chart-content" style={{ textAlign: 'center', width: "400px" }} >
+                            <Pie
+                                height={200}
+                                width={200}
+                                options={df_option_area}
+                                data={configChartArea}
+                                // data={setDataChart()}
+                                plugins={[ChartDataLabels]}
+                            />
+                        </div>
+                        : null
+                    }
+                </div>
+                <div className="block-chart">
+                    <h2>Số lượng tin đăng bán theo khoảng giá</h2>
+                    {configChartPrice ?
+                        <div className="chart-content" style={{ width: "400px" }} >
+                            <Bar
+                                height={200}
+                                width={200}
+                                options={df_config_price}
+                                data={configChartPrice}
+                                plugins={[ChartDataLabels]}
+                            // data={setDataChart()}
+                            // plugins={[ChartDataLabels]}
+                            />
+                        </div>
+                        : null
+                    }
+                </div>
+            </div>
         </>
     )
 }

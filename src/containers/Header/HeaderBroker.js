@@ -13,10 +13,6 @@ const listMenuHeaderBroker = [
         path: "/home-broker"
     },
     {
-        title: "Thống kê",
-        path: "/report"
-    },
-    {
         title: "Quản lý tin",
         path: "/news-management"
     },
@@ -29,8 +25,16 @@ const listMenuHeaderBroker = [
         path: "/register-type-account"
     },
     {
+        title: "Thống kê",
+        path: "/report"
+    },
+    {
         title: "Nạp tiền",
         path: "/recharge-broker"
+    },
+    {
+        title: "Lịch sử nạp tiền",
+        path: "/history-recharge"
     },
 ]
 
@@ -56,6 +60,10 @@ const listMenuHeaderAdmin = [
     {
         title: "Quản lý banner",
         path: "/banner-management"
+    },
+    {
+        title: "Thống kê",
+        path: "/report"
     },
 ]
 

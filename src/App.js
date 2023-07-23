@@ -37,7 +37,7 @@ import ModalFirstLogin from './containers/ModalFirstLogin/ModalFirstLogin';
 import _ from 'lodash';
 import PageNotFound from './containers/PageNotFound/PageNotFound';
 import NotFound from './containers/PageNotFound/NotFound';
-import NewsStatistics from './containers/NewsStatistics/NewsStatistics';
+import NewsStatistics from './containers/Report/NewsStatistics/NewsStatistics';
 import NewsManagementAdmin from './containers/NewsManagement/NewsManagementAdmin';
 import Recommend from './containers/Recommend/Recommend';
 import Contact from './containers/Contact/Contact';
@@ -47,6 +47,8 @@ import BrokerManagement from './containers/BrokerManagement/BrokerManagement';
 import BannerManagement from './containers/BannerManagement/BannerManagement';
 import PageBroker from './containers/PageBroker/PageBroker';
 import PageContentContainerFavourite from './containers/PageContentContainer/PageContentContainerFavourite';
+import HistoryRecharge from './containers/HistoryRecharge/HistoryRecharge';
+import Report from './containers/Report/Report';
 
 if (typeof window !== "undefined") {
   injectStyle();
@@ -149,10 +151,11 @@ function App() {
                     <PrivateRouter exact path="/property-management-add" component={PropertyManagementAdd} />
                     <PrivateRouter exact path="/register-type-account" component={RegisterTypeAccount} />
                     <PrivateRouter exact path="/change-password" component={ChangePassword} />
-                    <PrivateRouter exact path="/report" component={NewsStatistics} />
+                    <PrivateRouter exact path="/report" component={Report} />
                     <PrivateRouter exact path="/account-management" component={AccountManagement} />
                     <PrivateRouter exact path="/broker-management" component={BrokerManagement} />
                     <PrivateRouter exact path="/banner-management" component={BannerManagement} />
+                    <PrivateRouter exact path="/history-recharge" component={HistoryRecharge} />
 
 
                     {/* admin */}

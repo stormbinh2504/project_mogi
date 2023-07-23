@@ -1,0 +1,71 @@
+@import "../../styles/common";
+
+.property-management {
+    width        : 100%;
+    height       : 100%;
+    background   : white;
+    border-radius: 4px;
+
+    .property-management-container {
+        margin-top: 50px;
+
+        .property-management-content {
+            padding: 10px;
+
+            .container-action {
+                display        : flex;
+                justify-content: flex-end;
+                margin-bottom  : 10px;
+
+                .btn-add {
+                    color     : #333;
+                    background: #00deb6;
+                    border    : 0;
+                    min-width : 100px;
+
+                    &:hover {
+                        color: white;
+                    }
+                }
+            }
+
+            .list-lookup {
+                >div {
+                    margin-top: 10px;
+                }
+            }
+
+            .table-all-news {
+                .ant-table-wrapper {
+                    .ant-table-cell {
+                        .img-news {
+                            border-radius: 5px;
+                            padding      : 10px;
+                            width        : 150px;
+                            height       : 150px;
+
+
+                            background-position: 100% 0;
+                            background-repeat  : no-repeat;
+                            position           : relative;
+                            background-size    : cover;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+// từ 575.98px trở xuống
+@include media-breakpoint-down(xs) {}
+
+
+// từ 767px trở xuống
+@include media-breakpoint-down(sm) {}
+
+// từ 991px trở xuống
+@include media-breakpoint-down(md) {}
