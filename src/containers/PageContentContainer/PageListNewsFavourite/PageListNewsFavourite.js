@@ -5,28 +5,18 @@ import { alertType, updateDataFilterNews } from '../../../redux/actions';
 import { ToastUtil, uploadImgToFireBase, deleteFromFirebase, TYPE_PROPERTY_CATEGORY, CommonUtils } from '../../../utils';
 import { accountService, globalService } from '../../../services';
 
-import "./PageListNews.scss"
+import "./PageListNewsFavourite.scss"
 import PageDesciption from '../PageDesciption/PageDesciption'
 import PaginationComponent from '../../../components/PaginationComponent/PaginationComponent';
 
 let pageSize = 5
 let df_body_news = {
-    "nameSearch": null,
-    "provinceCode": null,
-    "districtCode": null,
-    "codeTypeProperty": null,
-    "codeCateTypePropertyCategory": null,
-    "priceStart": null,
-    "priceEnd": null,
-    "areaMinRange": null,
-    "areaMaxRange": null,
-    "totalRoom": null,
-    "rangeDaySearch": 365,
+    "listId": [],
     "page": 0,
     "size": pageSize
 }
 
-const PageListNews = () => {
+const PageListNewsFavourite = () => {
     const history = useHistory()
     const dispatch = useDispatch()
     const state = useSelector((state) => state);
@@ -52,14 +42,16 @@ const PageListNews = () => {
     }, []);
 
     const onFilterNews = async (page) => {
+        let storedArray = localStorage.getItem('ListFavorite');
+        let arrFavorite = JSON.parse(storedArray) || []
         let body = {
             ...df_body_news,
-            ...filterNews,
+            listId: arrFavorite,
             page: page
         }
 
         dispatch(alertType(true))
-        await globalService.getFindAllNewsCustomer(body)
+        await globalService.getFindAllNewsCustomerFavourite(body)
             .then(res => {
                 if (res) {
                     if (res.content && res.content.length > 0) {
@@ -130,7 +122,7 @@ const PageListNews = () => {
         }
         return false
     }
-    console.log("PageListNews_render", { filterNews: filterNews, dataListNews: dataListNews })
+    console.log("PageListNewsFavourite_render", { filterNews: filterNews, dataListNews: dataListNews })
 
     return (
         <div class="page-list-news" >
@@ -199,4 +191,4 @@ const PageListNews = () => {
     )
 }
 
-export default PageListNews
+export default PageListNewsFavourite

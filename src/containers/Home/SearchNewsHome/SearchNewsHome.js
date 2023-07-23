@@ -8,6 +8,7 @@ import { accountService, globalService } from '../../../services';
 import "./SearchNewsHome.scss"
 import _ from 'lodash';
 
+const df_placeholder = "Nhập từ khóa tìm kiếm"
 
 const df_PRICE = [
     {
@@ -80,7 +81,8 @@ const SearchNewsHome = () => {
 
     const [inputFormFilter, setInputFormFilter] = useState(filterNews_df)
 
-
+    const [placeholder, setPlaceholder] = useState(df_placeholder.slice(0, 0));
+    const [placeholderIndex, setPlaceholderIndex] = useState(0);
 
     const locationRef = useRef();
     const propertyRef = useRef();
@@ -157,6 +159,20 @@ const SearchNewsHome = () => {
         }
     }
 
+
+    useEffect(() => {
+        const intr = setInterval(() => {
+            setPlaceholder(df_placeholder.slice(0, placeholderIndex));
+            if (placeholderIndex + 1 > df_placeholder.length) {
+                setPlaceholderIndex(0)
+            } else {
+                setPlaceholderIndex(placeholderIndex + 1)
+            }
+        }, 100);
+        return () => {
+            clearInterval(intr)
+        }
+    },);
 
     useEffect(() => {
         onHandleSetLocationFilterName()
@@ -238,7 +254,7 @@ const SearchNewsHome = () => {
                         <div className="search-filter-name">
                             <input className="" value={inputFormFilter.nameSearch}
                                 onChange={handleChangeInput}
-                                placeholder='Từ khóa'
+                                placeholder={placeholder}
                                 name="nameSearch"
                             />
 

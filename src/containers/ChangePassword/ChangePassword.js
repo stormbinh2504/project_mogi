@@ -29,6 +29,9 @@ const ChangePassword = () => {
     const { userInfo } = user
 
     const [dataForm, setDataForm] = useState(df_form)
+    const [isShowPassOld, setIsShowPassOld] = useState(false)
+    const [isShowPassNew, setIsShowPassNew] = useState(false)
+    const [isShowPassNewRetype, setIsShowPassNewRetype] = useState(false)
 
     const handleChangeInput = e => {
         const { name, value } = e.target
@@ -113,10 +116,13 @@ const ChangePassword = () => {
                                 Nhập mật khẩu cũ
                             </div>
                             <div className="col-12 col-sm-8 value">
-                                <div className="mg-form-control">
-                                    <input type="password" className="text-control" value={dataForm.oldPassword} name="oldPassword"
+                                <div className="mg-form-control input-password">
+                                    <input type={isShowPassOld ? "text" : "password"} className="text-control" value={dataForm.oldPassword} name="oldPassword"
                                         onChange={handleChangeInput} />
-
+                                    <span className="icon-show-pass" onClick={() => { setIsShowPassOld(!isShowPassOld) }}>
+                                        {isShowPassOld && <i class="fa fa-eye" aria-hidden="true"></i>}
+                                        {!isShowPassOld && <i class="fa fa-eye-slash" aria-hidden="true"></i>}
+                                    </span>
                                 </div>
                                 <div className="err-msg-form">
                                     {dataForm.oldPasswordMsgErr && dataForm.oldPasswordMsgErr}
@@ -130,10 +136,13 @@ const ChangePassword = () => {
                                 Nhập mật khẩu mới
                             </div>
                             <div className="col-12 col-sm-8 value">
-                                <div className="mg-form-control">
-                                    <input type="password" className="text-control" value={dataForm.newPassword} name="newPassword"
+                                <div className="mg-form-control input-password">
+                                    <input type={isShowPassNew ? "text" : "password"} className="text-control" value={dataForm.newPassword} name="newPassword"
                                         onChange={handleChangeInput} />
-
+                                    <span className="icon-show-pass" onClick={() => { setIsShowPassNew(!isShowPassNew) }}>
+                                        {isShowPassNew && <i class="fa fa-eye" aria-hidden="true"></i>}
+                                        {!isShowPassNew && <i class="fa fa-eye-slash" aria-hidden="true"></i>}
+                                    </span>
                                 </div>
                                 <div className="err-msg-form">
                                     {dataForm.newPasswordMsgErr && dataForm.newPasswordMsgErr}
@@ -147,10 +156,13 @@ const ChangePassword = () => {
                                 Nhập lại mật khẩu mới
                             </div>
                             <div className="col-12 col-sm-8 value">
-                                <div className="mg-form-control">
-                                    <input type="password" className="text-control" value={dataForm.newPasswordConfirm} name="newPasswordConfirm"
+                                <div className="mg-form-control input-password">
+                                    <input type={isShowPassNewRetype ? "text" : "password"} className="text-control" value={dataForm.newPasswordConfirm} name="newPasswordConfirm"
                                         onChange={handleChangeInput} />
-
+                                    <span className="icon-show-pass" onClick={() => { setIsShowPassNewRetype(!isShowPassNewRetype) }}>
+                                        {isShowPassNewRetype && <i class="fa fa-eye" aria-hidden="true"></i>}
+                                        {!isShowPassNewRetype && <i class="fa fa-eye-slash" aria-hidden="true"></i>}
+                                    </span>
                                 </div>
                                 <div className="err-msg-form">
                                     {dataForm.newPasswordConfirmMsgErr && dataForm.newPasswordConfirmMsgErr}

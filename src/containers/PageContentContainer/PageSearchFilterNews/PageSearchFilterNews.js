@@ -417,6 +417,19 @@ const PageSearchFilterNews = () => {
                     </div>
                 }
             </div>
+
+            <div className="property-location-filter search-dropdown" onClick={() => {
+                history.push("/thue-nha-dat-quan-tam")
+            }}>
+                <div className="btn btn-search-dropdown">
+                    <span className="icon">
+                        <i class="fa fa-heart" aria-hidden="true"></i>
+                    </span>
+                    <span className="nane">
+                        Yêu Thích
+                    </span>
+                </div>
+            </div>
         </div >
     )
 }

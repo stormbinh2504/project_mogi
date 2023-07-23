@@ -64,6 +64,13 @@ const globalService = {
         return axios.post(`${REACT_APP_BASE_URL_API}news/customer/findAllNews`, body)
     },
 
+    getFindAllNewsCustomerFavourite(body) { //Danh sách tin Customer
+
+        return axios.get(`${REACT_APP_BASE_URL_API}news/favouriteNews`, {
+            params: body,
+        })
+    },
+
     getFindNewsDetailCustomer(id) { //Danh sách tin Customer
         var queryParams = {
             id

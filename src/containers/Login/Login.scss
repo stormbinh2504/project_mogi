@@ -14,6 +14,15 @@
 
         .form-group {
             margin-bottom: 1rem;
+            position     : relative;
+
+
+            .icon-show-pass {
+                position: absolute;
+                top     : 40px;
+                right   : 10px;
+                cursor  : pointer;
+            }
 
             label {
                 display      : inline-block;

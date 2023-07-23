@@ -21,6 +21,7 @@ const Login = () => {
         "email": "",
         "password": "",
     })
+    const [isShowPass, setIsShowPass] = useState(false)
 
 
     const handleChangeInput = e => {
@@ -82,10 +83,14 @@ const Login = () => {
 
                 <div className="form-group">
                     <label htmlFor="password">Mật khẩu</label>
-                    <input type="password" className="form-control-input" id="password"
+                    <input type={isShowPass ? "text" : "password"} className="form-control-input" id="password"
                         name="password"
                         onChange={handleChangeInput} value={userData.password}
                     />
+                    <span className="icon-show-pass" onClick={() => { setIsShowPass(!isShowPass) }}>
+                        {isShowPass && <i class="fa fa-eye" aria-hidden="true"></i>}
+                        {!isShowPass && <i class="fa fa-eye-slash" aria-hidden="true"></i>}
+                    </span>
                 </div>
                 < button
                     type="submit"

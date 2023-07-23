@@ -46,6 +46,7 @@ import AccountManagement from './containers/AccountManagement/AccountManagement'
 import BrokerManagement from './containers/BrokerManagement/BrokerManagement';
 import BannerManagement from './containers/BannerManagement/BannerManagement';
 import PageBroker from './containers/PageBroker/PageBroker';
+import PageContentContainerFavourite from './containers/PageContentContainer/PageContentContainerFavourite';
 
 if (typeof window !== "undefined") {
   injectStyle();
@@ -115,6 +116,7 @@ function App() {
                     <Route exact path="/firebase" component={FirebaseTestImage} />
                     <Route exact path="/thue-nha-dat" component={PageContentContainer} />
                     <Route exact path="/thue-nha-dat/:id" component={PageDetailNews} />
+                    <Route exact path="/thue-nha-dat-quan-tam" component={PageContentContainerFavourite} />
                     <Route exact path="/tim-moi-gioi" component={PageBroker} />
                     {/* <Route exact path="/page/404" component={PageNotFound} /> */}
                     {/* <Route path="/*" component={NotFound} /> */}

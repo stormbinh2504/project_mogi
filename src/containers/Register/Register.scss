@@ -14,7 +14,7 @@
 
         .form-group {
             margin-bottom: 1rem;
-
+            position     : relative;
 
             &.multi-group {
                 display: flex;
@@ -24,6 +24,13 @@
                 .last-name {
                     width: 100%;
                 }
+            }
+
+            .icon-show-pass {
+                position: absolute;
+                top     : 40px;
+                right   : 10px;
+                cursor  : pointer;
             }
 
             label {
