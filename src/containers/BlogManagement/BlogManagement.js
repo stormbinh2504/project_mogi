@@ -13,9 +13,8 @@ import Select from 'react-select';
 import IconDelete from '../../assets/svgs/common/icon_delete.svg';
 import IconEdit from '../../assets/svgs/common/icon_edit.svg';
 import { Space, Table, Tag } from 'antd';
-import ModalAddBroker from './ModalAddBlog/ModalAddBlog';
-import ModalDeleteBroker from './ModalDeleteBroker/ModalDeleteBroker';
 import ModalAddBlog from './ModalAddBlog/ModalAddBlog';
+import ModalDeleteBlog from './ModalDeleteBlog/ModalDeleteBlog';
 
 const { Column, ColumnGroup } = Table;
 
@@ -101,18 +100,11 @@ const BlogManagement = () => {
 
     const onHandleDelete = async (record) => {
         console.log("onHandleEdit", record)
-        let { id } = record
-        dispatch(alertType(true))
-        await accountService.deleteBlogs(id)
-            .then(res => {
-                dispatch(alertType(false))
-                ToastUtil.success("Xóa blog thành công");
-                onSearch()
-            })
-            .catch(error => {
-                dispatch(alertType(false))
-                ToastUtil.success("Xóa blog không thành công");
-            });
+
+        if (record) {
+            setDataDelete(record)
+            setIsOpenModalDelete(true)
+        }
     }
 
     const handleChangeInput = e => {
@@ -155,7 +147,7 @@ const BlogManagement = () => {
                             isEdit={isEdit}
                             onHandleCallBack={() => { fetchGetFindAllBlogs(0) }}
                         />}
-                        {isOpenModalDelete && <ModalDeleteBroker
+                        {isOpenModalDelete && <ModalDeleteBlog
                             isOpen={isOpenModalDelete}
                             onClose={() => {
                                 setIsOpenModalDelete(false)
