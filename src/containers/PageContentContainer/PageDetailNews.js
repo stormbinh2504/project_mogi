@@ -42,6 +42,7 @@ const PageDetailNews = () => {
     const [infoDetail, setInfoDetail] = useState({})
     const [infoNews, setInfoNews] = useState(null)
     const [infoUser, setInfoUser] = useState(null)
+    const [infoClient, setInfoClient] = useState(null)
 
     const [isShowPhone, setIsShowPhone] = useState(false)
 
@@ -59,6 +60,7 @@ const PageDetailNews = () => {
         await globalService.getFindNewsDetailCustomer(id)
             .then(res => {
                 if (res) {
+                    setInfoClient(res.client)
                     setInfoDetail(res.createPropertyDTO)
                     setInfoNews(res.news)
                     setInfoUser(res.user)
@@ -83,9 +85,9 @@ const PageDetailNews = () => {
 
     let phoneFake = "0969006768"
     let phone = "0969006768"
-    if (infoDetail && infoDetail.phone) {
-        phoneFake = infoDetail.phone
-        phone = infoDetail.phone
+    if (infoClient && infoClient.phone) {
+        phoneFake = infoClient.phone
+        phone = infoClient.phone
     }
     if (!isShowPhone) {
         phoneFake = phoneFake.slice(0, -3) + '***';
