@@ -48,7 +48,7 @@ const PageBlogs = () => {
                             <div className="banner-img">
                                 <img src={BannerBlog} />
                             </div>
-                            <div className="info-statistic">
+                            {/* <div className="info-statistic">
                                 <div className="block-info">
                                     <h3>Loại bất động sản</h3>
                                     <div className="list-cates">
@@ -63,7 +63,7 @@ const PageBlogs = () => {
                                         })}
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
