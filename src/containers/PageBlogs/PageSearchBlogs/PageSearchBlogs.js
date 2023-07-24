@@ -15,22 +15,22 @@ const PageSearchBlogs = () => {
     const state = useSelector((state) => state);
     const { auth, app, user } = state
     const { userInfo } = user
-    const { filterAgency } = app
+    const { filterBlogs } = app
 
     const [provinceAll, setProvinceAll] = useState([])
     const [filterNameSearch, setFilterNameSearch] = useState(null)
 
     useEffect(() => {
-        if (filterAgency.nameSearch) {
-            setFilterNameSearch(filterAgency.nameSearch)
+        if (filterBlogs.nameSearch) {
+            setFilterNameSearch(filterBlogs.nameSearch)
         }
-    }, [filterAgency.nameSearch]);
+    }, [filterBlogs.nameSearch]);
 
     const debounceSetBlogs = useCallback(
         _.debounce((value) => {
-            let objData = { "nameSearch": value }
+            let objData = { "searchName": value }
             dispatch(updateDataFilterBlogs(objData))
-        }, 2000), [dispatch]
+        }, 1500), [dispatch]
     )
 
     const handleChangeInput = e => {
@@ -39,7 +39,7 @@ const PageSearchBlogs = () => {
         debounceSetBlogs(value);
     }
 
-    console.log("PageSearchFilterNews_render", { filterAgency, provinceAll })
+    console.log("PageSearchFilterNews_render", { filterBlogs, provinceAll })
 
     return (
         <div class="page-search-filter-news" >

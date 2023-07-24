@@ -5,13 +5,12 @@ import Header from '../Header/Header'
 import "./PageBlogs.scss"
 import PageSearchFilterBroker from './PageSearchBlogs/PageSearchBlogs';
 import PageBreadcrumb from '../PageContentContainer/PageBreadcrumb/PageBreadcrumb';
-import Banner from "../../assets/images/banner.png"
 import { alertType, updateDataFilterNews } from '../../redux/actions';
 import { ToastUtil, uploadImgToFireBase, deleteFromFirebase, TYPE_PROPERTY_CATEGORY } from '../../utils';
 import { accountService, globalService } from '../../services';
 import PageListBlogs from './PageListBlogs/PageListBlogs';
 import PageSearchBlogs from './PageSearchBlogs/PageSearchBlogs';
-import BannerBlog from "../../assets/images/banner_blog.png"
+import PageSameBlogs from './PageSameBlogs/PageSameBlogs';
 const PageBlogs = () => {
     const history = useHistory()
     const dispatch = useDispatch()
@@ -44,27 +43,7 @@ const PageBlogs = () => {
                         </div>
                     </div>
                     <div className="col-3">
-                        <div className="property-extra">
-                            <div className="banner-img">
-                                <img src={BannerBlog} />
-                            </div>
-                            {/* <div className="info-statistic">
-                                <div className="block-info">
-                                    <h3>Loại bất động sản</h3>
-                                    <div className="list-cates">
-                                        {listCates && listCates.length > 0 && listCates.map((item, index) => {
-                                            return (
-                                                <div className="item-cate" onClick={() => onHandleUpdateDataFilterNews(item)} >
-                                                    <span className='icon'><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></span>
-                                                    <span className='text'>{item.nameCodeCate}</span>
-                                                    <span className='total'>({item.tong})</span>
-                                                </div>
-                                            )
-                                        })}
-                                    </div>
-                                </div>
-                            </div> */}
-                        </div>
+                        <PageSameBlogs />
                     </div>
                 </div>
             </div>

@@ -13,6 +13,7 @@ import img_zalo from "../../assets/images/img_zalo.png"
 import PageBreadcrumb from '../PageContentContainer/PageBreadcrumb/PageBreadcrumb';
 import PagePropertySame from '../PageContentContainer/PagePropertySame/PagePropertySame';
 import PageBreadcrumbBlog from './PageBreadcrumbBlog/PageBreadcrumbBlog';
+import PageSameBlogs from './PageSameBlogs/PageSameBlogs';
 
 const PageDetailBlogs = () => {
     const history = useHistory()
@@ -51,7 +52,7 @@ const PageDetailBlogs = () => {
     // console.log("binh_PageDetailNews", { infoDetail, infoNews, infoUser, introducesConvert })
     console.log("binh_PageDetailNews", { infoDetail1: infoDetail })
     return (
-        <div class="page-detail-news" >
+        <div class="page-detail-blogs" >
             <div className="container">
                 <div className="row">
                     <div className="col-12">
@@ -104,15 +105,42 @@ const PageDetailBlogs = () => {
                             <div className="col-12">
                                 <div className="" dangerouslySetInnerHTML={{ __html: infoDetail.content }}></div>
                             </div>
-                        </div>
-                    </div>
-                    <div className="col-3">
-                        <div className="property-extra">
-                            <div className="banner-img">
-                                <img src={BannerBlog} />
+
+
+                            <div className="col-12 tach wrap-share">
+                                <div className="share-content">
+                                    <div className="icon-contact share">
+                                        <span>
+                                            <i class="fa fa-share-alt" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <div className="icon-contact fb">
+                                        <span>
+                                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <div className="icon-contact twitter">
+                                        <span>
+                                            <i class="fa fa-twitter" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <div className="icon-contact pinterest">
+                                        <span>
+                                            <i class="fa fa-pinterest-p" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <div className="icon-contact whatsapp">
+                                        <span>
+                                            <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
+                    </div>
+                    <div className="col-3">
+                        <PageSameBlogs />
                     </div>
                 </div>
             </div>

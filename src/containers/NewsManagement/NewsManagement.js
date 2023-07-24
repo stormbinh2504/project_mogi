@@ -18,6 +18,7 @@ import ModalListPropertyManagement from './ModalListPropertyManagement/ModalList
 import DatePickerCustom from '../../components/DatePickerCustom/DatePickerCustom';
 import ModalUptoNews from './ModalUptoNews/ModalUptoNews';
 import ModalPreviewNews from './ModalPreviewNews/ModalPreviewNews';
+import ModalDeleteNewsManagement from './ModalDeleteNewsManagement/ModalDeleteNewsManagement';
 
 const { Column, ColumnGroup } = Table;
 
@@ -66,6 +67,9 @@ const NewsManagement = () => {
 
     const [numberPageProperty, setNumberPageProperty] = useState(1);
     const [isFetchProperty, setIsFetchProperty] = useState(true);
+
+    const [dataDelete, setDataDelete] = useState({});
+    const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
 
     const onHandleAdd = () => {
         setIsOpenModalList(true)
@@ -174,18 +178,10 @@ const NewsManagement = () => {
 
     const onHandleDelete = async (record) => {
         console.log("onHandleEdit", record)
-        let { id } = record
-        dispatch(alertType(true))
-        await accountService.deleteNews(id)
-            .then(res => {
-                dispatch(alertType(false))
-                ToastUtil.success("Xóa tin thành công");
-                onSearch()
-            })
-            .catch(error => {
-                dispatch(alertType(false))
-                ToastUtil.success("Xóa tin không thành công");
-            });
+        if (record) {
+            setDataDelete(record)
+            setIsOpenModalDelete(true)
+        }
     }
 
     const onHandleUpto = async (record) => {
@@ -256,6 +252,12 @@ const NewsManagement = () => {
                                 isOpen={isOpenModalPreview}
                                 onClose={() => { setIsOpenModalPreview(false) }}
                                 dataPreview={dataPreview}
+                            />}
+                            {isOpenModalDelete && <ModalDeleteNewsManagement
+                                isOpen={isOpenModalDelete}
+                                onClose={() => { setIsOpenModalDelete(false) }}
+                                dataDelete={dataDelete}
+                                onHandleCallBack={onSearch}
                             />}
                             <div className="list-lookup row row gutters-5">
                                 <div className="col-6 col-md-3">

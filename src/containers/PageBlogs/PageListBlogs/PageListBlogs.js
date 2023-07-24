@@ -10,7 +10,7 @@ import PaginationComponent from '../../../components/PaginationComponent/Paginat
 
 let pageSize = 5
 let df_body_blogs = {
-    "nameSearch": null,
+    "searchName": null,
     "page": 0,
     "size": pageSize
 }
@@ -22,34 +22,33 @@ const PageListBlogs = () => {
     const { auth, app, user } = state
     const { userInfo } = user
     const { filterBlogs } = app
-    const [dataListBlogs, setDataListBroker] = useState([])
+    const [dataListBlogs, setDataListBlogs] = useState([])
     const [totalPages, setTotalPages] = useState(1);
 
     useEffect(() => {
-        onFilterBroker(0)
+        onFilterBlogs(0)
     }, []);
 
 
     useEffect(() => {
-        onFilterBroker(0)
+        onFilterBlogs(0)
     }, [filterBlogs]);
 
-    const onFilterBroker = async (page) => {
+    const onFilterBlogs = async (page) => {
         let body = {
             ...df_body_blogs,
             ...filterBlogs,
-            "nameSearch": null,
             page: page
         }
-
+        console.log("binh_onFilterBroker", { filterBlogs, body })
         dispatch(alertType(true))
         await accountService.getAllBlogs(body)
             .then(res => {
                 if (res) {
                     if (res.content && res.content.length > 0) {
-                        setDataListBroker(res.content)
+                        setDataListBlogs(res.content)
                     } else {
-                        setDataListBroker([])
+                        setDataListBlogs([])
                     }
                     setTotalPages(res.totalElements)
                     window.scrollTo(0, 0);
@@ -67,13 +66,14 @@ const PageListBlogs = () => {
         const { id } = record
         if (id) {
             let pathname = `blogs/${id}`
-            history.push(pathname)
+            // history.push(pathname)
+            window.location.pathname = pathname
         }
     }
 
 
     const onChangePage = (page) => {
-        onFilterBroker(page)
+        onFilterBlogs(page)
     }
 
     console.log("PageListNews_render", { filterBlogs: filterBlogs, dataListBlogs: dataListBlogs })
@@ -94,8 +94,9 @@ const PageListBlogs = () => {
                                         <h2 className="title">
                                             {item.title}
                                         </h2>
+                                        {/* <div className="content" dangerouslySetInnerHTML={{ __html: item.content }}></div> */}
                                         <div className="date">
-                                            23/07/2023
+                                            {CommonUtils.formatDateCeateApi(item.dateCreate)}
                                         </div>
                                     </div>
                                 </div>

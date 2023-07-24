@@ -21,7 +21,7 @@ const initialState = {
         "provinceCode": null,
     },
     filterBlogs: {
-        "nameSearch": null,
+        "searchName": null,
     },
     listBanner: [],
 }

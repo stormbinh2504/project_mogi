@@ -44,7 +44,7 @@ const BlogManagement = () => {
     const [step, setStep] = useState(1);
     const [isOpenModalResetPassword, setIsOpenModalResetPassword] = useState(false);
     const [dataResetPassword, setDataResetPassword] = useState(false);
-    const [nameSearch, setNameSearch] = useState("");
+    const [searchName, setSearchName] = useState("");
     const [provinceCodeFilter, setProvinceCodeFilter] = useState("");
     const [isOpenModalAdd, setIsOpenModalAdd] = useState(false);
     const [dataAdd, setDataAdd] = useState(df_dataAdd);
@@ -61,7 +61,7 @@ const BlogManagement = () => {
 
     const fetchGetFindAllBlogs = async (page) => {
         let body = {
-            nameSearch: nameSearch,
+            searchName: searchName,
             page,
             size: 5,
         }
@@ -117,7 +117,7 @@ const BlogManagement = () => {
 
     const handleChangeInput = e => {
         const { name, value } = e.target
-        setNameSearch((prev) => (value))
+        setSearchName((prev) => (value))
     }
 
     const onChangeSelectProvince = (objValue) => {
@@ -172,7 +172,7 @@ const BlogManagement = () => {
                                     </div>
                                     <div className="col-12 value">
                                         <div className="mg-form-control">
-                                            <input className="text-control" value={nameSearch} name="nameSearch"
+                                            <input className="text-control" value={searchName} name="searchName"
                                                 onChange={handleChangeInput} />
                                         </div>
                                     </div>

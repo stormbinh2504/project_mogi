@@ -1,7 +1,4 @@
-.page-detail-news {
-    .container {
-        margin-top: 20px;
-    }
+.page-detail-blogs {
 
     .info-title {
         font-weight: bold;
@@ -13,12 +10,18 @@
     .title {
         font-size  : 36px;
         font-weight: 700;
-        padding    : 20px 0px;
+        padding    : 0px 0px 20px 0px;
     }
 
 
     .tach {
         margin: 10px 0px;
+    }
+
+    .wrap-share {
+        padding      : 20px 0px;
+        border-top   : 2px solid #000;
+        border-bottom: 2px solid #000;
     }
 
     .share-content {
@@ -56,17 +59,6 @@
                 i {
                     color: #000;
                 }
-            }
-        }
-    }
-
-    .property-extra {
-        .banner-img {
-            width: 100%;
-
-            img {
-                width : 100%;
-                height: 300px;
             }
         }
     }

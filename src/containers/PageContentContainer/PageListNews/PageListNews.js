@@ -167,7 +167,7 @@ const PageListNews = () => {
                                     </div>
                                     <div className="item-extra">
                                         <div className="created">
-                                            Hôm nay
+                                            {CommonUtils.formatDateCeateApi(item.dateCreate)}
                                         </div>
                                     </div>
                                     <div className="prop-favorite" onClick={(e) => toggleFavorite(e, item)}>
