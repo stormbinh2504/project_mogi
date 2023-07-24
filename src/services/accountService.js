@@ -223,5 +223,45 @@ const accountService = {
         return axios.get(`${REACT_APP_BASE_URL_API}banner/findAllBanner`)
     },
 
+
+    getAllBlogs(body) { // update môi giới
+        console.log("binh_getAllBlogs", body)
+        const {
+            searchName,
+            id,
+            page,
+            size } = body
+        var queryParams = {
+            searchName: searchName || "",
+            id,
+            page,
+            size,
+        };
+        return axios.get(`${REACT_APP_BASE_URL_API}blogs/getAllBlogs?` + queryString.stringify(queryParams))
+        //http://localhost:8080/blogs/getAllBlogs?searchName=&page=&size=
+    },
+
+
+    addBlogs(body) { // update môi giới
+        return axios.post(`${REACT_APP_BASE_URL_API}blogs/addBlogs`, body)
+        //http://localhost:8080/blogs/addBlogs
+    },
+
+    deleteBlogs(id) { // update môi giới
+        var queryParams = {
+            id
+        };
+        return axios.delete(`${REACT_APP_BASE_URL_API}blogs/deleteBlogs?` + queryString.stringify(queryParams))
+        //blogs / deleteBlogs ? id = 122222222222222
+    },
+
+    blogsDetail(id) { // update môi giới
+        var queryParams = {
+            id,
+        };
+        return axios.get(`${REACT_APP_BASE_URL_API}blogs/getDetails?` + queryString.stringify(queryParams))
+        //http://localhost:8080/blogs/getDetails?id=
+    },
+
 }
 export default accountService

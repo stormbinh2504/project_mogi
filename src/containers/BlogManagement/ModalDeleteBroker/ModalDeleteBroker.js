@@ -50,7 +50,7 @@ const ModalDeleteBroker = (props) => {
             isOpen={isOpen}
             onClose={onClose}
             className={"modal-broker-delete"}
-            titleId={"Xóa môi giới"}
+            titleId={"Xóa tài sản"}
             toggle={onClose}
         >
             <div className="body">

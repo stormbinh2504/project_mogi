@@ -48,6 +48,23 @@ export const uploadImgToFireBase = async (srcImg, imageUpload, setUrl) => {
         })
 };
 
+
+export const uploadImgToFireBaseQuill = async (srcImg, imageUpload, setUrl) => {
+    if (imageUpload == null) return;
+    const imageRef = ref(storage, `${srcImg}/${imageUpload.name + v4()}`);
+    await uploadBytes(imageRef, imageUpload)
+        .then(async (snapshot) => {
+            await getDownloadURL(snapshot.ref)
+                .then(async (url) => {
+                    console.log("uploadImgToFireBase", url)
+                    setUrl && setUrl(url)
+                });
+        })
+        .catch((error) => {
+            alert(error)
+        })
+};
+
 export const deleteFromFirebase = async (urlOld, urlCur, setImgCur) => {
     if (urlOld) {
         const imageRef = ref(storage, urlOld);

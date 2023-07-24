@@ -18,6 +18,10 @@ const listMenuHeaderCustomer = [
         path: "/tim-moi-gioi"
     },
     {
+        title: "Blogs",
+        path: "/blogs"
+    },
+    {
         title: "Giới thiệu",
         path: "/recommend"
     },

@@ -49,6 +49,11 @@ import PageBroker from './containers/PageBroker/PageBroker';
 import PageContentContainerFavourite from './containers/PageContentContainer/PageContentContainerFavourite';
 import HistoryRecharge from './containers/HistoryRecharge/HistoryRecharge';
 import Report from './containers/Report/Report';
+import Test from './containers/Test/Test';
+import Test2 from './containers/Test/Testt2';
+import BlogManagement from './containers/BlogManagement/BlogManagement';
+import PageBlogs from './containers/PageBlogs/PageBlogs';
+import PageDetailBlogs from './containers/PageBlogs/PageDetailBlogs';
 
 if (typeof window !== "undefined") {
   injectStyle();
@@ -120,6 +125,10 @@ function App() {
                     <Route exact path="/thue-nha-dat/:id" component={PageDetailNews} />
                     <Route exact path="/thue-nha-dat-quan-tam" component={PageContentContainerFavourite} />
                     <Route exact path="/tim-moi-gioi" component={PageBroker} />
+                    <Route exact path="/blogs" component={PageBlogs} />
+                    <Route exact path="/blogs/:id" component={PageDetailBlogs} />
+                    <Route exact path="/test" component={Test} />
+                    <Route exact path="/test2" component={Test2} />
                     {/* <Route exact path="/page/404" component={PageNotFound} /> */}
                     {/* <Route path="/*" component={NotFound} /> */}
 
@@ -156,6 +165,7 @@ function App() {
                     <PrivateRouter exact path="/broker-management" component={BrokerManagement} />
                     <PrivateRouter exact path="/banner-management" component={BannerManagement} />
                     <PrivateRouter exact path="/history-recharge" component={HistoryRecharge} />
+                    <PrivateRouter exact path="/blog-management" component={BlogManagement} />
 
 
                     {/* admin */}

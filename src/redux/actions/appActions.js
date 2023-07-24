@@ -97,6 +97,17 @@ export const updateDataFilterAgency = (objData) => {
 };
 
 
+export const updateDataFilterBlogs = (objData) => {
+    return (dispatch, getState) => {
+        const state = getState();
+        dispatch({
+            type: "UPDATE_DATA_BLOG",
+            data: objData
+        })
+    };
+};
+
+
 export const loadDataBanner = () => {
     return (dispatch, getState) => {
         const state = getState();

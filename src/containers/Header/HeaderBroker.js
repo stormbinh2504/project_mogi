@@ -62,6 +62,10 @@ const listMenuHeaderAdmin = [
         path: "/banner-management"
     },
     {
+        title: "Quản lý blog",
+        path: "/blog-management"
+    },
+    {
         title: "Thống kê",
         path: "/report"
     },

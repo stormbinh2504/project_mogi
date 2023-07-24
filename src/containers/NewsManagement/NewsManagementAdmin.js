@@ -409,25 +409,25 @@ const NewsManagementAdmin = () => {
                                             )
                                         }}
                                     />
-                                    {/* <Column
+                                    <Column
                                         title="Thao tác"
                                         key="action"
                                         fixed="right"
                                         width={150} align='center'
                                         render={(_, record) => (
                                             <Space size="middle">
-                                                <span className="cursor-pointer item-center" onClick={() => { onHandleEdit(record) }}>
+                                                {/* <span className="cursor-pointer item-center" onClick={() => { onHandleEdit(record) }}>
                                                     <img src={IconEdit} />
-                                                </span>
+                                                </span> */}
                                                 <span className="cursor-pointer item-center" onClick={() => { onHandleDelete(record) }}>
                                                     <img src={IconDelete} />
                                                 </span>
-                                                <span className="cursor-pointer item-center" onClick={() => { onHandleUpto(record) }}>
+                                                {/* <span className="cursor-pointer item-center" onClick={() => { onHandleUpto(record) }}>
                                                     <i class="fa fa-level-up" aria-hidden="true"></i>
-                                                </span>
+                                                </span> */}
                                             </Space>
                                         )}
-                                    /> */}
+                                    />
                                     <Column
                                         title="Xem trước"
                                         key="detail"

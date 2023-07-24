@@ -24,7 +24,7 @@ const PageContainerBroker = ({ children, titleId }) => {
                 </div>
                 <div className="page-footer-broker">
                     <div className="container">
-                        <p>© 2022 - mogi.vn</p>
+                        <p>© 2023 - mogi.vn</p>
                     </div>
                 </div>
             </div>

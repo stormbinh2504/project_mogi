@@ -20,6 +20,9 @@ const initialState = {
         "nameSearch": null,
         "provinceCode": null,
     },
+    filterBlogs: {
+        "nameSearch": null,
+    },
     listBanner: [],
 }
 
@@ -51,6 +54,14 @@ const appReducer = (state = initialState, action) => {
                 ...state,
                 filterAgency: {
                     ...state.filterAgency,
+                    ...action.data
+                }
+            };
+        case "UPDATE_DATA_BLOG":
+            return {
+                ...state,
+                filterBlogs: {
+                    ...state.filterBlogs,
                     ...action.data
                 }
             };
